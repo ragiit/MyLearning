@@ -1,0 +1,35 @@
+﻿@{
+    ViewData["Title"] = "Category";
+}
+
+<div class="container">
+    <div class="row mt-3 mb-3">
+        <div class="col-md">
+            <h1 class="text-dark">Categories</h1>
+        </div>
+        <div class="col-md text-end">
+            <a asp-area="" asp-controller="Category" asp-action="Create" class="btn btn-dark"><i class="bi bi-plus"></i> Create New</a>
+        </div>
+    </div>
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Display Order</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var category in Model)
+            {
+                <tr>
+                    <td>@category.Id</td>
+                    <td>@category.Name</td>
+                    <td>@category.DisplayOrder</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
