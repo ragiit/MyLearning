@@ -17,6 +17,11 @@
         [HttpPost]
         public async Task<IActionResult> Create(Category category)
         {
+            if (category is not null && category.Name is not null &&   category.Name.Equals("test", StringComparison.CurrentCultureIgnoreCase))
+            {
+                ModelState.AddModelError("name", "The name cannot be 'test'.");
+            }
+
             if (ModelState.IsValid)
             {
                 context.Categories.Add(category);
@@ -24,7 +29,7 @@
 
                 return RedirectToAction("Index");
             }
-            return View(category);
+            return View();
         }
     }
 }
