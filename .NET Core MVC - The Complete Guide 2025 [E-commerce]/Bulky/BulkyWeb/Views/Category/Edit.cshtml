@@ -1,0 +1,54 @@
+﻿@model Category
+@{
+    ViewData["Title"] = "Edit Kategori"; // Menggunakan bahasa Indonesia
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow border-0">
+                <div class="card-header bg-primary text-white text-center py-3">
+                    <h2 class="mb-0">
+                        <i class="bi bi-pencil-square me-2"></i>Edit Kategori
+                    </h2>
+                </div>
+                <div class="card-body p-4">
+                    <form method="post" asp-action="Edit">
+                        @* Input tersembunyi untuk Id, penting untuk proses update *@
+                        <input asp-for="Id" type="hidden" />
+
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger mb-3" role="alert"></div>
+                        @* Menampilkan ringkasan validasi di bagian atas *@
+
+                        <div class="mb-3">
+                            <label asp-for="Name" class="form-label fw-semibold">Nama Kategori</label>
+                            <input asp-for="Name" class="form-control form-control-lg" placeholder="Masukkan nama kategori" />
+                            <span asp-validation-for="Name" class="text-danger small mt-1"></span>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="DisplayOrder" class="form-label fw-semibold">Urutan Tampilan</label>
+                            <input asp-for="DisplayOrder" type="number" class="form-control form-control-lg" placeholder="Masukkan urutan tampilan" />
+                            <span asp-validation-for="DisplayOrder" class="text-danger small mt-1"></span>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a asp-area="" asp-controller="Category" asp-action="Index" class="btn btn-outline-secondary px-4 order-md-1">
+                                <i class="bi bi-arrow-left-circle me-2"></i>Kembali
+                            </a>
+                            <button type="submit" class="btn btn-primary px-4 order-md-2">
+                                <i class="bi bi-save-fill me-2"></i>Simpan Perubahan
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

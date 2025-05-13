@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using Bulky.Models.Models;
 
 namespace BulkyWeb.Controllers
 {

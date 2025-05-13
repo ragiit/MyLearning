@@ -1,47 +1,93 @@
-﻿@{
-    ViewData["Title"] = "Category";
+﻿@model List<Bulky.Models.Models.Category>
+@{
+    ViewData["Title"] = "Daftar Kategori"; // Menggunakan bahasa Indonesia
 }
 
-<div class="container mt-4">
-    <div class="row mt-3 mb-4">
-        <div class="col-md">
-            <h1 class="text-dark">Categories</h1>
-        </div>
-        <div class="col-md text-md-end">
-            <a asp-area="" asp-controller="Category" asp-action="Create" class="btn btn-dark">
-                <i class="bi bi-plus"></i> Create New
-            </a>
-        </div>
-    </div>
+<div class="container mt-4 mb-5">
+    @* Menambah margin bottom untuk jarak dari footer jika ada *@
 
-    <table class="table table-bordered table-striped table-hover">
-        <thead class="thead-dark">
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Display Order</th>
-                <th>Actions</th> <!-- Tambahan kolom untuk tombol -->
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var category in Model)
+    <partial name="_Notification" />
+
+    <div class="card shadow border-0">
+        <div class="card-header bg-light py-3">
+            <div class="row align-items-center">
+                <div class="col-12 col-md-6">
+                    <h2 class="mb-0 text-primary">
+                        <i class="bi bi-tags-fill me-2"></i>Daftar Kategori
+                        @* Menambahkan ikon dan warna primer pada judul *@
+                    </h2>
+                </div>
+                <div class="col-12 col-md-6 text-md-end mt-2 mt-md-0">
+                    @* Penyesuaian untuk responsivitas tombol *@
+                    <a asp-area="" asp-controller="Category" asp-action="Create" class="btn btn-primary">
+                        <i class="bi bi-plus-circle-fill me-2"></i> Buat Baru
+                        @* Mengubah btn-dark menjadi btn-primary untuk konsistensi, menambahkan ikon yang lebih menonjol *@
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="card-body p-0 p-md-3">
+            @* Menghilangkan padding pada layar kecil, menambahkannya pada layar medium ke atas *@
+            @if (Model == null || !Model.Any())
             {
-                <tr>
-                    <td>@category.Id</td>
-                    <td>@category.Name</td>
-                    <td>@category.DisplayOrder</td> 
-                    <td>
-                        <div class="d-flex justify-content-center">
-                            <a asp-action="Edit" asp-route-id="@category.Id" class="btn btn-primary mx-1">
-                                <i class="bi bi-pencil-square"></i>
-                            </a>
-                            <a asp-action="Delete" asp-route-id="@category.Id" class="btn btn-danger mx-1">
-                                <i class="bi bi-trash"></i>
-                            </a>
-                        </div>
-                    </td> 
-                </tr>
+                <div class="alert alert-info text-center m-3">
+                    Belum ada kategori yang tersedia. Silakan <a asp-controller="Category" asp-action="Create" class="alert-link">buat kategori baru</a>.
+                </div>
             }
-        </tbody>
-    </table>
+            else
+            {
+                <div class="table-responsive">
+                    @* Membuat tabel responsif untuk layar kecil *@
+                    <table class="table table-hover table-striped align-middle mb-0">
+                        @*
+                            - table-hover: Efek hover pada baris
+                            - table-striped: Pola belang-seling
+                            - align-middle: Vertikal align teks di tengah sel
+                            - mb-0: Menghilangkan margin bawah default tabel jika di dalam card-body
+                            - Menghilangkan table-bordered untuk tampilan yang lebih bersih, garis antar baris sudah cukup dari striping
+                        *@
+                        <thead class="table-light">
+                            @* Menggunakan table-light untuk header yang lebih lembut *@
+                            <tr>
+                                <th scope="col" style="width: 10%;">ID</th>
+                                <th scope="col">Nama Kategori</th>
+                                <th scope="col" style="width: 15%;" class="text-center">Urutan</th>
+                                <th scope="col" style="width: 15%;" class="text-center">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var category in Model)
+                            {
+                                <tr>
+                                    <td>@category.Id</td>
+                                    <td class="fw-semibold">@category.Name</td> @* Sedikit penebalan pada nama *@
+                                    <td class="text-center">@category.DisplayOrder</td>
+                                    <td>
+                                        <div class="d-flex justify-content-center gap-2">
+                                            @* Menggunakan gap untuk spasi antar tombol *@
+                                            <a asp-action="Edit" asp-route-id="@category.Id" class="btn btn-sm btn-outline-primary" title="Edit">
+                                                <i class="bi bi-pencil-square"></i>
+                                                <span class="d-none d-md-inline ms-1">Edit</span> @* Teks hanya tampil di layar medium ke atas *@
+                                            </a>
+                                            <a asp-action="Delete" asp-route-id="@category.Id" class="btn btn-sm btn-outline-danger" title="Hapus">
+                                                <i class="bi bi-trash-fill"></i>
+                                                <span class="d-none d-md-inline ms-1">Hapus</span> @* Teks hanya tampil di layar medium ke atas *@
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+        @if (Model != null && Model.Any())
+        {
+            <div class="card-footer bg-light text-muted small py-2">
+                Menampilkan @Model.Count() kategori.
+                @* Contoh footer untuk informasi tambahan jika diperlukan *@
+            </div>
+        }
+    </div>
 </div>

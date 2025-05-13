@@ -1,6 +1,98 @@
 ﻿@{
-    ViewData["Title"] = "Privacy Policy";
+    ViewData["Title"] = "Kebijakan Privasi"; // Menggunakan Bahasa Indonesia
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<div class="container py-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10 col-xl-8">
+            @* Membatasi lebar konten agar lebih mudah dibaca *@
+
+            <header class="mb-5 text-center">
+                <h1 class="display-5 fw-bold text-primary">
+                    <i class="bi bi-shield-check me-2"></i>@ViewData["Title"]
+                </h1>
+                <p class="text-muted fs-5">Komitmen kami untuk melindungi privasi Anda.</p>
+                <p class="small text-muted mt-2">Terakhir diperbarui: @DateTime.Now.ToString("dd MMMM yyyy")</p>
+                @* Anda mungkin ingin menyimpan tanggal update secara manual atau dari database *@
+            </header>
+
+            <article>
+                <section class="mb-4 p-4 bg-light border rounded-3">
+                    <h2 class="fs-4 fw-semibold mb-3 text-dark">1. Pendahuluan</h2>
+                    <p class="text-secondary">Selamat datang di Kebijakan Privasi <strong>[Nama Aplikasi/Situs Anda]</strong>. Kami ("kami", "milik kami", atau "kita") menghargai privasi pengunjung dan pengguna kami ("Anda", "milik Anda") dan berkomitmen untuk melindunginya melalui kepatuhan kami terhadap kebijakan ini. Kebijakan ini menjelaskan jenis informasi yang mungkin kami kumpulkan dari Anda atau yang mungkin Anda berikan saat mengunjungi situs web kami <strong>https://support.google.com/adsense/answer/91205?hl=en</strong> (selanjutnya disebut "Situs") dan praktik kami untuk mengumpulkan, menggunakan, memelihara, melindungi, dan mengungkapkan informasi tersebut.</p>
+                    <p class="text-secondary">Harap baca kebijakan ini dengan saksama untuk memahami kebijakan dan praktik kami mengenai informasi Anda dan bagaimana kami akan memperlakukannya. Jika Anda tidak setuju dengan kebijakan dan praktik kami, pilihan Anda adalah untuk tidak menggunakan Situs kami. Dengan mengakses atau menggunakan Situs ini, Anda menyetujui kebijakan privasi ini.</p>
+                </section>
+
+                <section class="mb-4 p-4 border-bottom">
+                    <h2 class="fs-4 fw-semibold mb-3 text-dark">2. Informasi yang Kami Kumpulkan</h2>
+                    <p class="text-secondary">Kami mengumpulkan beberapa jenis informasi dari dan tentang pengguna Situs kami, termasuk informasi:</p>
+                    <ul class="list-unstyled text-secondary">
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Yang dengannya Anda dapat diidentifikasi secara pribadi, seperti nama, alamat pos, alamat email, nomor telepon ("informasi pribadi");</li>
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Yang tentang Anda tetapi secara individual tidak mengidentifikasi Anda, seperti data penggunaan, preferensi, dll.; dan/atau</li>
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Tentang koneksi internet Anda, peralatan yang Anda gunakan untuk mengakses Situs kami, dan detail penggunaan.</li>
+                    </ul>
+                    <h3 class="fs-5 fw-medium mt-3 mb-2 text-dark">Kami mengumpulkan informasi ini:</h3>
+                    <ul class="text-secondary">
+                        <li>Langsung dari Anda saat Anda memberikannya kepada kami.</li>
+                        <li>Secara otomatis saat Anda menjelajahi situs. Informasi yang dikumpulkan secara otomatis dapat mencakup detail penggunaan, alamat IP, dan informasi yang dikumpulkan melalui cookie dan teknologi pelacakan lainnya.</li>
+                        <li>Dari pihak ketiga, misalnya, mitra bisnis kami.</li>
+                    </ul>
+                </section>
+
+                <section class="mb-4 p-4 border-bottom">
+                    <h2 class="fs-4 fw-semibold mb-3 text-dark">3. Bagaimana Kami Menggunakan Informasi Anda</h2>
+                    <p class="text-secondary">Kami menggunakan informasi yang kami kumpulkan tentang Anda atau yang Anda berikan kepada kami, termasuk informasi pribadi apa pun, untuk:</p>
+                    <ul class="text-secondary">
+                        <li>Menyajikan Situs kami dan isinya kepada Anda.</li>
+                        <li>Memberi Anda informasi, produk, atau layanan yang Anda minta dari kami.</li>
+                        <li>Memenuhi tujuan lain apa pun yang Anda berikan.</li>
+                        <li>Melaksanakan kewajiban kami dan menegakkan hak kami yang timbul dari kontrak apa pun yang diadakan antara Anda dan kami, termasuk untuk penagihan dan pengumpulan.</li>
+                        <li>Memberi tahu Anda tentang perubahan pada Situs kami atau produk atau layanan apa pun yang kami tawarkan atau sediakan melaluinya.</li>
+                        <li>Dengan cara lain apa pun yang mungkin kami jelaskan saat Anda memberikan informasi tersebut.</li>
+                        <li>Untuk tujuan lain apa pun dengan persetujuan Anda.</li>
+                    </ul>
+                </section>
+
+                <section class="mb-4 p-4 border-bottom">
+                    <h2 class="fs-4 fw-semibold mb-3 text-dark">4. Pengungkapan Informasi Anda</h2>
+                    <p class="text-secondary">Kami dapat mengungkapkan informasi agregat tentang pengguna kami, dan informasi yang tidak mengidentifikasi individu mana pun, tanpa batasan.</p>
+                    <p class="text-secondary">Kami dapat mengungkapkan informasi pribadi yang kami kumpulkan atau Anda berikan sebagaimana dijelaskan dalam kebijakan privasi ini:</p>
+                    <ul class="text-secondary">
+                        <li>Kepada anak perusahaan dan afiliasi kami.</li>
+                        <li>Kepada kontraktor, penyedia layanan, dan pihak ketiga lainnya yang kami gunakan untuk mendukung bisnis kami.</li>
+                        <li>Kepada pembeli atau penerus lainnya jika terjadi merger, divestasi, restrukturisasi, reorganisasi, pembubaran, atau penjualan atau transfer lain sebagian atau seluruh aset [Nama Aplikasi/Situs Anda].</li>
+                        <li>Untuk memenuhi tujuan Anda memberikannya.</li>
+                        <li>Untuk tujuan lain apa pun yang diungkapkan oleh kami saat Anda memberikan informasi tersebut.</li>
+                        <li>Dengan persetujuan Anda.</li>
+                    </ul>
+                </section>
+
+                <section class="mb-4 p-4 border-bottom">
+                    <h2 class="fs-4 fw-semibold mb-3 text-dark">5. Keamanan Data</h2>
+                    <p class="text-secondary">Kami telah menerapkan langkah-langkah yang dirancang untuk mengamankan informasi pribadi Anda dari kehilangan yang tidak disengaja dan dari akses, penggunaan, perubahan, dan pengungkapan yang tidak sah. Semua informasi yang Anda berikan kepada kami disimpan di server aman kami di balik firewall.</p>
+                    <p class="text-secondary">Keamanan dan keselamatan informasi Anda juga bergantung pada Anda. Jika kami telah memberi Anda (atau jika Anda telah memilih) kata sandi untuk akses ke bagian tertentu dari Situs kami, Anda bertanggung jawab untuk menjaga kerahasiaan kata sandi ini. Kami meminta Anda untuk tidak membagikan kata sandi Anda dengan siapa pun.</p>
+                </section>
+
+                <section class="mb-4 p-4 border-bottom">
+                    <h2 class="fs-4 fw-semibold mb-3 text-dark">6. Perubahan pada Kebijakan Privasi Kami</h2>
+                    <p class="text-secondary">Merupakan kebijakan kami untuk memposting setiap perubahan yang kami buat pada kebijakan privasi kami di halaman ini. Jika kami membuat perubahan material pada cara kami memperlakukan informasi pribadi pengguna kami, kami akan memberi tahu Anda melalui pemberitahuan di halaman utama Situs. Tanggal kebijakan privasi terakhir direvisi diidentifikasi di bagian atas halaman. Anda bertanggung jawab untuk memastikan kami memiliki alamat email yang terkini dan aktif untuk Anda, dan untuk secara berkala mengunjungi Situs kami dan kebijakan privasi ini untuk memeriksa setiap perubahan.</p>
+                </section>
+
+                <section class="p-4 bg-light border rounded-3">
+                    <h2 class="fs-4 fw-semibold mb-3 text-dark">7. Informasi Kontak</h2>
+                    <p class="text-secondary">Untuk mengajukan pertanyaan atau memberikan komentar tentang kebijakan privasi ini dan praktik privasi kami, hubungi kami di:</p>
+                    <address class="text-secondary fst-normal">
+                        <strong>[Nama Perusahaan/Organisasi Anda]</strong><br>
+                        [Alamat Jalan Anda]<br>
+                        [Kota, Provinsi, Kode Pos]<br>
+                        Email: <a href="mailto:[Alamat Email Kontak Anda]">[Alamat Email Kontak Anda]</a><br>
+                        Telepon: [Nomor Telepon Kontak Anda (Opsional)]
+                    </address>
+                </section>
+            </article>
+
+        </div>
+    </div>
+</div>
+
+@* Pastikan Bootstrap Icons sudah terpasang atau terhubung di _Layout.cshtml Anda *@
