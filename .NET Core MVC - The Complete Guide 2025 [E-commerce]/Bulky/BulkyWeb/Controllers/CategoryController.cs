@@ -1,17 +1,15 @@
-﻿using Bulky.Models.Models;
+﻿using Bulky.DataAccess.Repository.IRepository;
+using Bulky.Models.Models;
 
 namespace BulkyWeb.Controllers
 {
-    public class CategoryController(ApplicationDbContext context) : Controller
+    public class CategoryController(ICategoryRepository categoryRepository) : Controller
     {
         public IActionResult Index()
         {
-            // Ambil data dari database dan konversi menjadi List<Category>
-            List<Category> categories = context.Categories.ToList();
+            List<Category> categories = [.. categoryRepository.GetAll()];
             return View(categories);
         }
-
-        // ... (sisa kode controller Anda) ...
 
         [HttpGet]
         public IActionResult Create()
@@ -25,13 +23,13 @@ namespace BulkyWeb.Controllers
             if (category != null && category.Name != null &&
                 category.Name.Equals("test", StringComparison.CurrentCultureIgnoreCase))
             {
-                ModelState.AddModelError("Name", "The name cannot be 'test'."); // Gunakan nameof(Category.Name) atau "Name" agar terhubung ke field yang benar
+                ModelState.AddModelError("Name", "The name cannot be 'test'.");
             }
 
             if (ModelState.IsValid)
             {
-                context.Categories.Add(category);
-                await context.SaveChangesAsync();
+                categoryRepository.Add(category);
+                categoryRepository.Save();
 
                 TempData["success"] = $"Category '{category.Name}' was created successfully.";
                 return RedirectToAction("Index");
@@ -48,8 +46,7 @@ namespace BulkyWeb.Controllers
                 return NotFound();
             }
 
-            // var category = context.Categories.Find(id); // Find cocok untuk Primary Key
-            var category = context.Categories.FirstOrDefault(c => c.Id == id); // Alternatif yang lebih eksplisit
+            var category = categoryRepository.Get(c => c.Id == id);
             if (category == null)
             {
                 return NotFound();
@@ -64,13 +61,13 @@ namespace BulkyWeb.Controllers
             if (category != null && category.Name != null &&
                 category.Name.Equals("test", StringComparison.CurrentCultureIgnoreCase))
             {
-                ModelState.AddModelError("Name", "The name cannot be 'test'."); // Gunakan nameof(Category.Name) atau "Name"
+                ModelState.AddModelError("Name", "The name cannot be 'test'.");
             }
 
             if (ModelState.IsValid)
             {
-                context.Categories.Update(category);
-                await context.SaveChangesAsync();
+                categoryRepository.Update(category);
+                categoryRepository.Save();
 
                 TempData["success"] = $"Category '{category.Name}' was updated successfully.";
                 return RedirectToAction("Index");
@@ -89,14 +86,14 @@ namespace BulkyWeb.Controllers
                 return NotFound();
             }
 
-            var category = await context.Categories.FindAsync(id); // Async find
+            var category = categoryRepository.Get(x => x.Id == id); // Async find
             if (category == null)
             {
                 return NotFound();
             }
 
-            context.Categories.Remove(category);
-            await context.SaveChangesAsync();
+            categoryRepository.Delete(category);
+            categoryRepository.Save();
 
             TempData["success"] = $"Category '{category.Name}' was deleted successfully.";
             return RedirectToAction("Index");
