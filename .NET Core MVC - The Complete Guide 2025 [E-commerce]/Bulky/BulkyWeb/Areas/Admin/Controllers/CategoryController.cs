@@ -1,13 +1,14 @@
 ﻿using Bulky.DataAccess.Repository.IRepository;
 using Bulky.Models.Models;
 
-namespace BulkyWeb.Controllers
+namespace BulkyWeb.Areas.Admin.Controllers
 {
-    public class CategoryController(ICategoryRepository categoryRepository) : Controller
+    [Area("Admin")]
+    public class CategoryController(IUnitOfWork categoryRepository) : Controller
     {
         public IActionResult Index()
         {
-            List<Category> categories = [.. categoryRepository.GetAll()];
+            List<Category> categories = [.. categoryRepository.Category.GetAll()];
             return View(categories);
         }
 
@@ -28,7 +29,7 @@ namespace BulkyWeb.Controllers
 
             if (ModelState.IsValid)
             {
-                categoryRepository.Add(category);
+                categoryRepository.Category.Add(category);
                 categoryRepository.Save();
 
                 TempData["success"] = $"Category '{category.Name}' was created successfully.";
@@ -46,7 +47,7 @@ namespace BulkyWeb.Controllers
                 return NotFound();
             }
 
-            var category = categoryRepository.Get(c => c.Id == id);
+            var category = categoryRepository.Category.Get(c => c.Id == id);
             if (category == null)
             {
                 return NotFound();
@@ -66,7 +67,7 @@ namespace BulkyWeb.Controllers
 
             if (ModelState.IsValid)
             {
-                categoryRepository.Update(category);
+                categoryRepository.Category.Update(category);
                 categoryRepository.Save();
 
                 TempData["success"] = $"Category '{category.Name}' was updated successfully.";
@@ -86,13 +87,13 @@ namespace BulkyWeb.Controllers
                 return NotFound();
             }
 
-            var category = categoryRepository.Get(x => x.Id == id); // Async find
+            var category = categoryRepository.Category.Get(x => x.Id == id); // Async find
             if (category == null)
             {
                 return NotFound();
             }
 
-            categoryRepository.Delete(category);
+            categoryRepository.Category.Delete(category);
             categoryRepository.Save();
 
             TempData["success"] = $"Category '{category.Name}' was deleted successfully.";

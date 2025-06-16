@@ -1,0 +1,112 @@
+﻿@model Bulky.Models.ViewModels.ProductVM
+@{
+    ViewData["Title"] = "Buat Produk Baru";
+}
+
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-8">
+            <div class="card shadow border-0">
+                <div class="card-header bg-primary text-white text-center py-3">
+                    <h2 class="mb-0">
+                        <i class="bi bi-plus-circle-fill me-2"></i>Buat Produk Baru
+                    </h2>
+                </div>
+                <div class="card-body p-4">
+                    @* PENTING: Tambahkan enctype agar form bisa handle file upload *@
+                    <form method="post" asp-action="Create" enctype="multipart/form-data">
+
+                        <div asp-validation-summary="All" class="alert alert-danger mb-3" role="alert"></div>
+
+                        <div class="mb-3">
+                            <label asp-for="Product.Title" class="form-label fw-semibold"></label>
+                            <input asp-for="Product.Title" class="form-control" placeholder="cth: Belajar C# dari Nol" />
+                            <span asp-validation-for="Product.Title" class="text-danger small mt-1"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Product.Description" class="form-label fw-semibold"></label>
+                            <textarea asp-for="Product.Description" class="form-control" rows="3" placeholder="Deskripsi singkat mengenai produk..."></textarea>
+                            <span asp-validation-for="Product.Description" class="text-danger small mt-1"></span>
+                        </div>
+
+                        @* --- Input untuk ISBN dan Penulis (dibuat sejajar) --- *@
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Product.ISBN" class="form-label fw-semibold"></label>
+                                <input asp-for="Product.ISBN" class="form-control" placeholder="cth: 978-602-03-8321-4" />
+                                <span asp-validation-for="Product.ISBN" class="text-danger small mt-1"></span>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Product.Author" class="form-label fw-semibold"></label>
+                                <input asp-for="Product.Author" class="form-control" placeholder="cth: John Doe" />
+                                <span asp-validation-for="Product.Author" class="text-danger small mt-1"></span>
+                            </div>
+                        </div>
+
+                        @* --- Input untuk Harga (dibuat sejajar) --- *@
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Product.ListPrice" class="form-label fw-semibold"></label>
+                                <input asp-for="Product.ListPrice" class="form-control" />
+                                <span asp-validation-for="Product.ListPrice" class="text-danger small mt-1"></span>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Product.Price" class="form-label fw-semibold"></label>
+                                <input asp-for="Product.Price" class="form-control" />
+                                <span asp-validation-for="Product.Price" class="text-danger small mt-1"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Product.Price50" class="form-label fw-semibold"></label>
+                                <input asp-for="Product.Price50" class="form-control" />
+                                <span asp-validation-for="Product.Price50" class="text-danger small mt-1"></span>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Product.Price100" class="form-label fw-semibold"></label>
+                                <input asp-for="Product.Price100" class="form-control" />
+                                <span asp-validation-for="Product.Price100" class="text-danger small mt-1"></span>
+                            </div>
+                        </div>
+
+                        @* --- Dropdown Kategori --- *@
+                        <div class="mb-3">
+                            <label asp-for="Product.CategoryId" class="form-label fw-semibold"></label>
+                            <select asp-for="Product.CategoryId" asp-items="@Model.CategoryList" class="form-select">
+                                <option disabled selected>--Pilih Kategori--</option>
+                            </select>
+                            <span asp-validation-for="Product.CategoryId" class="text-danger small mt-1"></span>
+                        </div>
+
+                        @* --- Input untuk Upload Gambar --- *@
+                        <div class="mb-3">
+                            <label asp-for="Product.ImageUrl" class="form-label fw-semibold"></label>
+                            @* Input type="file" digunakan untuk upload. Atribut 'name' harus sesuai dengan parameter di Controller *@
+                            <input type="file" name="file" class="form-control" />
+                        </div>
+
+                        <hr class="my-4" />
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a asp-controller="Product" asp-action="Index" class="btn btn-outline-secondary px-4">
+                                <i class="bi bi-arrow-left-circle me-2"></i> Kembali ke Daftar
+                            </a>
+                            <button type="submit" class="btn btn-primary px-4">
+                                <i class="bi bi-plus-circle me-2"></i> Buat
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        // Script ini penting untuk validasi sisi klien (client-side validation)
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
