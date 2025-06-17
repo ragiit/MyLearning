@@ -1,0 +1,173 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Daftar Akun Baru";
+}
+
+@* Sertakan CSS dari halaman login jika belum dipindah ke site.css *@
+<style>
+    .divider-text {
+        position: relative;
+        text-align: center;
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+
+        .divider-text span {
+            padding: 7px;
+            font-size: 12px;
+            position: relative;
+            z-index: 2;
+            background-color: #fff;
+        }
+
+        .divider-text:after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            border-bottom: 1px solid #ddd;
+            top: 55%;
+            left: 0;
+            z-index: 1;
+        }
+
+    .btn-google {
+        background-color: #DB4437;
+        color: white;
+    }
+
+        .btn-google:hover {
+            background-color: #c23321;
+            color: white;
+        }
+
+    .btn-facebook {
+        background-color: #4267B2;
+        color: white;
+    }
+
+        .btn-facebook:hover {
+            background-color: #365899;
+            color: white;
+        }
+</style>
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-7">
+            <div class="card shadow-lg border-0 rounded-4">
+                <div class="card-body p-4 p-md-5">
+
+                    <div class="text-center mb-4">
+                        <h2 class="fw-bolder fs-3">Buat Akun Baru</h2>
+                        <p class="text-muted">Bergabunglah bersama kami dan mulailah berbelanja.</p>
+                    </div>
+
+                    <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3" role="alert"></div>
+
+                        <div class="row">
+                            @* <div class="col-md-6 mb-3">
+                                <label asp-for="Input.Name" class="form-label"></label>
+                                <input asp-for="Input.Name" class="form-control" aria-required="true" placeholder="Nama Lengkap Anda" />
+                                <span asp-validation-for="Input.Name" class="text-danger small"></span>
+                            </div> *@
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Input.Email" class="form-label"></label>
+                                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="nama@email.com" />
+                                <span asp-validation-for="Input.Email" class="text-danger small"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Input.Password" class="form-label"></label>
+                                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="******" />
+                                <span asp-validation-for="Input.Password" class="text-danger small"></span>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Input.ConfirmPassword" class="form-label"></label>
+                                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="******" />
+                                <span asp-validation-for="Input.ConfirmPassword" class="text-danger small"></span>
+                            </div>
+                        </div>
+
+                        <hr class="my-3" />
+                        @* <p class="text-muted small">Informasi Tambahan (Opsional)</p> *@
+
+                        @* <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Input.PhoneNumber" class="form-label"></label>
+                                <input asp-for="Input.PhoneNumber" class="form-control" placeholder="0812..." />
+                                <span asp-validation-for="Input.PhoneNumber" class="text-danger small"></span>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Input.StreetAddress" class="form-label"></label>
+                                <input asp-for="Input.StreetAddress" class="form-control" placeholder="Jl. Sudirman No. 1" />
+                                <span asp-validation-for="Input.StreetAddress" class="text-danger small"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="Input.City" class="form-label"></label>
+                                <input asp-for="Input.City" class="form-control" placeholder="Jakarta" />
+                                <span asp-validation-for="Input.City" class="text-danger small"></span>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="Input.State" class="form-label"></label>
+                                <input asp-for="Input.State" class="form-control" placeholder="DKI Jakarta" />
+                                <span asp-validation-for="Input.State" class="text-danger small"></span>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="Input.PostalCode" class="form-label"></label>
+                                <input asp-for="Input.PostalCode" class="form-control" placeholder="10110" />
+                                <span asp-validation-for="Input.PostalCode" class="text-danger small"></span>
+                            </div>
+                        </div> *@
+
+
+                        <div class="d-grid mt-3 mb-3">
+                            <button id="registerSubmit" type="submit" class="btn btn-primary btn-lg fw-bold">
+                                <i class="bi bi-person-plus-fill me-2"></i>Daftar
+                            </button>
+                        </div>
+                    </form>
+
+                    @{
+                        if ((Model.ExternalLogins?.Count ?? 0) != 0)
+                        {
+                            <div class="divider-text">
+                                <span>ATAU DAFTAR DENGAN</span>
+                            </div>
+                            <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                                <div class="d-grid gap-2">
+                                    @foreach (var provider in Model.ExternalLogins)
+                                    {
+                                        var providerClass = provider.Name.ToLower() == "google" ? "btn-google" : (provider.Name.ToLower() == "facebook" ? "btn-facebook" : "btn-secondary");
+                                        var providerIcon = provider.Name.ToLower() == "google" ? "bi-google" : (provider.Name.ToLower() == "facebook" ? "bi-facebook" : "bi-box-arrow-in-right");
+
+                                        <button type="submit" class="btn @providerClass fw-semibold" name="provider" value="@provider.Name" title="Daftar menggunakan akun @provider.DisplayName Anda">
+                                            <i class="bi @providerIcon me-2"></i> @provider.DisplayName
+                                        </button>
+                                    }
+                                </div>
+                            </form>
+                        }
+                    }
+
+                </div>
+                <div class="card-footer text-center py-3 bg-light border-0">
+                    <div class="small">
+                        Sudah punya akun? <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl" class="fw-bold text-decoration-none">Masuk di sini</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
