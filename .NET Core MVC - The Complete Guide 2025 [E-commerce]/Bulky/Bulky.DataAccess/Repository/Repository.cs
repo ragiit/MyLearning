@@ -24,15 +24,31 @@ namespace Bulky.DataAccess.Repository
             DbSet.RemoveRange(values);
         }
 
-        public IEnumerable<T> GetAll()
+        public IEnumerable<T> GetAll(string? includes = null)
         {
             IQueryable<T> query = DbSet;
+            if (includes != null)
+            {
+                foreach (var i in includes.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(i);
+                }
+            }
             return query.ToList();
         }
 
-        public T Get(Expression<Func<T, bool>> predicate)
+        public T Get(Expression<Func<T, bool>> predicate, string? includes = null)
         {
             IQueryable<T> query = DbSet;
+
+            if (includes != null)
+            {
+                foreach (var i in includes.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(i);
+                }
+            }
+
             return query.FirstOrDefault(predicate);
         }
     }

@@ -77,8 +77,6 @@ namespace BulkyWeb.Areas.Admin.Controllers
             return View(category);
         }
 
-        // PERHATIAN: Metode Delete sebaiknya menggunakan [HttpPost] untuk keamanan
-        // Saya akan biarkan [HttpGet] sesuai kode Anda untuk saat ini, tapi ini tidak direkomendasikan
         [HttpGet]
         public async Task<IActionResult> Delete(int? id)
         {

@@ -19,7 +19,7 @@
                 </div>
                 <div class="col-12 col-md-6 text-md-end mt-2 mt-md-0">
                     @* Tautan ini sudah benar mengarah ke Product Controller *@
-                    <a asp-area="Admin" asp-controller="Product" asp-action="Create" class="btn btn-primary">
+                    <a asp-area="Admin" asp-controller="Product" asp-action="Upsert" class="btn btn-primary">
                         <i class="bi bi-plus-circle-fill me-2"></i> Buat Produk Baru
                     </a>
                 </div>
@@ -30,48 +30,24 @@
             {
                 <div class="alert alert-info text-center m-3">
                     @* DIUBAH: Pesan disesuaikan untuk produk *@
-                    Belum ada produk yang tersedia. Silakan <a asp-controller="Product" asp-action="Create" class="alert-link">buat produk baru</a>.
+                    Belum ada produk yang tersedia. Silakan <a asp-controller="Product" asp-action="Upsert" class="alert-link">buat produk baru</a>.
                 </div>
             }
             else
             {
                 <div class="table-responsive">
-                    <table class="table table-hover table-striped align-middle mb-0">
-                        <thead class="table-light">
+                    <table id="productTable" class="table table-bordered table-striped" style="width:100%">
+                        <thead>
                             <tr>
-                                @* DIUBAH: Kolom tabel disesuaikan dengan properti Model Product *@
-                                <th scope="col">Judul Produk</th>
-                                <th scope="col">ISBN</th>
-                                <th scope="col">Penulis</th>
-                                <th scope="col" class="text-end">Harga</th>
-                                <th scope="col" style="width: 15%;" class="text-center">Aksi</th>
+                                <th>Gambar</th>
+                                <th>Judul</th>
+                                <th>ISBN</th>
+                                <th>Harga</th>
+                                <th>Penulis</th>
+                                <th>Kategori</th>
+                                <th></th>  
                             </tr>
                         </thead>
-                        <tbody>
-                            @foreach (var product in Model)
-                            {
-                                <tr>
-                                    @* DIUBAH: Data sel disesuaikan dengan properti product *@
-                                    <td class="fw-semibold">@product.Title</td>
-                                    <td>@product.ISBN</td>
-                                    <td>@product.Author</td>
-                                    <td class="text-end">@product.ListPrice.ToString("c", new System.Globalization.CultureInfo("id-ID"))</td>
-                                    <td>
-                                        <div class="d-flex justify-content-center gap-2">
-                                            @* Tautan Edit dan Delete sudah benar menggunakan product.Id *@
-                                            <a asp-controller="Product" asp-action="Edit" asp-route-id="@product.Id" class="btn btn-sm btn-outline-primary" title="Edit">
-                                                <i class="bi bi-pencil-square"></i>
-                                                <span class="d-none d-md-inline ms-1">Edit</span>
-                                            </a>
-                                            <a asp-controller="Product" asp-action="Delete" asp-route-id="@product.Id" class="btn btn-sm btn-outline-danger" title="Hapus">
-                                                <i class="bi bi-trash-fill"></i>
-                                                <span class="d-none d-md-inline ms-1">Hapus</span>
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
                     </table>
                 </div>
             }
@@ -85,3 +61,7 @@
         }
     </div>
 </div>
+
+@section Scripts {
+    <script src="~/js/product.js"></script>
+}

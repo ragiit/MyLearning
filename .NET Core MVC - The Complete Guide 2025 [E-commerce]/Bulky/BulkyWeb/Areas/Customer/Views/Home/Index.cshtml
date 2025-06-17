@@ -1,91 +1,82 @@
-﻿@{
-    ViewData["Title"] = "Beranda Aplikasi";
-}
+﻿@model IEnumerable<Product>
 
-@* Bagian Hero Utama *@
-<div class="px-4 py-5 my-4 mt-5 text-center shadow-sm bg-light rounded-3">
-    @* Ganti dengan path ke logo aplikasi Anda jika ada, atau hapus img tag ini *@
-    <img class="d-block mx-auto mb-4" src="https://placehold.co/100x100?text=LOGO" alt="Logo Aplikasi Anda" width="100" height="100" style="border-radius: 15%;">
+@* CSS tambahan untuk efek hover yang keren pada kartu produk *@
+<style>
+    .product-card {
+        transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    }
 
-    <h1 class="display-4 fw-bold text-primary">
-        <i class="bi bi-stars me-2"></i>Selamat Datang di Aplikasi Anda!
-    </h1>
-    <div class="col-lg-8 mx-auto">
-        <p class="lead mb-4 mt-3 fs-5">
-            Ini adalah platform modern yang dirancang untuk memberikan Anda pengalaman terbaik.
-            Jelajahi berbagai fitur unggulan kami dan temukan bagaimana kami dapat membantu Anda mencapai tujuan.
-        </p>
-        <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
-            <a href="https://learn.microsoft.com/aspnet/core" target="_blank" class="btn btn-primary btn-lg px-4 gap-3">
-                <i class="bi bi-rocket-launch-fill me-2"></i>Pelajari ASP.NET Core
-            </a>
-            <a asp-area="Admin" asp-controller="Category" asp-action="Index" class="btn btn-outline-success btn-lg px-4">
-                <i class="bi bi-tags-fill me-2"></i>Lihat Kategori Produk
-            </a>
-        </div>
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+        }
+
+    .product-img {
+        height: 250px;
+        object-fit: cover; /* Memastikan gambar terisi penuh tanpa distorsi */
+    }
+</style>
+
+@* Bagian Hero Banner - lebih menarik untuk e-commerce *@
+<div class="container-fluid bg-light py-5 mb-5">
+    <div class="container text-center">
+        <h1 class="display-4 fw-bold text-primary">Katalog Produk Terbaru</h1>
+        <p class="fs-5 text-muted">Temukan buku-buku terbaik pilihan kami hanya untuk Anda.</p>
     </div>
 </div>
 
-@* Bagian Fitur Unggulan atau Navigasi Lanjutan (Opsional) *@
-<div class="container px-4 py-5 mb-5" id="featured-cards">
-    <h2 class="pb-2 border-bottom text-center display-6 mb-5">Kenapa Aplikasi Kami?</h2>
 
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-        <div class="col">
-            <div class="card h-100 shadow border-0 rounded-4 overflow-hidden">
-                @* Ganti dengan URL gambar yang relevan *@
-                <img src="https://placehold.co/600x400?text=Desain+Modern" class="card-img-top" alt="Desain Modern" style="height: 200px; object-fit: cover;">
-                <div class="card-body d-flex flex-column">
-                    <div class="d-flex align-items-center mb-2">
-                        <div class="feature-icon-sm d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-4 rounded-circle me-2" style="width: 40px; height: 40px;">
-                            <i class="bi bi-palette-fill"></i>
-                        </div>
-                        <h3 class="card-title fs-5 fw-semibold mb-0">Desain Modern & Intuitif</h3>
-                    </div>
-                    <p class="card-text text-muted small flex-grow-1">Antarmuka yang bersih dan mudah digunakan, dirancang untuk kenyamanan Anda.</p>
-                    <a href="#" class="btn btn-sm btn-outline-primary mt-auto align-self-start">
-                        Pelajari Lebih <i class="bi bi-arrow-right-short"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
+<div class="container">
+    <div class="row">
+        @if (Model != null && Model.Any())
+        {
+            @foreach (var product in Model)
+            {
+                @* Setiap produk akan ditampilkan dalam sebuah kolom yang responsif *@
+                <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
 
-        <div class="col">
-            <div class="card h-100 shadow border-0 rounded-4 overflow-hidden">
-                @* Ganti dengan URL gambar yang relevan *@
-                <img src="https://placehold.co/600x400?text=Performa+Cepat" class="card-img-top" alt="Performa Cepat" style="height: 200px; object-fit: cover;">
-                <div class="card-body d-flex flex-column">
-                    <div class="d-flex align-items-center mb-2">
-                        <div class="feature-icon-sm d-inline-flex align-items-center justify-content-center text-bg-success bg-gradient fs-4 rounded-circle me-2" style="width: 40px; height: 40px;">
-                            <i class="bi bi-speedometer2"></i>
-                        </div>
-                        <h3 class="card-title fs-5 fw-semibold mb-0">Performa Super Cepat</h3>
-                    </div>
-                    <p class="card-text text-muted small flex-grow-1">Nikmati kecepatan akses dan responsivitas tinggi di setiap halaman.</p>
-                    <a href="#" class="btn btn-sm btn-outline-success mt-auto align-self-start">
-                        Lihat Detail <i class="bi bi-arrow-right-short"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
+                    @* Kartu Produk *@
+                    <div class="card h-100 shadow-sm border-0 rounded-3 product-card">
 
-        <div class="col">
-            <div class="card h-100 shadow border-0 rounded-4 overflow-hidden">
-                @* Ganti dengan URL gambar yang relevan *@
-                <img src="https://placehold.co/600x400?text=Fitur+Lengkap" class="card-img-top" alt="Fitur Lengkap" style="height: 200px; object-fit: cover;">
-                <div class="card-body d-flex flex-column">
-                    <div class="d-flex align-items-center mb-2">
-                        <div class="feature-icon-sm d-inline-flex align-items-center justify-content-center text-bg-warning bg-gradient fs-4 rounded-circle me-2" style="width: 40px; height: 40px;">
-                            <i class="bi bi-tools"></i>
+                        @* Gambar Produk - bisa diklik untuk ke detail *@
+                        <a asp-action="Details" asp-route-productId="@product.Id" class="text-decoration-none">
+                            <img src="@(string.IsNullOrWhiteSpace(product.ImageUrl) ? "https://placehold.co/70x70?text=NotFound" : product.ImageUrl)" class="card-img-top rounded-top product-img" alt="@product.Title" />
+
+                        </a>
+
+                        <div class="card-body d-flex flex-column p-3">
+
+                            @* Judul Produk - juga link ke detail *@
+                            <h5 class="card-title fs-6 fw-bold">
+                                <a asp-action="Details" asp-route-productId="@product.Id" class="text-dark text-decoration-none">
+                                    @product.Title
+                                </a>
+                            </h5>
+
+                            @* Kategori Produk *@
+                            <p class="card-text text-muted small mb-2">
+                                Kategori: <span class="badge bg-secondary">@product.Category.Name</span>
+                            </p>
+
+                            @* Harga Produk *@
+                            <p class="card-text fs-5 fw-bolder text-primary mt-auto pt-2">
+                                @product.ListPrice.ToString("c", new System.Globalization.CultureInfo("id-ID"))
+                            </p>
+
+                            @* Tombol Aksi *@
+                            <a asp-action="Details" asp-route-productId="@product.Id" class="btn btn-outline-primary w-100 mt-2">
+                                <i class="bi bi-search me-2"></i>Lihat Detail
+                            </a>
                         </div>
-                        <h3 class="card-title fs-5 fw-semibold mb-0">Fitur Lengkap & Kustom</h3>
                     </div>
-                    <p class="card-text text-muted small flex-grow-1">Berbagai fitur canggih yang dapat disesuaikan dengan kebutuhan spesifik Anda.</p>
-                    <a href="#" class="btn btn-sm btn-outline-warning mt-auto align-self-start">
-                        Eksplorasi Fitur <i class="bi bi-arrow-right-short"></i>
-                    </a>
                 </div>
+            }
+        }
+        else
+        {
+            <div class="col-12 text-center">
+                <p class="fs-4 text-muted">Oops! Belum ada produk yang tersedia saat ini.</p>
             </div>
-        </div>
+        }
     </div>
 </div>

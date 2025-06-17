@@ -10,26 +10,25 @@ namespace BulkyWeb.Areas.Admin.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        // DIUBAH: Menggunakan Dependency Injection standar dan menyimpan IUnitOfWork di field private.
-        public ProductController(IUnitOfWork unitOfWork)
+        // DIUBAH: Tambahkan IWebHostEnvironment untuk mengakses path wwwroot saat upload gambar.
+        private readonly IWebHostEnvironment _webHostEnvironment;
+
+        public ProductController(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
         {
             _unitOfWork = unitOfWork;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         public IActionResult Index()
         {
-            // PENJELASAN: Menggunakan includeProperties untuk mengambil data Category terkait (Eager Loading).
-            // Ini memungkinkan Anda menampilkan nama kategori di halaman daftar produk tanpa query tambahan.
-            List<Product> productList = _unitOfWork.Product.GetAll().ToList();
-
-            // Variabel 'c' tidak digunakan dan dihapus. Data yang dikirim ke View sudah benar.
+            // FIX: Menambahkan includeProperties yang sebelumnya terlewat
+            List<Product> productList = [.. _unitOfWork.Product.GetAll(includes: "Category")];
             return View(productList);
         }
 
-        [HttpGet]
-        public IActionResult Create()
+        // GET: UNTUK CREATE DAN EDIT
+        public IActionResult Upsert(int? id)
         {
-            // Kode ini sudah benar.
             ProductVM productVM = new()
             {
                 Product = new Product(),
@@ -39,81 +38,82 @@ namespace BulkyWeb.Areas.Admin.Controllers
                     Value = u.Id.ToString()
                 })
             };
-            return View(productVM);
-        }
 
-        [HttpPost]
-        public IActionResult Create(ProductVM productVM)
-        {
-            // Custom validation bisa diletakkan di sini jika perlu.
-            if (productVM.Product.Title != null &&
-                productVM.Product.Title.Equals("test", StringComparison.CurrentCultureIgnoreCase))
-            {
-                ModelState.AddModelError("Product.Title", "The name cannot be 'test'.");
-            }
-
-            if (ModelState.IsValid)
-            {
-                // DIUBAH: Mengambil objek Product dari dalam ViewModel.
-                _unitOfWork.Product.Add(productVM.Product);
-                _unitOfWork.Save();
-
-                TempData["success"] = $"Product '{productVM.Product.Title}' was created successfully.";
-                return RedirectToAction("Index");
-            }
-            else
-            {
-                // KRUSIAL: Jika validasi gagal, dropdown kategori harus diisi kembali sebelum dikirim ke View.
-                productVM.CategoryList = _unitOfWork.Category.GetAll().Select(u => new SelectListItem
-                {
-                    Text = u.Name,
-                    Value = u.Id.ToString()
-                });
-                return View(productVM);
-            }
-        }
-
-        [HttpGet]
-        public IActionResult Edit(int? id)
-        {
             if (id == null || id == 0)
             {
-                return NotFound();
-            }
-
-            // DIUBAH: Menggunakan ProductVM agar View Edit bisa menampilkan dropdown kategori.
-            ProductVM productVM = new()
-            {
-                Product = _unitOfWork.Product.Get(u => u.Id == id),
-                CategoryList = _unitOfWork.Category.GetAll().Select(u => new SelectListItem
-                {
-                    Text = u.Name,
-                    Value = u.Id.ToString()
-                })
-            };
-
-            if (productVM.Product == null)
-            {
-                return NotFound();
-            }
-
-            return View(productVM);
-        }
-
-        [HttpPost]
-        public IActionResult Edit(ProductVM productVM)
-        {
-            if (ModelState.IsValid)
-            {
-                _unitOfWork.Product.Update(productVM.Product);
-                _unitOfWork.Save();
-
-                TempData["success"] = $"Product '{productVM.Product.Title}' was updated successfully.";
-                return RedirectToAction("Index");
+                // Mode CREATE: Cukup tampilkan view dengan product baru yang kosong
+                return View(productVM);
             }
             else
             {
-                // KRUSIAL: Isi kembali dropdown jika validasi gagal.
+                // Mode EDIT: Ambil produk dari DB dan kirim ke view
+                productVM.Product = _unitOfWork.Product.Get(u => u.Id == id);
+                if (productVM.Product == null)
+                {
+                    return NotFound();
+                }
+                return View(productVM);
+            }
+        }
+
+        // POST: UNTUK CREATE DAN EDIT
+        [HttpPost]
+        public IActionResult Upsert(ProductVM productVM, IFormFile? file)
+        {
+            if (ModelState.IsValid)
+            {
+                // --- LOGIKA UPLOAD FILE GAMBAR ---
+                string wwwRootPath = _webHostEnvironment.WebRootPath;
+                if (file != null)
+                {
+                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                    string productPath = Path.Combine(wwwRootPath, @"images\product");
+
+                    if (!Directory.Exists(productPath))
+                    {
+                        Directory.CreateDirectory(productPath);
+                    }
+
+                    // Jika sedang mengedit dan ada gambar lama, hapus gambar lama.
+                    if (!string.IsNullOrEmpty(productVM.Product.ImageUrl))
+                    {
+                        var oldImagePath = Path.Combine(wwwRootPath, productVM.Product.ImageUrl.TrimStart('\\'));
+                        if (System.IO.File.Exists(oldImagePath))
+                        {
+                            System.IO.File.Delete(oldImagePath);
+                        }
+                    }
+
+                    // Simpan file baru
+                    using (var fileStream = new FileStream(Path.Combine(productPath, fileName), FileMode.Create))
+                    {
+                        file.CopyTo(fileStream);
+                    }
+
+                    productVM.Product.ImageUrl = @"\images\product\" + fileName;
+                }
+                // --- AKHIR LOGIKA UPLOAD FILE ---
+
+                // Tentukan apakah ini Add (Create) atau Update (Edit)
+                if (productVM.Product.Id == 0)
+                {
+                    // Mode CREATE
+                    _unitOfWork.Product.Add(productVM.Product);
+                    TempData["success"] = "Produk berhasil dibuat.";
+                }
+                else
+                {
+                    // Mode EDIT
+                    _unitOfWork.Product.Update(productVM.Product);
+                    TempData["success"] = "Produk berhasil diperbarui.";
+                }
+
+                _unitOfWork.Save();
+                return RedirectToAction("Index");
+            }
+            else // Jika Model State tidak valid
+            {
+                // Isi kembali dropdown kategori sebelum mengirim view kembali.
                 productVM.CategoryList = _unitOfWork.Category.GetAll().Select(u => new SelectListItem
                 {
                     Text = u.Name,
@@ -123,41 +123,47 @@ namespace BulkyWeb.Areas.Admin.Controllers
             }
         }
 
-        // DIUBAH: Metode Delete dipecah menjadi dua: GET untuk menampilkan halaman konfirmasi, POST untuk eksekusi.
+        #region API CALLS
 
-        // GET - DELETE (Menampilkan halaman konfirmasi)
         [HttpGet]
+        public IActionResult GetAll()
+        {
+            List<Product> productList = [.. _unitOfWork.Product.GetAll(includes: "Category")];
+
+            return Json(new
+            {
+                data = productList
+            });
+        }
+
+        [HttpDelete]
         public IActionResult Delete(int? id)
         {
-            if (id == null || id == 0)
+            // PERBAIKAN UTAMA ADA DI SINI
+            var productToBeDeleted = _unitOfWork.Product.Get(u => u.Id == id);
+            if (productToBeDeleted == null)
             {
-                return NotFound();
-            }
-            // Menggunakan eager loading jika perlu menampilkan nama kategori di halaman delete.
-            Product? productFromDb = _unitOfWork.Product.Get(u => u.Id == id);
-
-            if (productFromDb == null)
-            {
-                return NotFound();
-            }
-            return View(productFromDb);
-        }
-
-        // POST - DELETE (Eksekusi hapus data)
-        [HttpGet]
-        public IActionResult DeletePOST(int? id)
-        {
-            Product? obj = _unitOfWork.Product.Get(u => u.Id == id);
-            if (obj == null)
-            {
-                return NotFound();
+                // Kembalikan JSON dengan pesan error
+                return Json(new { success = false, message = "Gagal: Data tidak ditemukan." });
             }
 
-            _unitOfWork.Product.Delete(obj);
+            // Hapus gambar terkait jika ada
+            if (!string.IsNullOrEmpty(productToBeDeleted.ImageUrl))
+            {
+                var oldImagePath = Path.Combine(_webHostEnvironment.WebRootPath, productToBeDeleted.ImageUrl.TrimStart('\\'));
+                if (System.IO.File.Exists(oldImagePath))
+                {
+                    System.IO.File.Delete(oldImagePath);
+                }
+            }
+
+            _unitOfWork.Product.Delete(productToBeDeleted);
             _unitOfWork.Save();
 
-            TempData["success"] = $"Product '{obj.Title}' was deleted successfully.";
-            return RedirectToAction("Index");
+            // Kembalikan JSON dengan pesan sukses
+            return Json(new { success = true, message = "Produk berhasil dihapus." });
         }
+
+        #endregion API CALLS
     }
 }

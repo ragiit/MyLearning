@@ -1,6 +1,7 @@
 ﻿@model Bulky.Models.ViewModels.ProductVM
 @{
-    ViewData["Title"] = "Buat Produk Baru";
+    var title = Model.Product.Id != 0 ? "Edit Produk" : "Buat Produk Baru";
+    ViewData["Title"] = title;
 }
 
 <div class="container mt-5 mb-5">
@@ -9,28 +10,44 @@
             <div class="card shadow border-0">
                 <div class="card-header bg-primary text-white text-center py-3">
                     <h2 class="mb-0">
-                        <i class="bi bi-plus-circle-fill me-2"></i>Buat Produk Baru
+                        @* Ikon dan judul header dinamis *@
+                        <i class="bi @(Model.Product.Id != 0 ? "bi-pencil-square" : "bi-plus-circle-fill") me-2"></i>@title
                     </h2>
                 </div>
                 <div class="card-body p-4">
-                    @* PENTING: Tambahkan enctype agar form bisa handle file upload *@
-                    <form method="post" asp-action="Create" enctype="multipart/form-data">
+                    @* Form sekarang mengarah ke action "Upsert" *@
+                    <form method="post" asp-action="Upsert" enctype="multipart/form-data">
+                        @* Input tersembunyi untuk ID, krusial untuk mode Edit *@
+                        <input asp-for="Product.Id" hidden />
+                        <input asp-for="Product.ImageUrl" hidden />
 
                         <div asp-validation-summary="All" class="alert alert-danger mb-3" role="alert"></div>
 
-                        <div class="mb-3">
-                            <label asp-for="Product.Title" class="form-label fw-semibold"></label>
-                            <input asp-for="Product.Title" class="form-control" placeholder="cth: Belajar C# dari Nol" />
-                            <span asp-validation-for="Product.Title" class="text-danger small mt-1"></span>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="mb-3">
+                                    <label asp-for="Product.Title" class="form-label fw-semibold"></label>
+                                    <input asp-for="Product.Title" class="form-control" placeholder="cth: Belajar C# dari Nol" />
+                                    <span asp-validation-for="Product.Title" class="text-danger small mt-1"></span>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label asp-for="Product.Description" class="form-label fw-semibold"></label>
+                                    <textarea asp-for="Product.Description" class="form-control" rows="3" placeholder="Deskripsi singkat mengenai produk..."></textarea>
+                                    <span asp-validation-for="Product.Description" class="text-danger small mt-1"></span>
+                                </div>
+                            </div>
+                            @* Menampilkan preview gambar jika dalam mode Edit *@
+                            @if (Model.Product.Id != 0)
+                            {
+                                <div class="col-md-3 text-center">
+                                    <label class="form-label fw-semibold">Gambar Saat Ini</label>
+                                    <img src="@Model.Product.ImageUrl" class="img-fluid rounded border p-2" alt="Gambar Produk" />
+                                </div>
+                            }
                         </div>
 
-                        <div class="mb-3">
-                            <label asp-for="Product.Description" class="form-label fw-semibold"></label>
-                            <textarea asp-for="Product.Description" class="form-control" rows="3" placeholder="Deskripsi singkat mengenai produk..."></textarea>
-                            <span asp-validation-for="Product.Description" class="text-danger small mt-1"></span>
-                        </div>
 
-                        @* --- Input untuk ISBN dan Penulis (dibuat sejajar) --- *@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label asp-for="Product.ISBN" class="form-label fw-semibold"></label>
@@ -44,7 +61,6 @@
                             </div>
                         </div>
 
-                        @* --- Input untuk Harga (dibuat sejajar) --- *@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label asp-for="Product.ListPrice" class="form-label fw-semibold"></label>
@@ -71,7 +87,6 @@
                             </div>
                         </div>
 
-                        @* --- Dropdown Kategori --- *@
                         <div class="mb-3">
                             <label asp-for="Product.CategoryId" class="form-label fw-semibold"></label>
                             <select asp-for="Product.CategoryId" asp-items="@Model.CategoryList" class="form-select">
@@ -80,10 +95,8 @@
                             <span asp-validation-for="Product.CategoryId" class="text-danger small mt-1"></span>
                         </div>
 
-                        @* --- Input untuk Upload Gambar --- *@
                         <div class="mb-3">
-                            <label asp-for="Product.ImageUrl" class="form-label fw-semibold"></label>
-                            @* Input type="file" digunakan untuk upload. Atribut 'name' harus sesuai dengan parameter di Controller *@
+                            <label class="form-label fw-semibold">Gambar Produk</label>
                             <input type="file" name="file" class="form-control" />
                         </div>
 
@@ -94,7 +107,8 @@
                                 <i class="bi bi-arrow-left-circle me-2"></i> Kembali ke Daftar
                             </a>
                             <button type="submit" class="btn btn-primary px-4">
-                                <i class="bi bi-plus-circle me-2"></i> Buat
+                                @* Ikon dan teks tombol dinamis *@
+                                <i class="bi bi-save-fill me-2"></i> @(Model.Product.Id != 0 ? "Simpan Perubahan" : "Buat")
                             </button>
                         </div>
                     </form>
@@ -105,8 +119,27 @@
 </div>
 
 @section Scripts {
+    <script>
+        tinymce.init({
+          selector: 'textarea',
+          plugins: [
+            // Core editing features
+            'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'image', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount',
+            // Your account includes a free trial of TinyMCE premium features
+            // Try the most popular premium features until Jun 19, 2025:
+            'checklist', 'mediaembed', 'casechange', 'formatpainter', 'pageembed', 'a11ychecker', 'tinymcespellchecker', 'permanentpen', 'powerpaste', 'advtable', 'advcode', 'editimage', 'advtemplate', 'ai', 'mentions', 'tinycomments', 'tableofcontents', 'footnotes', 'mergetags', 'autocorrect', 'typography', 'inlinecss', 'markdown','importword', 'exportword', 'exportpdf'
+          ],
+          toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+          tinycomments_mode: 'embedded',
+          tinycomments_author: 'Author name',
+          mergetags_list: [
+            { value: 'First.Name', title: 'First Name' },
+            { value: 'Email', title: 'Email' },
+          ],
+          ai_request: (request, respondWith) => respondWith.string(() => Promise.reject('See docs to implement AI Assistant')),
+        });
+    </script>
     @{
-        // Script ini penting untuk validasi sisi klien (client-side validation)
         <partial name="_ValidationScriptsPartial" />
     }
 }
