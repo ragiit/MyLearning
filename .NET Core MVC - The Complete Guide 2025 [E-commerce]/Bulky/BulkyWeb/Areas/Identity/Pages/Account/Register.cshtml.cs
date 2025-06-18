@@ -10,6 +10,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
+using Bulky.DataAccess.Repository.IRepository;
 using Bulky.Models.Models;
 using Bulky.Utility;
 using Microsoft.AspNetCore.Authentication;
@@ -34,6 +35,7 @@ namespace BulkyWeb.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<IdentityUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly IUnitOfWork _unitOfWork;
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
@@ -41,7 +43,8 @@ namespace BulkyWeb.Areas.Identity.Pages.Account
             RoleManager<IdentityRole> roleManager,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            IUnitOfWork unitOfWork)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -50,6 +53,7 @@ namespace BulkyWeb.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _unitOfWork = unitOfWork;
         }
 
         /// <summary>
@@ -77,39 +81,49 @@ namespace BulkyWeb.Areas.Identity.Pages.Account
         /// </summary>
         public class InputModel
         {
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
-            [Required]
+            [Required(ErrorMessage = "Email tidak boleh kosong.")]
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
 
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [Required(ErrorMessage = "Password tidak boleh kosong.")]
+            [StringLength(100, ErrorMessage = "{0} harus memiliki panjang antara {2} dan {1} karakter.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Password")]
             public string Password { get; set; }
 
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Display(Name = "Konfirmasi password")]
+            [Compare("Password", ErrorMessage = "Password dan konfirmasi password tidak cocok.")]
             public string ConfirmPassword { get; set; }
 
-            [Required]
-            public string Role { get; set; }
+            // --- TAMBAHKAN PROPERTI DI BAWAH INI ---
+            [Required(ErrorMessage = "Nama tidak boleh kosong.")]
+            [Display(Name = "Nama Lengkap")]
+            public string Name { get; set; }
+
+            [Display(Name = "Alamat Jalan")]
+            public string? StreetAddress { get; set; }
+
+            [Display(Name = "Kota")]
+            public string? City { get; set; }
+
+            [Display(Name = "Provinsi")]
+            public string? State { get; set; }
+
+            [Display(Name = "Kode Pos")]
+            public string? PostalCode { get; set; }
+
+            // Properti Role yang sudah ada
+            public string? Role { get; set; }
+
+            public int? CompanyId { get; set; }
 
             [ValidateNever]
-            public IEnumerable<SelectListItem> Roles { get; set; }
+            public IEnumerable<SelectListItem>? Roles { get; set; }
+
+            [ValidateNever]
+            public IEnumerable<SelectListItem>? Companies { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -128,6 +142,11 @@ namespace BulkyWeb.Areas.Identity.Pages.Account
                 {
                     Text = x.Name,
                     Value = x.Name
+                }),
+                Companies = _unitOfWork.Company.GetAll().Select(x => new SelectListItem
+                {
+                    Text = x.Name,
+                    Value = x.Id.ToString()
                 })
             };
 
@@ -141,7 +160,19 @@ namespace BulkyWeb.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = CreateUser();
+                //var user = CreateUser();
+
+                var user = new ApplicationUser
+                {
+                    UserName = Input.Email,
+                    Email = Input.Email,
+                    Name = Input.Name,
+                    StreetAddress = Input.StreetAddress,
+                    City = Input.City,
+                    State = Input.State,
+                    PostalCode = Input.PostalCode,
+                    CompanyId = Input.Role == Helper.Role_Company ? Input.CompanyId : null
+                };
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
@@ -187,6 +218,12 @@ namespace BulkyWeb.Areas.Identity.Pages.Account
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
+
+            Input.Roles = _roleManager.Roles.Select(x => x.Name).Select(i => new SelectListItem
+            {
+                Text = i,
+                Value = i
+            });
 
             // If we got this far, something failed, redisplay form
             return Page();

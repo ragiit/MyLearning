@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "Daftar Perusahaan";
+}
+
+<div class="container mt-4 mb-5">
+    <div class="card shadow border-0">
+        <div class="card-header bg-light py-3">
+            <div class="row align-items-center">
+                <div class="col-6">
+                    <h2 class="mb-0 text-primary">
+                        <i class="bi bi-building-fill me-2"></i>@ViewData["Title"]
+                    </h2>
+                </div>
+                <div class="col-6 text-end">
+                    <a asp-controller="Company" asp-action="Upsert" class="btn btn-primary">
+                        <i class="bi bi-plus-circle-fill me-2"></i> Buat Perusahaan Baru
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="card-body p-3">
+            <table id="companyTable" class="table table-bordered table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Nama</th>
+                        <th>Alamat</th>
+                        <th>Kota</th>
+                        <th>Telepon</th>
+                        <th></th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/company.js"></script>
+}

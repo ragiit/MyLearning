@@ -17,7 +17,12 @@ builder.Services.AddDbContext<ApplicationDbContext>(x =>
 });
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
-
+builder.Services.ConfigureApplicationCookie(x =>
+{
+    x.LoginPath = "/Identity/Account/Login";
+    x.LogoutPath = "/Identity/Account/Logout";
+    x.AccessDeniedPath = "/Identity/Account/AccessDenied";
+});
 builder.Services.AddScoped<IEmailSender, EmailSender>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 

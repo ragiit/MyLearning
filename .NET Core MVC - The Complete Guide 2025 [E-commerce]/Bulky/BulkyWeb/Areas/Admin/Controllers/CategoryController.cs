@@ -1,9 +1,12 @@
 ﻿using Bulky.DataAccess.Repository.IRepository;
 using Bulky.Models.Models;
+using Bulky.Utility;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BulkyWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = Helper.Role_Admin)]
     public class CategoryController(IUnitOfWork categoryRepository) : Controller
     {
         public IActionResult Index()

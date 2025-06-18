@@ -1,10 +1,35 @@
 ﻿@page
 @model AccessDeniedModel
 @{
-    ViewData["Title"] = "Access denied";
+    ViewData["Title"] = "Akses Ditolak";
 }
 
-<header>
-    <h1 class="text-danger">@ViewData["Title"]</h1>
-    <p class="text-danger">You do not have access to this resource.</p>
-</header>
+<div class="container text-center my-5 py-5">
+
+    @* Ikon Besar untuk Menarik Perhatian *@
+    <div class="mb-4">
+        <i class="bi bi-stop-circle-fill display-1 text-danger"></i>
+    </div>
+
+    @* Judul dan Pesan yang Jelas *@
+    <h1 class="display-4 fw-bold">Akses Ditolak</h1>
+    <p class="col-lg-8 mx-auto fs-5 text-muted mt-3">
+        Maaf, sepertinya Anda tidak memiliki hak akses yang diperlukan untuk melihat halaman ini.
+    </p>
+    <p class="col-lg-8 mx-auto text-muted">
+        Ini bisa terjadi jika Anda mencoba mengakses halaman khusus admin atau halaman yang memerlukan level otentikasi yang berbeda.
+    </p>
+
+    @* Tombol Aksi untuk Membantu Pengguna *@
+    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mt-5">
+        <a asp-area="Customer" asp-controller="Home" asp-action="Index" class="btn btn-primary btn-lg px-4 gap-3">
+            <i class="bi bi-house-door-fill me-2"></i>
+            Kembali ke Beranda
+        </a>
+        <button onclick="window.history.back()" class="btn btn-outline-secondary btn-lg px-4">
+            <i class="bi bi-arrow-left-circle me-2"></i>
+            Kembali ke Halaman Sebelumnya
+        </button>
+    </div>
+
+</div>
