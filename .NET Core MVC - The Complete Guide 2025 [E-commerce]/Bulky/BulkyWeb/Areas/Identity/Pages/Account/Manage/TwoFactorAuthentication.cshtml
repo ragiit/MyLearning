@@ -2,66 +2,97 @@
 @using Microsoft.AspNetCore.Http.Features
 @model TwoFactorAuthenticationModel
 @{
-    ViewData["Title"] = "Two-factor authentication (2FA)";
+    ViewData["Title"] = "Otentikasi Dua Faktor (2FA)";
     ViewData["ActivePage"] = ManageNavPages.TwoFactorAuthentication;
 }
 
 <partial name="_StatusMessage" for="StatusMessage" />
-<h3>@ViewData["Title"]</h3>
+<h4 class="mb-3">@ViewData["Title"]</h4>
+
 @{
     var consentFeature = HttpContext.Features.Get<ITrackingConsentFeature>();
     @if (consentFeature?.CanTrack ?? true)
     {
+        // Tampilkan status 2FA saat ini
+        if (Model.Is2faEnabled)
+        {
+            <div class="alert alert-success d-flex align-items-center" role="alert">
+                <i class="bi bi-shield-check-fill fs-4 me-3"></i>
+                <div>
+                    Otentikasi Dua Faktor (2FA) saat ini <strong>Aktif</strong>.
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-secondary d-flex align-items-center" role="alert">
+                <i class="bi bi-shield-slash-fill fs-4 me-3"></i>
+                <div>
+                    Otentikasi Dua Faktor (2FA) saat ini <strong>Tidak Aktif</strong>.
+                </div>
+            </div>
+        }
+
+        <hr />
+
+        <h5 class="mt-4">Aplikasi Autentikator</h5>
+        <div class="list-group">
+            <div class="list-group-item d-flex justify-content-between align-items-center">
+                <div class="me-3">
+                    <p class="mb-0">Konfigurasikan aplikasi autentikator Anda.</p>
+                    <small class="text-muted">Gunakan aplikasi seperti Google Authenticator atau Microsoft Authenticator.</small>
+                </div>
+                <div>
+                    @if (!Model.HasAuthenticator)
+                    {
+                        <a id="enable-authenticator" asp-page="./EnableAuthenticator" class="btn btn-primary btn-sm">Tambah Aplikasi</a>
+                    }
+                    else
+                    {
+                        <a id="enable-authenticator" asp-page="./EnableAuthenticator" class="btn btn-primary btn-sm">Atur Aplikasi</a>
+                        <a id="reset-authenticator" asp-page="./ResetAuthenticator" class="btn btn-outline-danger btn-sm">Reset Aplikasi</a>
+                    }
+                </div>
+            </div>
+        </div>
+
         @if (Model.Is2faEnabled)
         {
+            <h5 class="mt-4">Pengaturan Lanjutan</h5>
+
+            // Peringatan tentang Recovery Codes
             if (Model.RecoveryCodesLeft == 0)
             {
-                <div class="alert alert-danger">
-                    <strong>You have no recovery codes left.</strong>
-                    <p>You must <a asp-page="./GenerateRecoveryCodes">generate a new set of recovery codes</a> before you can log in with a recovery code.</p>
-                </div>
-            }
-            else if (Model.RecoveryCodesLeft == 1)
-            {
-                <div class="alert alert-danger">
-                    <strong>You have 1 recovery code left.</strong>
-                    <p>You can <a asp-page="./GenerateRecoveryCodes">generate a new set of recovery codes</a>.</p>
+                <div class="alert alert-danger mt-3">
+                    <strong>Anda tidak memiliki kode pemulihan tersisa.</strong>
+                    <p class="mb-0">Anda harus <a asp-page="./GenerateRecoveryCodes">membuat set kode pemulihan baru</a> sebelum dapat login menggunakan kode pemulihan.</p>
                 </div>
             }
             else if (Model.RecoveryCodesLeft <= 3)
             {
-                <div class="alert alert-warning">
-                    <strong>You have @Model.RecoveryCodesLeft recovery codes left.</strong>
-                    <p>You should <a asp-page="./GenerateRecoveryCodes">generate a new set of recovery codes</a>.</p>
+                <div class="alert alert-warning mt-3">
+                    <strong>Anda hanya memiliki @Model.RecoveryCodesLeft kode pemulihan tersisa.</strong>
+                    <p class="mb-0">Sebaiknya Anda <a asp-page="./GenerateRecoveryCodes">membuat set kode pemulihan baru</a>.</p>
                 </div>
             }
 
-            if (Model.IsMachineRemembered)
-            {
-                <form method="post" style="display: inline-block">
-                    <button type="submit" class="btn btn-primary">Forget this browser</button>
-                </form>
-            }
-            <a asp-page="./Disable2fa" class="btn btn-primary">Disable 2FA</a>
-            <a asp-page="./GenerateRecoveryCodes" class="btn btn-primary">Reset recovery codes</a>
-        }
-
-        <h4>Authenticator app</h4>
-        @if (!Model.HasAuthenticator)
-        {
-            <a id="enable-authenticator" asp-page="./EnableAuthenticator" class="btn btn-primary">Add authenticator app</a>
-        }
-        else
-        {
-            <a id="enable-authenticator" asp-page="./EnableAuthenticator" class="btn btn-primary">Set up authenticator app</a>
-            <a id="reset-authenticator" asp-page="./ResetAuthenticator" class="btn btn-primary">Reset authenticator app</a>
+            <div class="d-flex flex-wrap gap-2 mt-3">
+                <a asp-page="./Disable2fa" class="btn btn-outline-danger">Nonaktifkan 2FA</a>
+                <a asp-page="./GenerateRecoveryCodes" class="btn btn-outline-secondary">Reset Kode Pemulihan</a>
+                @if (Model.IsMachineRemembered)
+                {
+                    <form method="post" class="d-inline">
+                        <button type="submit" class="btn btn-outline-warning">Lupakan Browser Ini</button>
+                    </form>
+                }
+            </div>
         }
     }
     else
     {
         <div class="alert alert-danger">
-            <strong>Privacy and cookie policy have not been accepted.</strong>
-            <p>You must accept the policy before you can enable two factor authentication.</p>
+            <strong>Kebijakan privasi dan cookie belum disetujui.</strong>
+            <p class="mb-0">Anda harus menyetujui kebijakan sebelum dapat mengaktifkan otentikasi dua faktor.</p>
         </div>
     }
 }

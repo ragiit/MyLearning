@@ -1,53 +1,122 @@
 ﻿@page
 @model EnableAuthenticatorModel
 @{
-    ViewData["Title"] = "Configure authenticator app";
+    ViewData["Title"] = "Atur Aplikasi Autentikator";
     ViewData["ActivePage"] = ManageNavPages.TwoFactorAuthentication;
 }
 
 <partial name="_StatusMessage" for="StatusMessage" />
-<h3>@ViewData["Title"]</h3>
+<h4 class="mb-3">@ViewData["Title"]</h4>
+
 <div>
-    <p>To use an authenticator app go through the following steps:</p>
-    <ol class="list">
-        <li>
-            <p>
-                Download a two-factor authenticator app like Microsoft Authenticator for
-                <a href="https://go.microsoft.com/fwlink/?Linkid=825072">Android</a> and
-                <a href="https://go.microsoft.com/fwlink/?Linkid=825073">iOS</a> or
-                Google Authenticator for
-                <a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&amp;hl=en">Android</a> and
-                <a href="https://itunes.apple.com/us/app/google-authenticator/id388497605?mt=8">iOS</a>.
-            </p>
-        </li>
-        <li>
-            <p>Scan the QR Code or enter this key <kbd>@Model.SharedKey</kbd> into your two factor authenticator app. Spaces and casing do not matter.</p>
-            <div class="alert alert-info">Learn how to <a href="https://go.microsoft.com/fwlink/?Linkid=852423">enable QR code generation</a>.</div>
-            <div id="qrCode"></div>
-            <div id="qrCodeData" data-url="@Model.AuthenticatorUri"></div>
-        </li>
-        <li>
-            <p>
-                Once you have scanned the QR code or input the key above, your two factor authentication app will provide you
-                with a unique code. Enter the code in the confirmation box below.
-            </p>
-            <div class="row">
-                <div class="col-md-6">
-                    <form id="send-code" method="post">
-                        <div class="form-floating mb-3">
-                            <input asp-for="Input.Code" class="form-control" autocomplete="off" placeholder="Please enter the code."/>
-                            <label asp-for="Input.Code" class="control-label form-label">Verification Code</label>
-                            <span asp-validation-for="Input.Code" class="text-danger"></span>
-                        </div>
-                        <button type="submit" class="w-100 btn btn-lg btn-primary">Verify</button>
-                        <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-                    </form>
+    <p>Ikuti langkah-langkah di bawah ini untuk menggunakan aplikasi autentikator:</p>
+
+    <div class="list-group">
+        @* --- LANGKAH 1 --- *@
+        <div class="list-group-item">
+            @* DIUBAH: Menambahkan 'align-items-start' untuk mensejajarkan badge dengan teks di atas *@
+            <div class="d-flex align-items-start">
+                <span class="badge bg-primary rounded-pill fs-4 me-3">1</span>
+                <div>
+                    <h5 class="mb-1">Unduh Aplikasi Autentikator</h5>
+                    <p class="mb-2 text-muted small">Gunakan aplikasi seperti Microsoft Authenticator atau Google Authenticator.</p>
+                    <a href="https://go.microsoft.com/fwlink/?Linkid=825072" class="btn btn-outline-secondary btn-sm" target="_blank"><i class="bi bi-microsoft me-1"></i> Microsoft</a>
+                    <a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=en" class="btn btn-outline-secondary btn-sm" target="_blank"><i class="bi bi-google-play me-1"></i> Android</a>
+                    <a href="https://itunes.apple.com/us/app/google-authenticator/id388497605?mt=8" class="btn btn-outline-secondary btn-sm" target="_blank"><i class="bi bi-apple me-1"></i> iOS</a>
                 </div>
             </div>
-        </li>
-    </ol>
+        </div>
+
+        @* --- LANGKAH 2 --- *@
+        <div class="list-group-item">
+            @* DIUBAH: Menambahkan 'align-items-start' untuk mensejajarkan badge dengan teks di atas *@
+            <div class="d-flex align-items-start">
+                <span class="badge bg-primary rounded-pill fs-4 me-3">2</span>
+                <div class="flex-grow-1">
+                    <h5 class="mb-1">Pindai Kode QR atau Masukkan Kunci</h5>
+                    <div class="row mt-3">
+                        <div class="col-md-6 text-center">
+                            <div id="qrCode" class="p-2 border rounded d-inline-block"></div>
+                            <div id="qrCodeData" data-url="@Model.AuthenticatorUri"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="text-muted small">Pindai Kode QR atau masukkan kunci di bawah ini ke dalam aplikasi autentikator Anda. Spasi dan huruf besar/kecil tidak berpengaruh.</p>
+                            <div class="alert alert-light">
+                                <span class="fw-bold">Kunci Manual:</span>
+                                <div class="input-group mt-2">
+                                    <input id="sharedKey" type="text" class="form-control" value="@Model.SharedKey" readonly>
+                                    <button class="btn btn-outline-secondary" onclick="copySharedKey()" title="Salin Kunci">
+                                        <i id="copyIcon" class="bi bi-clipboard"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @* --- LANGKAH 3 --- *@
+        <div class="list-group-item">
+            @* DIUBAH: Menambahkan 'align-items-start' untuk mensejajarkan badge dengan teks di atas *@
+            <div class="d-flex align-items-start">
+                <span class="badge bg-primary rounded-pill fs-4 me-3">3</span>
+                <div class="flex-grow-1">
+                    <h5 class="mb-1">Verifikasi Kode</h5>
+                    <p class="text-muted small">Setelah memindai Kode QR atau memasukkan kunci, aplikasi Anda akan memberikan kode unik. Masukkan kode tersebut di kotak konfirmasi di bawah ini.</p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <form id="send-code" method="post">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text"><i class="bi bi-patch-check-fill"></i></span>
+                                    <div class="form-floating flex-grow-1">
+                                        <input asp-for="Input.Code" class="form-control" autocomplete="off" placeholder="Masukkan kode verifikasi" />
+                                        <label asp-for="Input.Code" class="form-label">Kode Verifikasi</label>
+                                    </div>
+                                </div>
+                                <span asp-validation-for="Input.Code" class="text-danger small"></span>
+                                <div asp-validation-summary="ModelOnly" class="text-danger mt-2" role="alert"></div>
+                                <button type="submit" class="w-100 btn btn-primary fw-semibold mt-2">Verifikasi</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    @* Pastikan Anda sudah memiliki qrcode.min.js di wwwroot/lib/qrcode/ *@
+    <script src="~/lib/qrcode/qrcode.min.js"></script>
+    <script type="text/javascript">
+        // Generate QR Code
+        new QRCode(document.getElementById("qrCode"),
+        {
+            text: "@Model.AuthenticatorUri",
+            width: 150,
+            height: 150
+        });
+
+        // Fungsi untuk copy kunci ke clipboard
+        function copySharedKey() {
+            var copyText = document.getElementById("sharedKey");
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); // For mobile devices
+            navigator.clipboard.writeText(copyText.value);
+
+            // Ganti ikon untuk memberikan feedback visual
+            var icon = document.getElementById("copyIcon");
+            icon.classList.remove("bi-clipboard");
+            icon.classList.add("bi-clipboard-check-fill");
+
+            // Kembalikan ikon setelah beberapa saat
+            setTimeout(function () {
+                icon.classList.remove("bi-clipboard-check-fill");
+                icon.classList.add("bi-clipboard");
+            }, 2000);
+        }
+    </script>
 }

@@ -10,12 +10,16 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
+using Bulky.Models.Models;
+using Bulky.Utility;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 
@@ -26,6 +30,7 @@ namespace BulkyWeb.Areas.Identity.Pages.Account
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IUserStore<IdentityUser> _userStore;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IUserEmailStore<IdentityUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
@@ -33,12 +38,14 @@ namespace BulkyWeb.Areas.Identity.Pages.Account
         public RegisterModel(
             UserManager<IdentityUser> userManager,
             IUserStore<IdentityUser> userStore,
+            RoleManager<IdentityRole> roleManager,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender)
         {
             _userManager = userManager;
             _userStore = userStore;
+            _roleManager = roleManager;
             _emailStore = GetEmailStore();
             _signInManager = signInManager;
             _logger = logger;
@@ -97,11 +104,33 @@ namespace BulkyWeb.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
-        }
 
+            [Required]
+            public string Role { get; set; }
+
+            [ValidateNever]
+            public IEnumerable<SelectListItem> Roles { get; set; }
+        }
 
         public async Task OnGetAsync(string returnUrl = null)
         {
+            if (!_roleManager.RoleExistsAsync(Helper.Role_Customer).GetAwaiter().GetResult())
+            {
+                await _roleManager.CreateAsync(new IdentityRole(Helper.Role_Customer));
+                await _roleManager.CreateAsync(new IdentityRole(Helper.Role_Company));
+                await _roleManager.CreateAsync(new IdentityRole(Helper.Role_Admin));
+                await _roleManager.CreateAsync(new IdentityRole(Helper.Role_Employee));
+            }
+
+            Input = new InputModel
+            {
+                Roles = _roleManager.Roles.Select(x => new SelectListItem
+                {
+                    Text = x.Name,
+                    Value = x.Name
+                })
+            };
+
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
@@ -121,6 +150,15 @@ namespace BulkyWeb.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
+
+                    if (!string.IsNullOrWhiteSpace(Input.Role))
+                    {
+                        await _userManager.AddToRoleAsync(user, Input.Role);
+                    }
+                    else
+                    {
+                        await _userManager.AddToRoleAsync(user, Helper.Role_Customer);
+                    }
 
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -154,11 +192,11 @@ namespace BulkyWeb.Areas.Identity.Pages.Account
             return Page();
         }
 
-        private IdentityUser CreateUser()
+        private ApplicationUser CreateUser()
         {
             try
             {
-                return Activator.CreateInstance<IdentityUser>();
+                return Activator.CreateInstance<ApplicationUser>();
             }
             catch
             {

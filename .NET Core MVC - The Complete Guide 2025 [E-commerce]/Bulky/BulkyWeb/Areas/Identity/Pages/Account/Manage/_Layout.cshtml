@@ -1,5 +1,6 @@
 ﻿@{
-    if (ViewData.TryGetValue("ParentLayout", out var parentLayout) && parentLayout !=  null)
+    // Logika untuk menentukan layout utama (dari _Layout.cshtml root) tetap dipertahankan.
+    if (ViewData.TryGetValue("ParentLayout", out var parentLayout) && parentLayout != null)
     {
         Layout = parentLayout.ToString();
     }
@@ -9,21 +10,35 @@
     }
 }
 
-<h1>Manage your account</h1>
+@* Container utama dengan margin atas dan bawah untuk memberikan ruang napas *@
+<div class="container my-5">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="mb-2 fw-bolder">Kelola Akun Anda</h2>
+            <p class="text-muted">Ubah pengaturan profil, email, atau password Anda di sini.</p>
+            <hr class="mb-4" />
+        </div>
+    </div>
 
-<div>
-    <h2>Change your account settings</h2>
-    <hr />
     <div class="row">
         <div class="col-md-3">
+            @* Bagian ini akan menampilkan menu navigasi samping (Profil, Email, Password, dll.) *@
             <partial name="_ManageNav" />
         </div>
         <div class="col-md-9">
-            @RenderBody()
+            @* KONTEN UTAMA DIBUNGKUS DALAM CARD
+                Semua halaman (seperti Index.cshtml, Email.cshtml) yang dirender oleh @RenderBody()
+                sekarang akan secara otomatis tampil di dalam kartu ini.
+            *@
+            <div class="card shadow-sm border-0 rounded-3">
+                <div class="card-body p-4">
+                    @RenderBody()
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
 @section Scripts {
-    @RenderSection("Scripts", required: false)
+    @await RenderSectionAsync("Scripts", required: false)
 }
