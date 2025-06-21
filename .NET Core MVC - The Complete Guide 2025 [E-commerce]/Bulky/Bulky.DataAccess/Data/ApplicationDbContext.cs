@@ -12,6 +12,8 @@ namespace Bulky.DataAccess.Data
         public DbSet<ApplicationUser> ApplicationUsers { get; set; } = default!;
         public DbSet<Cart> Carts { get; set; } = default!;
         public DbSet<Company> Companies { get; set; } = default!;
+        public DbSet<OrderHeader> OrderHeaders { get; set; } = default!;
+        public DbSet<OrderDetail> OrderDetails { get; set; } = default!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -24,7 +24,7 @@
                             {
                                 <div class="row align-items-center py-3 border-bottom">
                                     <div class="col-md-2 text-center">
-                                        <img src="@item.Product.ImageUrl" class="img-fluid rounded" style="width: 100px;" alt="@item.Product.Title">
+                                        <img src="@(string.IsNullOrWhiteSpace(item.Product.ImageUrl) ? "https://placehold.co/600x600?text=Gambar+Tidak+Tersedia" : item.Product.ImageUrl)" class="img-fluid rounded" style="width: 100px;" alt="@item.Product.Title">
                                     </div>
                                     <div class="col-md-4">
                                         <h6 class="text-primary">@item.Product.Title</h6>
@@ -72,7 +72,7 @@
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-2">
                                     <span>Total Harga Produk</span>
-                                    <span class="fw-bold">@Model.OrderTotal.ToString("c", new System.Globalization.CultureInfo("id-ID"))</span>
+                                    <span class="fw-bold">@Model.OrderHeader.OrderTotal.ToString("c", new System.Globalization.CultureInfo("id-ID"))</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0">
                                     <span>Biaya Pengiriman</span>
@@ -83,14 +83,14 @@
                                         <strong>Total Pesanan</strong>
                                         <p class="mb-0 small text-muted">(Termasuk PPN jika berlaku)</p>
                                     </div>
-                                    <span class="fw-bolder fs-5 text-primary">@Model.OrderTotal.ToString("c", new System.Globalization.CultureInfo("id-ID"))</span>
+                                    <span class="fw-bolder fs-5 text-primary">@Model.OrderHeader.OrderTotal.ToString("c", new System.Globalization.CultureInfo("id-ID"))</span>
                                 </li>
                             </ul>
-                        </div>
+                        </div> 
                         <div class="card-footer p-3">
-                            <div class="d-grid">
-                                <a href="#" class="btn btn-primary fw-bold">
-                                    Lanjutkan ke Checkout <i class="bi bi-arrow-right-circle-fill ms-1"></i>
+                            <div class="d-grid"> 
+                                <a asp-action="Summary" asp-area="Customer" class="btn btn-primary fw-bold">
+                                    Lanjutkan ke Ringkasan <i class="bi bi-arrow-right-circle-fill ms-1"></i>
                                 </a>
                             </div>
                         </div>

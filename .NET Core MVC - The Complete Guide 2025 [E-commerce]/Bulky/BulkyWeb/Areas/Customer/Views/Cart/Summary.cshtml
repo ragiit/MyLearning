@@ -1,0 +1,117 @@
+﻿
+@model CartVM
+
+<form method="post">
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-lg-8">
+                @* --- KARTU DETAIL PENGIRIMAN --- *@
+                <div class="card shadow border-0 mb-4">
+                    <div class="card-header bg-primary bg-gradient text-light py-3">
+                        <h4 class="mb-0"><i class="bi bi-truck me-2"></i>Detail Pengiriman</h4>
+                    </div>
+                    <div class="card-body p-4">
+                        @* Menampilkan semua error validasi di bagian atas *@
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="OrderHeader.Name" class="form-label"></label>
+                                <input asp-for="OrderHeader.Name" class="form-control" />
+                                <span asp-validation-for="OrderHeader.Name" class="text-danger small"></span>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="OrderHeader.PhoneNumber" class="form-label"></label>
+                                <input asp-for="OrderHeader.PhoneNumber" class="form-control" />
+                                <span asp-validation-for="OrderHeader.PhoneNumber" class="text-danger small"></span>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="OrderHeader.StreetAddress" class="form-label"></label>
+                            <input asp-for="OrderHeader.StreetAddress" class="form-control" />
+                            <span asp-validation-for="OrderHeader.StreetAddress" class="text-danger small"></span>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="OrderHeader.City" class="form-label"></label>
+                                <input asp-for="OrderHeader.City" class="form-control" />
+                                <span asp-validation-for="OrderHeader.City" class="text-danger small"></span>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="OrderHeader.State" class="form-label"></label>
+                                <input asp-for="OrderHeader.State" class="form-control" />
+                                <span asp-validation-for="OrderHeader.State" class="text-danger small"></span>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="OrderHeader.PostalCode" class="form-label"></label>
+                                <input asp-for="OrderHeader.PostalCode" class="form-control" />
+                                <span asp-validation-for="OrderHeader.PostalCode" class="text-danger small"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @* --- KARTU RINGKASAN ITEM --- *@
+                <div class="card shadow border-0">
+                    <div class="card-header bg-light py-3">
+                        <h5 class="mb-0">Item Pesanan</h5>
+                    </div>
+                    <div class="card-body p-2">
+                        <ul class="list-group list-group-flush">
+                            @foreach (var item in Model.CartList)
+                            {
+                                <li class="list-group-item d-flex align-items-center">
+                                    <img src="@(string.IsNullOrWhiteSpace(item.Product.ImageUrl) ? "https://placehold.co/600x600?text=Gambar+Tidak+Tersedia" : item.Product.ImageUrl)" class="img-fluid rounded me-3" style="width: 60px;">
+                                    <div class="flex-grow-1">
+                                        <h6 class="my-0">@item.Product.Title</h6>
+                                        <small class="text-muted">Jumlah: @item.Count</small>
+                                    </div>
+                                    <div>
+                                        <span class="text-muted">@((item.Price * item.Count).ToString("c", new System.Globalization.CultureInfo("id-ID")))</span>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            @* --- KOLOM TOTAL PESANAN --- *@
+            <div class="col-lg-4">
+                <div class="card shadow border-0">
+                    <div class="card-header bg-secondary bg-gradient text-light py-3">
+                        <h4 class="mb-0">Ringkasan Pesanan</h4>
+                    </div>
+                    <div class="card-body p-4">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-2">
+                                <span>Total Harga Produk</span>
+                                @* DIUBAH: Menggunakan path yang benar dari ViewModel *@
+                                <span>@Model.OrderHeader.OrderTotal.ToString("c", new System.Globalization.CultureInfo("id-ID"))</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0">
+                                <span>Biaya Pengiriman</span>
+                                <span class="text-success">Gratis</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center border-top px-0 pt-2 mt-2">
+                                <div>
+                                    <strong>Total Pesanan</strong>
+                                    <p class="mb-0 small text-muted">(Termasuk PPN)</p>
+                                </div>
+                                @* DIUBAH: Menggunakan path yang benar dari ViewModel *@
+                                <span class="fw-bolder fs-5 text-primary">@Model.OrderHeader.OrderTotal.ToString("c", new System.Globalization.CultureInfo("id-ID"))</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-footer p-3">
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary fw-bold">
+                                Buat Pesanan Sekarang <i class="bi bi-check-circle-fill ms-1"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

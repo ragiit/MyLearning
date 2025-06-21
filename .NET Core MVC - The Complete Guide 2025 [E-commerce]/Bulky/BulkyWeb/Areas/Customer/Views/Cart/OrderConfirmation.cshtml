@@ -1,0 +1,41 @@
+﻿@{
+    ViewData["Title"] = "Konfirmasi Pesanan";
+}
+
+<div class="container text-center my-5 py-5">
+
+    @* Ikon Sukses yang Besar *@
+    <div class="mb-4">
+        <i class="bi bi-check-circle-fill display-1 text-success"></i>
+    </div>
+
+    @* Judul dan Pesan Utama *@
+    <h1 class="display-4 fw-bold">Pesanan Berhasil!</h1>
+    <p class="col-lg-8 mx-auto fs-5 text-muted mt-3">
+        Terima kasih telah berbelanja bersama kami. Pesanan Anda telah kami terima dan akan segera kami proses.
+    </p>
+
+    @* Menampilkan Nomor Pesanan *@
+    <div class="col-lg-6 mx-auto mt-4">
+        <div class="alert alert-info" role="alert">
+            <h5 class="alert-heading mb-0">Nomor Pesanan Anda: <strong>#@ViewBag.OrderId</strong></h5>
+        </div>
+    </div>
+
+    <p class="col-lg-8 mx-auto text-muted mt-3">
+        Sebuah email konfirmasi telah dikirimkan ke alamat email Anda.
+    </p>
+
+    @* Tombol Aksi untuk Langkah Selanjutnya *@
+    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mt-5">
+        <a asp-area="Customer" asp-controller="Home" asp-action="Index" class="btn btn-primary btn-lg px-4 gap-3">
+            <i class="bi bi-house-door-fill me-2"></i>
+            Kembali ke Beranda
+        </a>
+        <a href="#" class="btn btn-outline-secondary btn-lg px-4 disabled" title="Fitur segera hadir!">
+            <i class="bi bi-receipt me-2"></i>
+            Lihat Riwayat Pesanan
+        </a>
+    </div>
+
+</div>

@@ -10,6 +10,8 @@ namespace Bulky.DataAccess.Repository
         public ICompanyRepository Company { get; private set; } = new CompanyRepository(context);
         public ICartRepository Cart { get; private set; } = new CartRepository(context);
         public IApplicationUserRepository ApplicationUser { get; private set; } = new ApplicationUserRepository(context);
+        public IOrderHeaderRepository OrderHeader { get; private set; } = new OrderHeaderRepository(context);
+        public IOrderDetailRepository OrderDetail { get; private set; } = new OrderDetailRepository(context);
 
         public void Save()
         {
