@@ -1,0 +1,102 @@
+﻿@using Bulky.Models.ViewModels
+@model CartVM
+
+<form method="post">
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card shadow border-0">
+                    <div class="card-header bg-primary bg-gradient text-light py-3">
+                        <div class="row">
+                            <div class="col-6">
+                                <h4 class="mb-0"><i class="bi bi-cart-fill me-2"></i>Keranjang Belanja Anda</h4>
+                            </div>
+                            <div class="col-6 text-end">
+                                <a asp-area="Customer" asp-controller="Home" asp-action="Index" class="btn btn-outline-light btn-sm">Lanjutkan Belanja</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body p-4">
+
+                        @if (Model.CartList.Any())
+                        {
+                            @foreach (var item in Model.CartList)
+                            {
+                                <div class="row align-items-center py-3 border-bottom">
+                                    <div class="col-md-2 text-center">
+                                        <img src="@item.Product.ImageUrl" class="img-fluid rounded" style="width: 100px;" alt="@item.Product.Title">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h6 class="text-primary">@item.Product.Title</h6>
+                                        <small class="text-muted">Harga: @item.Price.ToString("c", new System.Globalization.CultureInfo("id-ID"))</small>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="d-flex align-items-center">
+                                            <label class="me-2">Jumlah:</label>
+                                            <div class="btn-group" role="group">
+                                                <button type="submit" asp-action="Minus" asp-route-cartId="@item.Id" class="btn btn-outline-secondary btn-sm"><i class="bi bi-dash-circle"></i></button>
+                                                <span class="btn border-secondary">@item.Count</span>
+                                                <button type="submit" asp-action="Plus" asp-route-cartId="@item.Id" class="btn btn-outline-secondary btn-sm"><i class="bi bi-plus-circle"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 text-end">
+                                        <button type="submit" asp-action="Remove" asp-route-cartId="@item.Id" class="btn btn-danger btn-sm">
+                                            <i class="bi bi-trash-fill"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="text-center py-5">
+                                <i class="bi bi-cart-x-fill display-1 text-muted"></i>
+                                <h4 class="mt-3">Keranjang Anda masih kosong.</h4>
+                                <p class="text-muted">Ayo, temukan buku-buku menarik di katalog kami!</p>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            @* Kolom Ringkasan Pesanan *@
+            @if (Model.CartList.Any())
+            {
+                <div class="col-lg-4">
+                    <div class="card shadow border-0">
+                        <div class="card-header bg-secondary bg-gradient text-light py-3">
+                            <h4 class="mb-0">Ringkasan Pesanan</h4>
+                        </div>
+                        <div class="card-body p-4">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-2">
+                                    <span>Total Harga Produk</span>
+                                    <span class="fw-bold">@Model.OrderTotal.ToString("c", new System.Globalization.CultureInfo("id-ID"))</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0">
+                                    <span>Biaya Pengiriman</span>
+                                    <span class="text-success">Gratis</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center border-top px-0 pt-2">
+                                    <div>
+                                        <strong>Total Pesanan</strong>
+                                        <p class="mb-0 small text-muted">(Termasuk PPN jika berlaku)</p>
+                                    </div>
+                                    <span class="fw-bolder fs-5 text-primary">@Model.OrderTotal.ToString("c", new System.Globalization.CultureInfo("id-ID"))</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card-footer p-3">
+                            <div class="d-grid">
+                                <a href="#" class="btn btn-primary fw-bold">
+                                    Lanjutkan ke Checkout <i class="bi bi-arrow-right-circle-fill ms-1"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</form>

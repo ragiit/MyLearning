@@ -1,66 +1,141 @@
-﻿@* Modelnya sekarang langsung ke Product, bukan ShoppingCart *@
-@model Product
+﻿@model Cart
 
 @{
-    ViewData["Title"] = "Detail Produk: " + Model.Title;
+    ViewData["Title"] = "Detail Produk: " + Model.Product.Title;
 }
 
-<div class="container mt-5 mb-5">
-    <div class="card shadow border-0 p-4">
-        <div class="row">
-            <div class="col-md-5 text-center mb-4 mb-md-0">
-                @* Gambar Produk *@
-                <img src="@(string.IsNullOrWhiteSpace(Model.ImageUrl) ? "https://placehold.co/400x400?text=NotFound" : Model.ImageUrl)" class="img-fluid rounded-3 shadow" style="max-height: 400px;" alt="@Model.Title" />
-            </div>
-            <div class="col-md-7">
-                <div class="p-3">
-                    @* Kategori *@
-                    <span class="badge bg-primary bg-gradient p-2 mb-3 fs-6">@Model.Category.Name</span>
+<form method="post">
+    <input hidden asp-for="ProductId" />
+    <div class="container mt-5 mb-5">
+        <div class="card shadow border-0 p-4">
+            <div class="row">
+                <div class="col-lg-5 text-center mb-4 mb-lg-0">
+                    @* Gambar Produk *@
+                    <img src="@(string.IsNullOrWhiteSpace(Model.Product.ImageUrl) ? "https://placehold.co/600x600?text=Gambar+Tidak+Tersedia" : Model.Product.ImageUrl)" class="img-fluid rounded-3 shadow-sm" style="max-height: 450px;" alt="@Model.Product.Title" />
+                </div>
+                <div class="col-lg-7">
+                    <div class="p-lg-3">
+                        @* Kategori *@
+                        <span class="badge bg-primary bg-gradient p-2 mb-3 fs-6">@Model.Product.Category.Name</span>
 
-                    @* Judul *@
-                    <h1 class="display-5 fw-bolder">@Model.Title</h1>
-                    <p class="text-muted fs-5 mb-4">oleh @Model.Author</p>
+                        @* Judul *@
+                        <h1 class="display-5 fw-bolder">@Model.Product.Title</h1>
+                        <p class="text-muted fs-5 mb-4">oleh @Model.Product.Author</p>
 
-                    @* Deskripsi *@
-                    <div class="text-secondary my-4">
-                        @* Gunakan Html.Raw agar format dari TinyMCE (seperti bold, italic) bisa tampil *@
-                        @Html.Raw(Model.Description)
+                        @* Deskripsi *@
+                        <div class="text-secondary my-4">
+                            @Html.Raw(Model.Product.Description)
+                        </div>
+
+                        @* --- BAGIAN HARGA YANG DIPERBARUI --- *@
+                        <div class="p-3 bg-light rounded-3 my-4">
+                            <div class="row align-items-center">
+                                <div class="col-6">
+                                    <span class="text-muted text-decoration-line-through fs-5">
+                                        Harga Satuan: @Model.Product.ListPrice.ToString("c", new System.Globalization.CultureInfo("id-ID"))
+                                    </span>
+                                </div>
+                                <div class="col-6 text-end">
+                                    <span class="text-primary fw-bold fs-2" id="dynamicPrice">
+                                        @* Harga ini akan diperbarui oleh JavaScript *@
+                                        @Model.Product.Price.ToString("c", new System.Globalization.CultureInfo("id-ID"))
+                                    </span>
+                                </div>
+                            </div>
+                            <hr>
+                            <h6 class="text-success fw-bold"><i class="bi bi-tags-fill me-2"></i>Dapatkan Harga Lebih Murah!</h6>
+                            <table class="table table-sm table-hover table-bordered mt-2">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Jumlah Pembelian</th>
+                                        <th class="text-end">Harga per Item</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1 - 50</td>
+                                        <td class="text-end">@Model.Product.Price.ToString("c", new System.Globalization.CultureInfo("id-ID"))</td>
+                                    </tr>
+                                    <tr>
+                                        <td>51 - 100</td>
+                                        <td class="text-end">@Model.Product.Price50.ToString("c", new System.Globalization.CultureInfo("id-ID"))</td>
+                                    </tr>
+                                    <tr>
+                                        <td>101+</td>
+                                        <td class="text-end">@Model.Product.Price100.ToString("c", new System.Globalization.CultureInfo("id-ID"))</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                        @* Jumlah dan Tombol Aksi *@
+                        <div class="d-flex align-items-center gap-3 mt-4">
+                            <div class="form-group">
+                                <label class="form-label fs-5 me-2">Jumlah:</label>
+                                @* Tambahkan id untuk target JavaScript *@
+                                <input asp-for="Count" id="quantityInput" type="number" class="form-control" value="1" style="width: 100px;" />
+                                <span asp-validation-for="Count" class="text-danger"></span>
+                            </div>
+
+                            <div class="flex-grow-1">
+                                <button type="submit" class="btn btn-primary btn-lg w-100 fw-bold">
+                                    <i class="bi bi-cart-plus-fill me-2"></i> Tambah ke Keranjang
+                                </button>
+                            </div>
+                        </div>
+
+                        <a asp-action="Index" class="btn btn-outline-secondary mt-4">
+                            <i class="bi bi-arrow-left-circle me-2"></i> Kembali ke Katalog
+                        </a>
                     </div>
-
-                    @* Harga *@
-                    <div class="row my-4 align-items-center">
-                        <div class="col-6">
-                            <span class="text-muted text-decoration-line-through fs-5">
-                                Harga Normal: @Model.ListPrice.ToString("c", new System.Globalization.CultureInfo("id-ID"))
-                            </span>
-                        </div>
-                        <div class="col-6">
-                            <span class="text-primary fw-bold fs-3">
-                                Harga Spesial: @Model.Price.ToString("c", new System.Globalization.CultureInfo("id-ID"))
-                            </span>
-                        </div>
-                    </div>
-
-                    @* Jumlah dan Tombol Aksi *@
-                    <div class="d-flex align-items-center gap-3 mt-4">
-                        <div class="form-group">
-                            <label class="form-label fs-5 me-2">Jumlah:</label>
-                            <input type="number" class="form-control" value="1" style="width: 80px;" />
-                        </div>
-
-                        @* TOMBOL DUMMY: Tombol ini belum berfungsi, hanya tampilan *@
-                        <div class="flex-grow-1">
-                            <a href="#" class="btn btn-primary btn-lg w-100 disabled" title="Fungsi segera hadir!">
-                                <i class="bi bi-cart-plus-fill me-2"></i> Tambah ke Keranjang
-                            </a>
-                        </div>
-                    </div>
-
-                    <a asp-action="Index" class="btn btn-outline-secondary mt-4">
-                        <i class="bi bi-arrow-left-circle me-2"></i> Kembali ke Katalog
-                    </a>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Ambil elemen-elemen yang dibutuhkan
+            const quantityInput = document.getElementById('quantityInput');
+            const priceDisplay = document.getElementById('dynamicPrice');
+
+            // Ambil data harga dari Model Razor dan simpan sebagai variabel JavaScript
+            // Gunakan @Model.Product.Price.ToString().Replace(",", ".") untuk memastikan format desimal benar untuk JS
+            const price_1_50 = parseFloat(@Model.Product.Price.ToString().Replace(",", "."));
+            const price_51_100 = parseFloat(@Model.Product.Price50.ToString().Replace(",", "."));
+            const price_100_plus = parseFloat(@Model.Product.Price100.ToString().Replace(",", "."));
+
+            // Fungsi untuk memformat angka menjadi format mata uang Rupiah
+            function formatRupiah(number) {
+                return new Intl.NumberFormat('id-ID', {
+                    style: 'currency',
+                    currency: 'IDR',
+                    minimumFractionDigits: 0
+                }).format(number);
+            }
+
+            // Fungsi untuk memperbarui harga saat jumlah diubah
+            function updatePrice() {
+                const quantity = parseInt(quantityInput.value);
+                let currentPrice = price_1_50; // Harga default
+
+                if (quantity >= 51 && quantity <= 100) {
+                    currentPrice = price_51_100;
+                } else if (quantity > 100) {
+                    currentPrice = price_100_plus;
+                }
+
+                // Perbarui teks harga di halaman
+                priceDisplay.innerText = formatRupiah(currentPrice);
+            }
+
+            // Tambahkan event listener ke input jumlah
+            quantityInput.addEventListener('change', updatePrice);
+            quantityInput.addEventListener('keyup', updatePrice); // Agar lebih responsif saat mengetik
+        });
+    </script>
+}

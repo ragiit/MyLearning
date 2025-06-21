@@ -2,6 +2,7 @@
 using Bulky.DataAccess.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Bulky.DataAccess.Repository
 {
@@ -24,9 +25,11 @@ namespace Bulky.DataAccess.Repository
             DbSet.RemoveRange(values);
         }
 
-        public IEnumerable<T> GetAll(string? includes = null)
+        public IEnumerable<T> GetAll(Expression<Func<T, bool>>? predicate, string? includes = null)
         {
             IQueryable<T> query = DbSet;
+            if (predicate is not null)
+                query = query.Where(predicate);
             if (includes != null)
             {
                 foreach (var i in includes.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
@@ -37,9 +40,17 @@ namespace Bulky.DataAccess.Repository
             return query.ToList();
         }
 
-        public T Get(Expression<Func<T, bool>> predicate, string? includes = null)
+        public T Get(Expression<Func<T, bool>> predicate, string? includes = null, bool isTracked = false)
         {
-            IQueryable<T> query = DbSet;
+            IQueryable<T> query;
+            if (isTracked)
+            {
+                query = DbSet;
+            }
+            else
+            {
+                query = DbSet.AsNoTracking();
+            }
 
             if (includes != null)
             {
