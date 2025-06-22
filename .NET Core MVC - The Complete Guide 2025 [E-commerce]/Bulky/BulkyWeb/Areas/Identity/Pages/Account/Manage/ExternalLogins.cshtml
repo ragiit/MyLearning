@@ -1,53 +1,105 @@
 ﻿@page
 @model ExternalLoginsModel
 @{
-    ViewData["Title"] = "Manage your external logins";
+    ViewData["Title"] = "Kelola Login Eksternal Anda";
     ViewData["ActivePage"] = ManageNavPages.ExternalLogins;
 }
 
+@* Sertakan CSS dari halaman login jika belum dipindah ke site.css *@
+<style>
+    .btn-google {
+        background-color: #DB4437;
+        color: white;
+    }
+
+        .btn-google:hover {
+            background-color: #c23321;
+            color: white;
+        }
+
+    .btn-facebook {
+        background-color: #4267B2;
+        color: white;
+    }
+
+        .btn-facebook:hover {
+            background-color: #365899;
+            color: white;
+        }
+</style>
+
+<h4 class="mb-3">@ViewData["Title"]</h4>
 <partial name="_StatusMessage" for="StatusMessage" />
+
+@* BAGIAN 1: MENAMPILKAN LOGIN YANG SUDAH TERHUBUNG *@
 @if (Model.CurrentLogins?.Count > 0)
 {
-    <h3>Registered Logins</h3>
-    <table class="table">
-        <tbody>
-            @foreach (var login in Model.CurrentLogins)
-            {
-                <tr>
-                    <td id="@($"login-provider-{login.LoginProvider}")">@login.ProviderDisplayName</td>
-                    <td>
-                        @if (Model.ShowRemoveButton)
-                        {
-                            <form id="@($"remove-login-{login.LoginProvider}")" asp-page-handler="RemoveLogin" method="post">
-                                <div>
-                                    <input asp-for="@login.LoginProvider" name="LoginProvider" type="hidden" />
-                                    <input asp-for="@login.ProviderKey" name="ProviderKey" type="hidden" />
-                                    <button type="submit" class="btn btn-primary" title="Remove this @login.ProviderDisplayName login from your account">Remove</button>
-                                </div>
-                            </form>
-                        }
-                        else
-                        {
-                            @: &nbsp;
-                        }
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    <h5 class="fw-bold">Login yang Terhubung</h5>
+    <p class="text-muted small">Di bawah ini adalah daftar layanan eksternal yang telah Anda hubungkan dengan akun Anda.</p>
+    <ul class="list-group">
+        @foreach (var login in Model.CurrentLogins)
+        {
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                    @* Menambahkan ikon provider secara dinamis *@
+                    @{
+                        var providerIcon = login.ProviderDisplayName.ToLower() == "google" ? "bi-google" : (login.ProviderDisplayName.ToLower() == "facebook" ? "bi-facebook" : "bi-box-arrow-in-right");
+                    }
+                    <i class="bi @providerIcon fs-4 me-3" style="width: 25px;"></i>
+                    <span class="fw-semibold">@login.ProviderDisplayName</span>
+                </div>
+                <div>
+                    @if (Model.ShowRemoveButton)
+                    {
+                        <form id="@($"remove-login-{login.LoginProvider}")" asp-page-handler="RemoveLogin" method="post">
+                            <div>
+                                <input asp-for="@login.LoginProvider" name="LoginProvider" type="hidden" />
+                                <input asp-for="@login.ProviderKey" name="ProviderKey" type="hidden" />
+                                @* Tombol Hapus dengan konfirmasi JavaScript *@
+                                <button type="submit" class="btn btn-sm btn-outline-danger"
+                                        title="Hapus login @login.ProviderDisplayName dari akun Anda"
+                                        onclick="return confirm('Apakah Anda yakin ingin menghapus login dari @login.ProviderDisplayName?');">
+                                    <i class="bi bi-trash-fill me-1"></i>Hapus
+                                </button>
+                            </div>
+                        </form>
+                    }
+                    else
+                    {
+                        @: &nbsp;
+                    }
+                </div>
+            </li>
+        }
+    </ul>
 }
+else
+{
+    <div class="alert alert-info">Anda belum menghubungkan layanan login eksternal.</div>
+}
+
+@* BAGIAN 2: MENAMBAHKAN LAYANAN LOGIN LAIN *@
 @if (Model.OtherLogins?.Count > 0)
 {
-    <h4>Add another service to log in.</h4>
-    <hr />
+    <hr class="my-4" />
+    <h5 class="fw-bold">Hubungkan Layanan Lain</h5>
+    <p class="text-muted small">Pilih layanan lain di bawah ini untuk dihubungkan dengan akun Anda.</p>
     <form id="link-login-form" asp-page-handler="LinkLogin" method="post" class="form-horizontal">
-        <div id="socialLoginList">
-            <p>
-                @foreach (var provider in Model.OtherLogins)
-                {
-                    <button id="@($"link-login-button-{provider.Name}")" type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
-                }
-            </p>
+        <div class="d-grid gap-2 d-md-block">
+            @foreach (var provider in Model.OtherLogins)
+            {
+                // Menggunakan kembali style tombol dari halaman Login/Register
+                var providerClass = provider.Name.ToLower() == "google" ? "btn-google" : (provider.Name.ToLower() == "facebook" ? "btn-facebook" : "btn-primary");
+                var providerIcon = provider.Name.ToLower() == "google" ? "bi-google" : (provider.Name.ToLower() == "facebook" ? "bi-facebook" : "bi-box-arrow-in-right");
+
+                <button id="@($"link-login-button-{provider.Name}")" type="submit" class="btn @providerClass fw-semibold me-2" name="provider" value="@provider.Name" title="Hubungkan dengan akun @provider.DisplayName Anda">
+                    <i class="bi @providerIcon me-2"></i> @provider.DisplayName
+                </button>
+            }
         </div>
     </form>
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
 }

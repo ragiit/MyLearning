@@ -23,5 +23,8 @@
         public const string PaymentStatusCancelled = "Canceled";
         public const string PaymentStatusDelayedPayment = "ApprovedForDelayedPayment";
         public const string PaymentStatusRejected = "Rejected";
+
+        // Di dalam kelas SD.cs
+        public const string SessionCart = "SessionShoppingCart";
     }
 }

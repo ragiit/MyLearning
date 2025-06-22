@@ -34,6 +34,9 @@
             "projectReferences": {
               "D:\\Dev\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\Bulky\\Bulky.Models\\Bulky.Models.csproj": {
                 "projectPath": "D:\\Dev\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\Bulky\\Bulky.Models\\Bulky.Models.csproj"
+              },
+              "D:\\Dev\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\Bulky\\Bulky.Utility\\Bulky.Utility.csproj": {
+                "projectPath": "D:\\Dev\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\Bulky\\Bulky.Utility\\Bulky.Utility.csproj"
               }
             }
           }
@@ -295,6 +298,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Authentication.Facebook": {
+              "target": "Package",
+              "version": "[8.0.15, )"
+            },
             "Microsoft.AspNetCore.Identity.UI": {
               "target": "Package",
               "version": "[8.0.11, )"

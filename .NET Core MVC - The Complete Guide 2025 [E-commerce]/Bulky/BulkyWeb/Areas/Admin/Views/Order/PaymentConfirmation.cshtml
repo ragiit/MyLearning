@@ -1,0 +1,34 @@
+﻿@model int
+@{
+    ViewData["Title"] = "Konfirmasi Pembayaran";
+}
+
+<div class="container text-center my-5 py-5">
+
+    @* Ikon Sukses yang Besar *@
+    <div class="mb-4">
+        <i class="bi bi-patch-check-fill display-1 text-success"></i>
+    </div>
+
+    @* Judul dan Pesan Utama *@
+    <h1 class="display-4 fw-bold">Pembayaran Berhasil!</h1>
+    <p class="col-lg-8 mx-auto fs-5 text-muted mt-3">
+        Pembayaran untuk pesanan telah berhasil diproses dan statusnya telah diperbarui.
+    </p>
+
+    @* Menampilkan Nomor Pesanan *@
+    <div class="col-lg-6 mx-auto mt-4">
+        <div class="alert alert-success" role="alert">
+            <h5 class="alert-heading mb-0">Nomor Pesanan yang Diproses: <strong>@Model</strong></h5>
+        </div>
+    </div>
+
+    @* Tombol Aksi untuk Kembali *@
+    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mt-5">
+        <a asp-action="Details" asp-route-orderId="@Model" class="btn btn-primary btn-lg px-4">
+            <i class="bi bi-receipt-cutoff me-2"></i>
+            Kembali ke Detail Pesanan
+        </a>
+    </div>
+
+</div>

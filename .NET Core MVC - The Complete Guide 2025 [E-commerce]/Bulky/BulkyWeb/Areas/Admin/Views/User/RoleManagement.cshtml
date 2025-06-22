@@ -1,0 +1,79 @@
+﻿@using Bulky.Utility
+@model UserVM
+
+@{
+    ViewData["Title"] = "Manajemen Peran";
+}
+
+<div class="container my-5">
+    <form method="post">
+        <input asp-for="ApplicationUser.Id" hidden />
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="card shadow border-0">
+                    <div class="card-header bg-primary text-white py-3">
+                        <h3 class="mb-0"><i class="bi bi-person-rolodex me-2"></i>Manajemen Peran Pengguna</h3>
+                    </div>
+                    <div class="card-body p-4">
+                        <div class="mb-3">
+                            <label class="form-label">Pengguna:</label>
+                            <input asp-for="ApplicationUser.Name" readonly class="form-control" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="ApplicationUser.Role" class="form-label">Peran (Role)</label>
+                            <select asp-for="ApplicationUser.Role" asp-items="@Model.RoleList" class="form-select" id="roleDropdown"></select>
+                        </div>
+
+                        @* Dropdown Company yang akan muncul/sembunyi *@
+                        <div class="mb-3" id="companyDropdownContainer" style="display:none;">
+                            <label asp-for="ApplicationUser.CompanyId" class="form-label">Perusahaan</label>
+                            <select asp-for="ApplicationUser.CompanyId" asp-items="@Model.CompanyList" class="form-select">
+                                <option disabled selected>--Pilih Perusahaan--</option>
+                            </select>
+                        </div>
+
+                        <div class="d-flex justify-content-between mt-4">
+                            <a asp-action="Index" class="btn btn-outline-secondary">
+                                <i class="bi bi-arrow-left-circle me-2"></i>Kembali ke Daftar
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-save-fill me-2"></i>Update Role
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $(document).ready(function() {
+            // Ambil elemen dropdown
+            var roleDropdown = $('#roleDropdown');
+            var companyContainer = $('#companyDropdownContainer');
+
+            // Fungsi untuk menampilkan/menyembunyikan dropdown company
+            function toggleCompanyDropdown() {
+                // Ambil nilai role yang dipilih, gunakan nama kelas dari Utility Anda
+                var selectedRole = roleDropdown.val();
+                if (selectedRole === '@Helper.Role_Company') {
+                    companyContainer.show();
+                } else {
+                    companyContainer.hide();
+                }
+            }
+
+            // Panggil fungsi saat halaman pertama kali dimuat
+            toggleCompanyDropdown();
+
+            // Panggil fungsi setiap kali nilai dropdown role berubah
+            roleDropdown.on('change', function() {
+                toggleCompanyDropdown();
+            });
+        });
+    </script>
+}

@@ -1,0 +1,58 @@
+﻿@{
+    ViewData["Title"] = "Manajemen Pesanan";
+    var status = Context.Request.Query["status"].ToString();
+}
+
+<div class="container mt-4 mb-5">
+    <div class="card shadow border-0">
+        <div class="card-header bg-light py-3">
+            <h2 class="mb-0 text-primary">
+                <i class="bi bi-card-checklist me-2"></i>Daftar Semua Pesanan
+            </h2>
+        </div>
+        <div class="card-body p-3">
+            @* Tombol Filter Status *@
+            <div class="d-flex justify-content-center justify-content-lg-start gap-2 mb-3">
+                <a href="/admin/order/index?status=inprocess"
+                   class="btn btn-sm btn-outline-primary btn-status @(status == "inprocess" ? "active" : "")">
+                    Dalam Proses
+                </a>
+                <a href="/admin/order/index?status=pending"
+                   class="btn btn-sm btn-outline-warning btn-status @(status == "pending" ? "active" : "")">
+                    Tertunda
+                </a>
+                <a href="/admin/order/index?status=completed"
+                   class="btn btn-sm btn-outline-success btn-status @(status == "completed" ? "active" : "")">
+                    Selesai
+                </a>
+                <a href="/admin/order/index?status=approved"
+                   class="btn btn-sm btn-outline-info btn-status @(status == "approved" ? "active" : "")">
+                    Disetujui
+                </a>
+                <a href="/admin/order/index"
+                   class="btn btn-sm btn-outline-secondary btn-status @(string.IsNullOrEmpty(status) ? "active" : "")">
+                    Semua
+                </a>
+            </div>
+
+
+            <table id="orderTable" class="table table-bordered table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nama</th>
+                        <th>Email</th>
+                        <th>No. Telepon</th>
+                        <th>Status</th>
+                        <th>Total</th>
+                        <th class="text-center"></th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/order.js"></script>
+}

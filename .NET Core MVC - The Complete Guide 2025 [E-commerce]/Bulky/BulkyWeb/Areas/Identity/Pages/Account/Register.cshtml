@@ -1,4 +1,5 @@
 ﻿@page
+@using Bulky.Utility
 @model RegisterModel
 @{
     ViewData["Title"] = "Daftar Akun Baru";
@@ -94,24 +95,27 @@
                         </div>
 
                         @* Input untuk Role (jika ada) *@
-                        @if (Model.Input.Roles != null && Model.Input.Roles.Any())
+                        @if (User.IsInRole(Helper.Role_Admin) || User.IsInRole(Helper.Role_Employee))
                         {
-                            <div class="mb-3">
-                                <label asp-for="Input.Role" class="form-label"></label>
-                                <select asp-for="Input.Role" asp-items="Model.Input.Roles" class="form-select" id="roleSelect">
-                                    <option disabled selected>--Pilih Role--</option>
-                                </select>
-                                <span asp-validation-for="Input.Role" class="text-danger small"></span>
-                            </div>
+                            @if (Model.Input.Roles != null && Model.Input.Roles.Any())
+                            {
+                                <div class="mb-3">
+                                    <label asp-for="Input.Role" class="form-label"></label>
+                                    <select asp-for="Input.Role" asp-items="Model.Input.Roles" class="form-select" id="roleSelect">
+                                        <option disabled selected>--Pilih Role--</option>
+                                    </select>
+                                    <span asp-validation-for="Input.Role" class="text-danger small"></span>
+                                </div>
+                                <div class="mb-3" id="companyDiv">
+                                    <label asp-for="Input.Companies" class="form-label"></label>
+                                    <select asp-for="Input.CompanyId" asp-items="Model.Input.Companies" class="form-select">
+                                        <option disabled selected>--Pilih Company--</option>
+                                    </select>
+                                    <span asp-validation-for="Input.Companies" class="text-danger small"></span>
+                                </div>
+                            }
                         }
 
-                        <div class="mb-3" id="companyDiv">
-                            <label asp-for="Input.Companies" class="form-label"></label>
-                            <select asp-for="Input.CompanyId" asp-items="Model.Input.Companies" class="form-select">
-                                <option disabled selected>--Pilih Company--</option>
-                            </select>
-                            <span asp-validation-for="Input.Companies" class="text-danger small"></span>
-                        </div>
 
 
                         <hr class="my-3" />
@@ -151,33 +155,39 @@
                     </form>
 
                     @{
-                        if ((Model.ExternalLogins?.Count ?? 0) != 0)
+                        if (!User.IsInRole(Helper.Role_Admin))
                         {
-                            <div class="divider-text">
-                                <span>ATAU DAFTAR DENGAN</span>
-                            </div>
-                            <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-                                <div class="d-grid gap-2">
-                                    @foreach (var provider in Model.ExternalLogins)
-                                    {
-                                        var providerClass = provider.Name.ToLower() == "google" ? "btn-google" : (provider.Name.ToLower() == "facebook" ? "btn-facebook" : "btn-secondary");
-                                        var providerIcon = provider.Name.ToLower() == "google" ? "bi-google" : (provider.Name.ToLower() == "facebook" ? "bi-facebook" : "bi-box-arrow-in-right");
-
-                                        <button type="submit" class="btn @providerClass fw-semibold" name="provider" value="@provider.Name" title="Daftar menggunakan akun @provider.DisplayName Anda">
-                                            <i class="bi @providerIcon me-2"></i> @provider.DisplayName
-                                        </button>
-                                    }
+                            if ((Model.ExternalLogins?.Count ?? 0) != 0)
+                            {
+                                <div class="divider-text">
+                                    <span>ATAU DAFTAR DENGAN</span>
                                 </div>
-                            </form>
+                                <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                                    <div class="d-grid gap-2">
+                                        @foreach (var provider in Model.ExternalLogins)
+                                        {
+                                            var providerClass = provider.Name.ToLower() == "google" ? "btn-google" : (provider.Name.ToLower() == "facebook" ? "btn-facebook" : "btn-secondary");
+                                            var providerIcon = provider.Name.ToLower() == "google" ? "bi-google" : (provider.Name.ToLower() == "facebook" ? "bi-facebook" : "bi-box-arrow-in-right");
+
+                                            <button type="submit" class="btn @providerClass fw-semibold" name="provider" value="@provider.Name" title="Daftar menggunakan akun @provider.DisplayName Anda">
+                                                <i class="bi @providerIcon me-2"></i> @provider.DisplayName
+                                            </button>
+                                        }
+                                    </div>
+                                </form>
+                            }
                         }
                     }
+                </div>
 
-                </div>
-                <div class="card-footer text-center py-3 bg-light border-0">
-                    <div class="small">
-                        Sudah punya akun? <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl" class="fw-bold text-decoration-none">Masuk di sini</a>
+                @if (!User.IsInRole(Helper.Role_Admin))
+                {
+                    <div class="card-footer text-center py-3 bg-light border-0">
+                        <div class="small">
+                            Sudah punya akun? <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl" class="fw-bold text-decoration-none">Masuk di sini</a>
+                        </div>
                     </div>
-                </div>
+                }
             </div>
         </div>
     </div>

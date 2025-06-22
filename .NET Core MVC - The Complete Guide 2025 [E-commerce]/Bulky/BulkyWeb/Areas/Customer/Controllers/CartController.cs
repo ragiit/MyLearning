@@ -48,6 +48,8 @@ namespace BulkyWeb.Areas.Customer.Controllers
             cartFromDb.Count += 1;
             _unitOfWork.Cart.Update(cartFromDb);
             _unitOfWork.Save();
+            HttpContext.Session.SetInt32(Helper.SessionCart, _unitOfWork.Cart.GetAll(u => u.ApplicationUserId == cartFromDb.ApplicationUserId).Count());
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -66,6 +68,9 @@ namespace BulkyWeb.Areas.Customer.Controllers
                 _unitOfWork.Cart.Update(cartFromDb);
             }
             _unitOfWork.Save();
+
+            HttpContext.Session.SetInt32(Helper.SessionCart, _unitOfWork.Cart.GetAll(u => u.ApplicationUserId == cartFromDb.ApplicationUserId).Count());
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -75,6 +80,7 @@ namespace BulkyWeb.Areas.Customer.Controllers
             var cartFromDb = _unitOfWork.Cart.Get(u => u.Id == cartId);
             _unitOfWork.Cart.Delete(cartFromDb);
             _unitOfWork.Save();
+            HttpContext.Session.SetInt32(Helper.SessionCart, _unitOfWork.Cart.GetAll(u => u.ApplicationUserId == cartFromDb.ApplicationUserId).Count());
             return RedirectToAction(nameof(Index));
         }
 
@@ -155,12 +161,25 @@ namespace BulkyWeb.Areas.Customer.Controllers
                     _unitOfWork.Save();
                 }
 
+                if (appUser.CompanyId.GetValueOrDefault() == 0)
+                {
+                    // Ini adalah pelanggan biasa, butuh pembayaran langsung
+                    CartVM.OrderHeader.OrderStatus = Helper.StatusPending;
+                    CartVM.OrderHeader.PaymentStatus = Helper.PaymentStatusPending;
+                }
+                else
+                {
+                    // Ini adalah pelanggan perusahaan, pembayaran ditunda
+                    CartVM.OrderHeader.OrderStatus = Helper.StatusApproved;
+                    CartVM.OrderHeader.PaymentStatus = Helper.PaymentStatusDelayedPayment;
+                }
+
                 _unitOfWork.Cart.DeleteAll(CartVM.CartList);
                 _unitOfWork.Save();
 
                 if (appUser.CompanyId.GetValueOrDefault() == 0)
                 {
-                    //StripeConfiguration.ApiKey = "sk_test_51RcULpGaDDPhoP2OJKfdFP94GDWD4HLauMFut2bC1nI6frYrr4Gx61jeATCusRhrmgSEnmchKlJt2ZzRascGSdGp00zR0JG5Nh";
+                    //StripeConfiguration.ApiKey = "sk_test_51RcULpGaDDPhoP2OJKfdFP94GDWD4HLauMFut2bC1nI6frYrr4Gx61jeATCusRhrmgSEnmchKlJt2ZzRascGHelperGp00zR0JG5Nh";
                     var domain = "https://localhost:7152/";
                     var options = new Stripe.Checkout.SessionCreateOptions
                     {
@@ -230,6 +249,7 @@ namespace BulkyWeb.Areas.Customer.Controllers
                     _unitOfWork.Save();
                     return View("CancelOrder"); // Tampilkan halaman pembatalan jika pembayaran tidak berhasil
                 }
+                HttpContext.Session.Clear();
             }
 
             // Buat view untuk halaman ini

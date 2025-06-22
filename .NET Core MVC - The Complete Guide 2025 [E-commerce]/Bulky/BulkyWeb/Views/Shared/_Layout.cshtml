@@ -1,4 +1,8 @@
 ﻿@using Bulky.Utility
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,10 +27,28 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav  me-auto">
+                    <ul class="navbar-nav me-auto">
                         <li class="nav-item">
                             <a class="nav-link" asp-area="Customer" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
+
+                        @if (User.IsInRole(Helper.Role_Customer) || User.IsInRole(Helper.Role_Company))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="Customer" asp-controller="MyOrder" asp-action="Index">My Orders</a>
+                            </li>
+                        }
+
+
+                        @* Tampilkan menu "Manage Order" hanya jika user adalah Admin atau Employee *@
+                        @if (User.IsInRole(Helper.Role_Admin) || User.IsInRole(Helper.Role_Employee))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="Admin" asp-controller="Order" asp-action="Index">Manage Order</a>
+                            </li>
+                        }
+
+                        @* Tampilkan menu dropdown "Content Management" hanya jika user adalah Admin *@
                         @if (User.IsInRole(Helper.Role_Admin))
                         {
                             <li class="nav-item dropdown">
@@ -43,19 +65,29 @@
                                     <li>
                                         <a class="dropdown-item" asp-area="Admin" asp-controller="Company" asp-action="Index">Company</a>
                                     </li>
+                                    <li> <hr class="dropdown-divider" /> </li>
+                                    <li>
+                                        <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Register">Create User</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="Index">Users</a>
+                                    </li>
                                 </ul>
                             </li>
                         }
 
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="Customer" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
+                        @* Tampilkan menu keranjang belanja hanya jika pengguna adalah Customer *@
+                        @if (User.IsInRole(Helper.Role_Customer) || User.IsInRole(Helper.Role_Company))
+                        {
                             <a class="nav-link" asp-area="Customer" asp-controller="Cart" asp-action="Index">
-                                <i class="bi bi-cart">(0)</i>
+                                @await Component.InvokeAsync("ShoppingCart")
+                                @* <i class="bi bi-cart"></i> &nbsp; (@(Context.Session.GetInt32(Helper.SessionCart) ?? 0)) *@
                             </a>
-                        </li>
+
+                        }
                     </ul>
+
+                    @* Bagian ini akan menampilkan "Login/Register" atau "Hello User/Logout" secara otomatis *@
                     <partial name="_LoginPartial" />
                 </div>
             </div>
@@ -83,6 +115,7 @@
 
     @* Script custom situs (jika ada) *@
     <script src="~/js/site.js" asp-append-version="true"></script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
