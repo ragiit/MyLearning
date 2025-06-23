@@ -37,7 +37,6 @@ D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\Bulky\
 D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\Bulky\BulkyWeb\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\Bulky\BulkyWeb\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
 D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\Bulky\BulkyWeb\bin\Debug\net8.0\Microsoft.SqlServer.Server.dll
-D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\Bulky\BulkyWeb\bin\Debug\net8.0\Microsoft.Win32.SystemEvents.dll
 D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\Bulky\BulkyWeb\bin\Debug\net8.0\Mono.TextTemplating.dll
 D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\Bulky\BulkyWeb\bin\Debug\net8.0\System.ClientModel.dll
 D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\Bulky\BulkyWeb\bin\Debug\net8.0\System.CodeDom.dll
@@ -47,13 +46,10 @@ D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\Bulky\
 D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\Bulky\BulkyWeb\bin\Debug\net8.0\System.Composition.Runtime.dll
 D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\Bulky\BulkyWeb\bin\Debug\net8.0\System.Composition.TypedParts.dll
 D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\Bulky\BulkyWeb\bin\Debug\net8.0\System.Configuration.ConfigurationManager.dll
-D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\Bulky\BulkyWeb\bin\Debug\net8.0\System.Drawing.Common.dll
 D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\Bulky\BulkyWeb\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
 D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\Bulky\BulkyWeb\bin\Debug\net8.0\System.Memory.Data.dll
 D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\Bulky\BulkyWeb\bin\Debug\net8.0\System.Runtime.Caching.dll
 D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\Bulky\BulkyWeb\bin\Debug\net8.0\System.Security.Cryptography.ProtectedData.dll
-D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\Bulky\BulkyWeb\bin\Debug\net8.0\System.Security.Permissions.dll
-D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\Bulky\BulkyWeb\bin\Debug\net8.0\System.Windows.Extensions.dll
 D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\Bulky\BulkyWeb\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.resources.dll
 D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\Bulky\BulkyWeb\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.resources.dll
 D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\Bulky\BulkyWeb\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.resources.dll
@@ -274,7 +270,6 @@ D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\Bulky\
 D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\Bulky\BulkyWeb\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Scripting.resources.dll
 D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\Bulky\BulkyWeb\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Scripting.resources.dll
 D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\Bulky\BulkyWeb\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Scripting.resources.dll
-D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\Bulky\BulkyWeb\bin\Debug\net8.0\runtimes\win\lib\net7.0\Microsoft.Win32.SystemEvents.dll
 D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\Bulky\BulkyWeb\bin\Debug\net8.0\runtimes\browser-wasm\nativeassets\net8.0\e_sqlite3.a
 D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\Bulky\BulkyWeb\bin\Debug\net8.0\runtimes\linux-arm\native\libe_sqlite3.so
 D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\Bulky\BulkyWeb\bin\Debug\net8.0\runtimes\linux-arm64\native\libe_sqlite3.so
@@ -295,10 +290,7 @@ D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\Bulky\
 D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\Bulky\BulkyWeb\bin\Debug\net8.0\runtimes\win-arm64\native\e_sqlite3.dll
 D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\Bulky\BulkyWeb\bin\Debug\net8.0\runtimes\win-x64\native\e_sqlite3.dll
 D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\Bulky\BulkyWeb\bin\Debug\net8.0\runtimes\win-x86\native\e_sqlite3.dll
-D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\Bulky\BulkyWeb\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Drawing.Common.dll
 D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\Bulky\BulkyWeb\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll
-D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\Bulky\BulkyWeb\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Security.Cryptography.ProtectedData.dll
-D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\Bulky\BulkyWeb\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Windows.Extensions.dll
 D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\Bulky\BulkyWeb\bin\Debug\net8.0\Bulky.DataAccess.dll
 D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\Bulky\BulkyWeb\bin\Debug\net8.0\Bulky.Models.dll
 D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\Bulky\BulkyWeb\bin\Debug\net8.0\Bulky.Utility.dll
@@ -307,3 +299,5 @@ D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\Bulky\
 D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\Bulky\BulkyWeb\bin\Debug\net8.0\Bulky.Utility.pdb
 D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\Bulky\BulkyWeb\obj\Debug\net8.0\BulkyWeb.MvcApplicationPartsAssemblyInfo.cs
 D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\Bulky\BulkyWeb\obj\Debug\net8.0\staticwebassets.build.json.cache
+D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\Bulky\BulkyWeb\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.Facebook.dll
+D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\Bulky\BulkyWeb\bin\Debug\net8.0\Stripe.net.dll

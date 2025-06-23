@@ -1,0 +1,481 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\NDP\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{EA0F344F-E596-452A-B507-AEF01B97710E}|NDP.Web\\NDP.Web.csproj|d:\\github\\mylearning\\.net core mvc - the complete guide 2025 [e-commerce]\\ndp\\ndp.web\\areas\\identity\\pages\\account\\manage\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{EA0F344F-E596-452A-B507-AEF01B97710E}|NDP.Web\\NDP.Web.csproj|solutionrelative:ndp.web\\areas\\identity\\pages\\account\\manage\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EA0F344F-E596-452A-B507-AEF01B97710E}|NDP.Web\\NDP.Web.csproj|d:\\github\\mylearning\\.net core mvc - the complete guide 2025 [e-commerce]\\ndp\\ndp.web\\areas\\identity\\pages\\account\\manage\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{EA0F344F-E596-452A-B507-AEF01B97710E}|NDP.Web\\NDP.Web.csproj|solutionrelative:ndp.web\\areas\\identity\\pages\\account\\manage\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EA0F344F-E596-452A-B507-AEF01B97710E}|NDP.Web\\NDP.Web.csproj|d:\\github\\mylearning\\.net core mvc - the complete guide 2025 [e-commerce]\\ndp\\ndp.web\\areas\\identity\\pages\\account\\manage\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{EA0F344F-E596-452A-B507-AEF01B97710E}|NDP.Web\\NDP.Web.csproj|solutionrelative:ndp.web\\areas\\identity\\pages\\account\\manage\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EA0F344F-E596-452A-B507-AEF01B97710E}|NDP.Web\\NDP.Web.csproj|d:\\github\\mylearning\\.net core mvc - the complete guide 2025 [e-commerce]\\ndp\\ndp.web\\areas\\identity\\pages\\account\\manage\\managenavpages.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EA0F344F-E596-452A-B507-AEF01B97710E}|NDP.Web\\NDP.Web.csproj|solutionrelative:ndp.web\\areas\\identity\\pages\\account\\manage\\managenavpages.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EA0F344F-E596-452A-B507-AEF01B97710E}|NDP.Web\\NDP.Web.csproj|d:\\github\\mylearning\\.net core mvc - the complete guide 2025 [e-commerce]\\ndp\\ndp.web\\areas\\identity\\pages\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{EA0F344F-E596-452A-B507-AEF01B97710E}|NDP.Web\\NDP.Web.csproj|solutionrelative:ndp.web\\areas\\identity\\pages\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EA0F344F-E596-452A-B507-AEF01B97710E}|NDP.Web\\NDP.Web.csproj|d:\\github\\mylearning\\.net core mvc - the complete guide 2025 [e-commerce]\\ndp\\ndp.web\\views\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{EA0F344F-E596-452A-B507-AEF01B97710E}|NDP.Web\\NDP.Web.csproj|solutionrelative:ndp.web\\views\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EA0F344F-E596-452A-B507-AEF01B97710E}|NDP.Web\\NDP.Web.csproj|d:\\github\\mylearning\\.net core mvc - the complete guide 2025 [e-commerce]\\ndp\\ndp.web\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{EA0F344F-E596-452A-B507-AEF01B97710E}|NDP.Web\\NDP.Web.csproj|solutionrelative:ndp.web\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40DDAFA4-B34E-8549-CAE7-9176F71F4EBB}|..\\NewDesignPrint.Web\\NewDesignPrint.DataAccess\\NDP.DataAccess.csproj|d:\\github\\mylearning\\.net core mvc - the complete guide 2025 [e-commerce]\\newdesignprint.web\\newdesignprint.dataaccess\\dbinitializer\\dbinitializer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40DDAFA4-B34E-8549-CAE7-9176F71F4EBB}|..\\NewDesignPrint.Web\\NewDesignPrint.DataAccess\\NDP.DataAccess.csproj|d:\\github\\mylearning\\.net core mvc - the complete guide 2025 [e-commerce]\\newdesignprint.web\\newdesignprint.dataaccess\\dbinitializer\\idbinitializer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EA0F344F-E596-452A-B507-AEF01B97710E}|NDP.Web\\NDP.Web.csproj|d:\\github\\mylearning\\.net core mvc - the complete guide 2025 [e-commerce]\\ndp\\ndp.web\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EA0F344F-E596-452A-B507-AEF01B97710E}|NDP.Web\\NDP.Web.csproj|solutionrelative:ndp.web\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EA0F344F-E596-452A-B507-AEF01B97710E}|NDP.Web\\NDP.Web.csproj|d:\\github\\mylearning\\.net core mvc - the complete guide 2025 [e-commerce]\\ndp\\ndp.web\\areas\\identity\\pages\\account\\register.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EA0F344F-E596-452A-B507-AEF01B97710E}|NDP.Web\\NDP.Web.csproj|solutionrelative:ndp.web\\areas\\identity\\pages\\account\\register.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EA0F344F-E596-452A-B507-AEF01B97710E}|NDP.Web\\NDP.Web.csproj|d:\\github\\mylearning\\.net core mvc - the complete guide 2025 [e-commerce]\\ndp\\ndp.web\\areas\\identity\\pages\\account\\registerconfirmation.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EA0F344F-E596-452A-B507-AEF01B97710E}|NDP.Web\\NDP.Web.csproj|solutionrelative:ndp.web\\areas\\identity\\pages\\account\\registerconfirmation.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\NewDesignPrint.Web\\NewDesignPrint.DataAccess\\Migrations\\20250623084015_Initial.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EA0F344F-E596-452A-B507-AEF01B97710E}|NDP.Web\\NDP.Web.csproj|d:\\github\\mylearning\\.net core mvc - the complete guide 2025 [e-commerce]\\ndp\\ndp.web\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{EA0F344F-E596-452A-B507-AEF01B97710E}|NDP.Web\\NDP.Web.csproj|solutionrelative:ndp.web\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{03493955-2876-F72C-E0CE-F0CEA851C716}|..\\NewDesignPrint.Web\\NewDesignPrint.Utility\\NDP.Utility.csproj|d:\\github\\mylearning\\.net core mvc - the complete guide 2025 [e-commerce]\\newdesignprint.web\\newdesignprint.utility\\helper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40DDAFA4-B34E-8549-CAE7-9176F71F4EBB}|..\\NewDesignPrint.Web\\NewDesignPrint.DataAccess\\NDP.DataAccess.csproj|d:\\github\\mylearning\\.net core mvc - the complete guide 2025 [e-commerce]\\newdesignprint.web\\newdesignprint.dataaccess\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40DDAFA4-B34E-8549-CAE7-9176F71F4EBB}|..\\NewDesignPrint.Web\\NewDesignPrint.DataAccess\\NDP.DataAccess.csproj|d:\\github\\mylearning\\.net core mvc - the complete guide 2025 [e-commerce]\\newdesignprint.web\\newdesignprint.dataaccess\\repository\\applicationuserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40DDAFA4-B34E-8549-CAE7-9176F71F4EBB}|..\\NewDesignPrint.Web\\NewDesignPrint.DataAccess\\NDP.DataAccess.csproj|d:\\github\\mylearning\\.net core mvc - the complete guide 2025 [e-commerce]\\newdesignprint.web\\newdesignprint.dataaccess\\repository\\unitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40DDAFA4-B34E-8549-CAE7-9176F71F4EBB}|..\\NewDesignPrint.Web\\NewDesignPrint.DataAccess\\NDP.DataAccess.csproj|d:\\github\\mylearning\\.net core mvc - the complete guide 2025 [e-commerce]\\newdesignprint.web\\newdesignprint.dataaccess\\repository\\repository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EA0F344F-E596-452A-B507-AEF01B97710E}|NDP.Web\\NDP.Web.csproj|d:\\github\\mylearning\\.net core mvc - the complete guide 2025 [e-commerce]\\ndp\\ndp.web\\ndp.web.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{EA0F344F-E596-452A-B507-AEF01B97710E}|NDP.Web\\NDP.Web.csproj|solutionrelative:ndp.web\\ndp.web.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40DDAFA4-B34E-8549-CAE7-9176F71F4EBB}|..\\NewDesignPrint.Web\\NewDesignPrint.DataAccess\\NDP.DataAccess.csproj|d:\\github\\mylearning\\.net core mvc - the complete guide 2025 [e-commerce]\\newdesignprint.web\\newdesignprint.dataaccess\\ndp.dataaccess.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40DDAFA4-B34E-8549-CAE7-9176F71F4EBB}|..\\NewDesignPrint.Web\\NewDesignPrint.DataAccess\\NDP.DataAccess.csproj|d:\\github\\mylearning\\.net core mvc - the complete guide 2025 [e-commerce]\\newdesignprint.web\\newdesignprint.dataaccess\\repository\\irepository\\iunitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40DDAFA4-B34E-8549-CAE7-9176F71F4EBB}|..\\NewDesignPrint.Web\\NewDesignPrint.DataAccess\\NDP.DataAccess.csproj|d:\\github\\mylearning\\.net core mvc - the complete guide 2025 [e-commerce]\\newdesignprint.web\\newdesignprint.dataaccess\\repository\\irepository\\irepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40DDAFA4-B34E-8549-CAE7-9176F71F4EBB}|..\\NewDesignPrint.Web\\NewDesignPrint.DataAccess\\NDP.DataAccess.csproj|d:\\github\\mylearning\\.net core mvc - the complete guide 2025 [e-commerce]\\newdesignprint.web\\newdesignprint.dataaccess\\repository\\irepository\\iapplicationuserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8363A805-130A-11D3-0ABF-8936A0919074}|..\\NewDesignPrint.Web\\NewDesignPrint.Models\\NDP.Models.csproj|d:\\github\\mylearning\\.net core mvc - the complete guide 2025 [e-commerce]\\newdesignprint.web\\newdesignprint.models\\models\\applicationuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8363A805-130A-11D3-0ABF-8936A0919074}|..\\NewDesignPrint.Web\\NewDesignPrint.Models\\NDP.Models.csproj|d:\\github\\mylearning\\.net core mvc - the complete guide 2025 [e-commerce]\\newdesignprint.web\\newdesignprint.models\\models\\errorviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EA0F344F-E596-452A-B507-AEF01B97710E}|NDP.Web\\NDP.Web.csproj|d:\\github\\mylearning\\.net core mvc - the complete guide 2025 [e-commerce]\\ndp\\ndp.web\\models\\errorviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EA0F344F-E596-452A-B507-AEF01B97710E}|NDP.Web\\NDP.Web.csproj|solutionrelative:ndp.web\\models\\errorviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{03493955-2876-F72C-E0CE-F0CEA851C716}|..\\NewDesignPrint.Web\\NewDesignPrint.Utility\\NDP.Utility.csproj|d:\\github\\mylearning\\.net core mvc - the complete guide 2025 [e-commerce]\\newdesignprint.web\\newdesignprint.utility\\ndp.utility.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "_ViewStart.cshtml",
+              "DocumentMoniker": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\NDP\\NDP.Web\\Areas\\Identity\\Pages\\Account\\Manage\\_ViewStart.cshtml",
+              "RelativeDocumentMoniker": "NDP.Web\\Areas\\Identity\\Pages\\Account\\Manage\\_ViewStart.cshtml",
+              "ToolTip": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\NDP\\NDP.Web\\Areas\\Identity\\Pages\\Account\\Manage\\_ViewStart.cshtml",
+              "RelativeToolTip": "NDP.Web\\Areas\\Identity\\Pages\\Account\\Manage\\_ViewStart.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-23T08:49:12.668Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "_ViewImports.cshtml",
+              "DocumentMoniker": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\NDP\\NDP.Web\\Areas\\Identity\\Pages\\Account\\Manage\\_ViewImports.cshtml",
+              "RelativeDocumentMoniker": "NDP.Web\\Areas\\Identity\\Pages\\Account\\Manage\\_ViewImports.cshtml",
+              "ToolTip": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\NDP\\NDP.Web\\Areas\\Identity\\Pages\\Account\\Manage\\_ViewImports.cshtml",
+              "RelativeToolTip": "NDP.Web\\Areas\\Identity\\Pages\\Account\\Manage\\_ViewImports.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-23T08:48:35.598Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\NDP\\NDP.Web\\Areas\\Identity\\Pages\\Account\\Manage\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "NDP.Web\\Areas\\Identity\\Pages\\Account\\Manage\\_Layout.cshtml",
+              "ToolTip": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\NDP\\NDP.Web\\Areas\\Identity\\Pages\\Account\\Manage\\_Layout.cshtml",
+              "RelativeToolTip": "NDP.Web\\Areas\\Identity\\Pages\\Account\\Manage\\_Layout.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-23T08:47:50.431Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ManageNavPages.cs",
+              "DocumentMoniker": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\NDP\\NDP.Web\\Areas\\Identity\\Pages\\Account\\Manage\\ManageNavPages.cs",
+              "RelativeDocumentMoniker": "NDP.Web\\Areas\\Identity\\Pages\\Account\\Manage\\ManageNavPages.cs",
+              "ToolTip": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\NDP\\NDP.Web\\Areas\\Identity\\Pages\\Account\\Manage\\ManageNavPages.cs",
+              "RelativeToolTip": "NDP.Web\\Areas\\Identity\\Pages\\Account\\Manage\\ManageNavPages.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-23T08:47:34.257Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "_ViewStart.cshtml",
+              "DocumentMoniker": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\NDP\\NDP.Web\\Areas\\Identity\\Pages\\_ViewStart.cshtml",
+              "RelativeDocumentMoniker": "NDP.Web\\Areas\\Identity\\Pages\\_ViewStart.cshtml",
+              "ToolTip": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\NDP\\NDP.Web\\Areas\\Identity\\Pages\\_ViewStart.cshtml",
+              "RelativeToolTip": "NDP.Web\\Areas\\Identity\\Pages\\_ViewStart.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-23T08:45:40.394Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "_ViewStart.cshtml",
+              "DocumentMoniker": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\NDP\\NDP.Web\\Views\\_ViewStart.cshtml",
+              "RelativeDocumentMoniker": "NDP.Web\\Views\\_ViewStart.cshtml",
+              "ToolTip": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\NDP\\NDP.Web\\Views\\_ViewStart.cshtml",
+              "RelativeToolTip": "NDP.Web\\Views\\_ViewStart.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-23T08:45:38.474Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\NDP\\NDP.Web\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "NDP.Web\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\NDP\\NDP.Web\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "NDP.Web\\Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-23T08:45:33.436Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "IDbInitializer.cs",
+              "DocumentMoniker": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\NewDesignPrint.Web\\NewDesignPrint.DataAccess\\DbInitializer\\IDbInitializer.cs",
+              "RelativeDocumentMoniker": "..\\NewDesignPrint.Web\\NewDesignPrint.DataAccess\\DbInitializer\\IDbInitializer.cs",
+              "ToolTip": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\NewDesignPrint.Web\\NewDesignPrint.DataAccess\\DbInitializer\\IDbInitializer.cs",
+              "RelativeToolTip": "..\\NewDesignPrint.Web\\NewDesignPrint.DataAccess\\DbInitializer\\IDbInitializer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-23T08:45:08.297Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "RegisterConfirmation.cshtml.cs",
+              "DocumentMoniker": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\NDP\\NDP.Web\\Areas\\Identity\\Pages\\Account\\RegisterConfirmation.cshtml.cs",
+              "RelativeDocumentMoniker": "NDP.Web\\Areas\\Identity\\Pages\\Account\\RegisterConfirmation.cshtml.cs",
+              "ToolTip": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\NDP\\NDP.Web\\Areas\\Identity\\Pages\\Account\\RegisterConfirmation.cshtml.cs",
+              "RelativeToolTip": "NDP.Web\\Areas\\Identity\\Pages\\Account\\RegisterConfirmation.cshtml.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAswCYAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-23T08:42:52.172Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Register.cshtml.cs",
+              "DocumentMoniker": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\NDP\\NDP.Web\\Areas\\Identity\\Pages\\Account\\Register.cshtml.cs",
+              "RelativeDocumentMoniker": "NDP.Web\\Areas\\Identity\\Pages\\Account\\Register.cshtml.cs",
+              "ToolTip": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\NDP\\NDP.Web\\Areas\\Identity\\Pages\\Account\\Register.cshtml.cs",
+              "RelativeToolTip": "NDP.Web\\Areas\\Identity\\Pages\\Account\\Register.cshtml.cs",
+              "ViewState": "AgIAAB0AAAAAAAAAAAAQwBQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-23T08:42:47.56Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "20250623084015_Initial.cs",
+              "DocumentMoniker": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\NewDesignPrint.Web\\NewDesignPrint.DataAccess\\Migrations\\20250623084015_Initial.cs",
+              "RelativeDocumentMoniker": "..\\NewDesignPrint.Web\\NewDesignPrint.DataAccess\\Migrations\\20250623084015_Initial.cs",
+              "ToolTip": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\NewDesignPrint.Web\\NewDesignPrint.DataAccess\\Migrations\\20250623084015_Initial.cs",
+              "RelativeToolTip": "..\\NewDesignPrint.Web\\NewDesignPrint.DataAccess\\Migrations\\20250623084015_Initial.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAABFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-23T08:40:15.918Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "DbInitializer.cs",
+              "DocumentMoniker": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\NewDesignPrint.Web\\NewDesignPrint.DataAccess\\DbInitializer\\DbInitializer.cs",
+              "RelativeDocumentMoniker": "..\\NewDesignPrint.Web\\NewDesignPrint.DataAccess\\DbInitializer\\DbInitializer.cs",
+              "ToolTip": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\NewDesignPrint.Web\\NewDesignPrint.DataAccess\\DbInitializer\\DbInitializer.cs",
+              "RelativeToolTip": "..\\NewDesignPrint.Web\\NewDesignPrint.DataAccess\\DbInitializer\\DbInitializer.cs",
+              "ViewState": "AgIAACsAAAAAAAAAAAAgwCQAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-23T08:08:34.95Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\NDP\\NDP.Web\\appsettings.json",
+              "RelativeDocumentMoniker": "NDP.Web\\appsettings.json",
+              "ToolTip": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\NDP\\NDP.Web\\appsettings.json",
+              "RelativeToolTip": "NDP.Web\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-06-23T08:39:11.356Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\NDP\\NDP.Web\\Program.cs",
+              "RelativeDocumentMoniker": "NDP.Web\\Program.cs",
+              "ToolTip": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\NDP\\NDP.Web\\Program.cs",
+              "RelativeToolTip": "NDP.Web\\Program.cs",
+              "ViewState": "AgIAAC8AAAAAAAAAAAAQwBQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-23T08:07:28.261Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "ApplicationDbContext.cs",
+              "DocumentMoniker": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\NewDesignPrint.Web\\NewDesignPrint.DataAccess\\Data\\ApplicationDbContext.cs",
+              "RelativeDocumentMoniker": "..\\NewDesignPrint.Web\\NewDesignPrint.DataAccess\\Data\\ApplicationDbContext.cs",
+              "ToolTip": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\NewDesignPrint.Web\\NewDesignPrint.DataAccess\\Data\\ApplicationDbContext.cs",
+              "RelativeToolTip": "..\\NewDesignPrint.Web\\NewDesignPrint.DataAccess\\Data\\ApplicationDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-23T08:06:59.132Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "ApplicationUserRepository.cs",
+              "DocumentMoniker": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\NewDesignPrint.Web\\NewDesignPrint.DataAccess\\Repository\\ApplicationUserRepository.cs",
+              "RelativeDocumentMoniker": "..\\NewDesignPrint.Web\\NewDesignPrint.DataAccess\\Repository\\ApplicationUserRepository.cs",
+              "ToolTip": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\NewDesignPrint.Web\\NewDesignPrint.DataAccess\\Repository\\ApplicationUserRepository.cs",
+              "RelativeToolTip": "..\\NewDesignPrint.Web\\NewDesignPrint.DataAccess\\Repository\\ApplicationUserRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAACmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-23T08:10:40.984Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Helper.cs",
+              "DocumentMoniker": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\NewDesignPrint.Web\\NewDesignPrint.Utility\\Helper.cs",
+              "RelativeDocumentMoniker": "..\\NewDesignPrint.Web\\NewDesignPrint.Utility\\Helper.cs",
+              "ToolTip": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\NewDesignPrint.Web\\NewDesignPrint.Utility\\Helper.cs",
+              "RelativeToolTip": "..\\NewDesignPrint.Web\\NewDesignPrint.Utility\\Helper.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-23T08:06:19.645Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "UnitOfWork.cs",
+              "DocumentMoniker": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\NewDesignPrint.Web\\NewDesignPrint.DataAccess\\Repository\\UnitOfWork.cs",
+              "RelativeDocumentMoniker": "..\\NewDesignPrint.Web\\NewDesignPrint.DataAccess\\Repository\\UnitOfWork.cs",
+              "ToolTip": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\NewDesignPrint.Web\\NewDesignPrint.DataAccess\\Repository\\UnitOfWork.cs",
+              "RelativeToolTip": "..\\NewDesignPrint.Web\\NewDesignPrint.DataAccess\\Repository\\UnitOfWork.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-23T08:09:46.072Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "Repository.cs",
+              "DocumentMoniker": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\NewDesignPrint.Web\\NewDesignPrint.DataAccess\\Repository\\Repository.cs",
+              "RelativeDocumentMoniker": "..\\NewDesignPrint.Web\\NewDesignPrint.DataAccess\\Repository\\Repository.cs",
+              "ToolTip": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\NewDesignPrint.Web\\NewDesignPrint.DataAccess\\Repository\\Repository.cs",
+              "RelativeToolTip": "..\\NewDesignPrint.Web\\NewDesignPrint.DataAccess\\Repository\\Repository.cs",
+              "ViewState": "AgIAADkAAAAAAAAAAAAiwAcAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-23T08:11:25.95Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "NDP.Web",
+              "DocumentMoniker": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\NDP\\NDP.Web\\NDP.Web.csproj",
+              "RelativeDocumentMoniker": "NDP.Web\\NDP.Web.csproj",
+              "ToolTip": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\NDP\\NDP.Web\\NDP.Web.csproj",
+              "RelativeToolTip": "NDP.Web\\NDP.Web.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-06-23T08:18:20.55Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "NDP.DataAccess",
+              "DocumentMoniker": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\NewDesignPrint.Web\\NewDesignPrint.DataAccess\\NDP.DataAccess.csproj",
+              "RelativeDocumentMoniker": "..\\NewDesignPrint.Web\\NewDesignPrint.DataAccess\\NDP.DataAccess.csproj",
+              "ToolTip": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\NewDesignPrint.Web\\NewDesignPrint.DataAccess\\NDP.DataAccess.csproj",
+              "RelativeToolTip": "..\\NewDesignPrint.Web\\NewDesignPrint.DataAccess\\NDP.DataAccess.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-06-23T08:18:21.46Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "IUnitOfWork.cs",
+              "DocumentMoniker": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\NewDesignPrint.Web\\NewDesignPrint.DataAccess\\Repository\\IRepository\\IUnitOfWork.cs",
+              "RelativeDocumentMoniker": "..\\NewDesignPrint.Web\\NewDesignPrint.DataAccess\\Repository\\IRepository\\IUnitOfWork.cs",
+              "ToolTip": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\NewDesignPrint.Web\\NewDesignPrint.DataAccess\\Repository\\IRepository\\IUnitOfWork.cs",
+              "RelativeToolTip": "..\\NewDesignPrint.Web\\NewDesignPrint.DataAccess\\Repository\\IRepository\\IUnitOfWork.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-23T08:11:17.124Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "IRepository.cs",
+              "DocumentMoniker": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\NewDesignPrint.Web\\NewDesignPrint.DataAccess\\Repository\\IRepository\\IRepository.cs",
+              "RelativeDocumentMoniker": "..\\NewDesignPrint.Web\\NewDesignPrint.DataAccess\\Repository\\IRepository\\IRepository.cs",
+              "ToolTip": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\NewDesignPrint.Web\\NewDesignPrint.DataAccess\\Repository\\IRepository\\IRepository.cs",
+              "RelativeToolTip": "..\\NewDesignPrint.Web\\NewDesignPrint.DataAccess\\Repository\\IRepository\\IRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-23T08:08:54.886Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "IApplicationUserRepository.cs",
+              "DocumentMoniker": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\NewDesignPrint.Web\\NewDesignPrint.DataAccess\\Repository\\IRepository\\IApplicationUserRepository.cs",
+              "RelativeDocumentMoniker": "..\\NewDesignPrint.Web\\NewDesignPrint.DataAccess\\Repository\\IRepository\\IApplicationUserRepository.cs",
+              "ToolTip": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\NewDesignPrint.Web\\NewDesignPrint.DataAccess\\Repository\\IRepository\\IApplicationUserRepository.cs",
+              "RelativeToolTip": "..\\NewDesignPrint.Web\\NewDesignPrint.DataAccess\\Repository\\IRepository\\IApplicationUserRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-23T08:09:37.679Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "ApplicationUser.cs",
+              "DocumentMoniker": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\NewDesignPrint.Web\\NewDesignPrint.Models\\Models\\ApplicationUser.cs",
+              "RelativeDocumentMoniker": "..\\NewDesignPrint.Web\\NewDesignPrint.Models\\Models\\ApplicationUser.cs",
+              "ToolTip": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\NewDesignPrint.Web\\NewDesignPrint.Models\\Models\\ApplicationUser.cs",
+              "RelativeToolTip": "..\\NewDesignPrint.Web\\NewDesignPrint.Models\\Models\\ApplicationUser.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-23T08:10:16.989Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "ErrorViewModel.cs",
+              "DocumentMoniker": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\NewDesignPrint.Web\\NewDesignPrint.Models\\Models\\ErrorViewModel.cs",
+              "RelativeDocumentMoniker": "..\\NewDesignPrint.Web\\NewDesignPrint.Models\\Models\\ErrorViewModel.cs",
+              "ToolTip": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\NewDesignPrint.Web\\NewDesignPrint.Models\\Models\\ErrorViewModel.cs",
+              "RelativeToolTip": "..\\NewDesignPrint.Web\\NewDesignPrint.Models\\Models\\ErrorViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-23T08:10:23.266Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "ErrorViewModel.cs",
+              "DocumentMoniker": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\NDP\\NDP.Web\\Models\\ErrorViewModel.cs",
+              "RelativeDocumentMoniker": "NDP.Web\\Models\\ErrorViewModel.cs",
+              "ToolTip": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\NDP\\NDP.Web\\Models\\ErrorViewModel.cs",
+              "RelativeToolTip": "NDP.Web\\Models\\ErrorViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-23T08:07:07.932Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "NDP.Utility.csproj",
+              "DocumentMoniker": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\NewDesignPrint.Web\\NewDesignPrint.Utility\\NDP.Utility.csproj",
+              "RelativeDocumentMoniker": "..\\NewDesignPrint.Web\\NewDesignPrint.Utility\\NDP.Utility.csproj",
+              "ToolTip": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\NewDesignPrint.Web\\NewDesignPrint.Utility\\NDP.Utility.csproj",
+              "RelativeToolTip": "..\\NewDesignPrint.Web\\NewDesignPrint.Utility\\NDP.Utility.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-06-23T08:06:10.386Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
