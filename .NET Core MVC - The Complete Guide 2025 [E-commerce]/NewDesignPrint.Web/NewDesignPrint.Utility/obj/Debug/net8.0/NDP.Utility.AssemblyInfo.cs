@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("NDP.Utility")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+34468880f7de379f638a1ea085a15658552ba6de")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+aab99b846a55fddebecde8d419e682e110c0e71c")]
 [assembly: System.Reflection.AssemblyProductAttribute("NDP.Utility")]
 [assembly: System.Reflection.AssemblyTitleAttribute("NDP.Utility")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

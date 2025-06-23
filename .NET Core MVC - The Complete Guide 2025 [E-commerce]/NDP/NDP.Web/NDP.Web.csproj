@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\NewDesignPrint.Web\NewDesignPrint.DataAccess\NDP.DataAccess.csproj" />
+    <ProjectReference Include="..\NDP.DataAccess\NDP.DataAccess.csproj" />
   </ItemGroup>
 
 </Project>

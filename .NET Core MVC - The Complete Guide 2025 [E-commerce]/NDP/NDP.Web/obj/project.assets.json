@@ -8037,18 +8037,18 @@
     },
     "NDP.DataAccess/1.0.0": {
       "type": "project",
-      "path": "../../NewDesignPrint.Web/NewDesignPrint.DataAccess/NDP.DataAccess.csproj",
-      "msbuildProject": "../../NewDesignPrint.Web/NewDesignPrint.DataAccess/NDP.DataAccess.csproj"
+      "path": "../NDP.DataAccess/NDP.DataAccess.csproj",
+      "msbuildProject": "../NDP.DataAccess/NDP.DataAccess.csproj"
     },
     "NDP.Models/1.0.0": {
       "type": "project",
-      "path": "../../NewDesignPrint.Web/NewDesignPrint.Models/NDP.Models.csproj",
-      "msbuildProject": "../../NewDesignPrint.Web/NewDesignPrint.Models/NDP.Models.csproj"
+      "path": "../NDP.Models/NDP.Models.csproj",
+      "msbuildProject": "../NDP.Models/NDP.Models.csproj"
     },
     "NDP.Utility/1.0.0": {
       "type": "project",
-      "path": "../../NewDesignPrint.Web/NewDesignPrint.Utility/NDP.Utility.csproj",
-      "msbuildProject": "../../NewDesignPrint.Web/NewDesignPrint.Utility/NDP.Utility.csproj"
+      "path": "../NDP.Utility/NDP.Utility.csproj",
+      "msbuildProject": "../NDP.Utility/NDP.Utility.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -8097,8 +8097,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\NewDesignPrint.Web\\NewDesignPrint.DataAccess\\NDP.DataAccess.csproj": {
-              "projectPath": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\NewDesignPrint.Web\\NewDesignPrint.DataAccess\\NDP.DataAccess.csproj"
+            "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\NDP\\NDP.DataAccess\\NDP.DataAccess.csproj": {
+              "projectPath": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\NDP\\NDP.DataAccess\\NDP.DataAccess.csproj"
             }
           }
         }

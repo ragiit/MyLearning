@@ -1,6 +1,6 @@
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using NDP.Web.Models;
+using System.Diagnostics;
 
 namespace NDP.Web.Controllers
 {
