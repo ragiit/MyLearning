@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using NDP.Models.ViewModels;
 using NDP.Web.Models;
 using System.Diagnostics;
 
@@ -13,10 +14,32 @@ namespace NDP.Web.Controllers
             _logger = logger;
         }
 
+        // Anda bisa inject service Anda di sini
+        // private readonly IProductService _productService;
+        // public HomeController(IProductService productService) { ... }
+
         public IActionResult Index()
         {
-            return View();
+            // Simulasi pengambilan data
+            var latestProducts = new List<Product> { /* ... data produk ... */ };
+            var portfolios = new List<Portfolio> { /* ... data portfolio ... */ };
+
+            var viewModel = new HomeViewModel
+            {
+                LatestProducts = latestProducts,
+                Portfolios = portfolios
+            };
+
+            ViewData["Title"] = "New Design Print | Solusi Produk Custom Berkualitas";
+            return View(viewModel);
         }
+
+        // Buat action untuk halaman lain (AboutUs, FAQ, Contact, dll)
+        public IActionResult AboutUs() => View();
+
+        public IActionResult Faq() => View();
+
+        public IActionResult Contact() => View();
 
         public IActionResult Privacy()
         {

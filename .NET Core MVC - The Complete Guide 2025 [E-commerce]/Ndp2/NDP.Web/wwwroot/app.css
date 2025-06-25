@@ -1,0 +1,80 @@
+﻿/* wwwroot/css/custom-styles.css */
+
+h1:focus {
+    outline: none;
+}
+
+/* Helper Class untuk Form dan Tombol (sudah bagus) */
+.form-input {
+    @apply block w-full border-gray-300 rounded-md shadow-sm focus:ring-pink-500 focus:border-pink-500 sm:text-sm p-2;
+}
+
+.btn-primary {
+    @apply bg-pink-600 hover:bg-pink-700 text-white font-medium py-2 px-4 rounded-md transition-colors shadow;
+}
+
+.btn-secondary {
+    @apply bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-2 px-4 rounded-md transition-colors shadow-sm;
+}
+
+/* Font dasar (sudah bagus) */
+body {
+    font-family: 'Poppins', sans-serif;
+    color: #4a5568; /* gray-700 */
+    background-color: #F9FAFB; /* gray-50 - untuk kontras antar section */
+}
+
+/* Custom Scrollbar (sudah bagus) */
+.scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: #EC4899 #FCE7F3; /* thumb track */
+}
+
+    .scrollbar-thin::-webkit-scrollbar {
+        height: 8px;
+    }
+
+    .scrollbar-thin::-webkit-scrollbar-track {
+        background-color: #FCE7F3; /* pink-100 */
+    }
+
+    .scrollbar-thin::-webkit-scrollbar-thumb {
+        background-color: #EC4899; /* pink-500 */
+        border-radius: 10px;
+        border: 2px solid #FCE7F3;
+    }
+
+/* wwwroot/css/app.css */
+
+/* Efek transisi untuk header saat di-scroll */
+.header-area {
+    transition: padding 0.3s ease-in-out, background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+/* Base style untuk dropdown/overlay yang akan dianimasikan */
+.popup-transition {
+    @apply transition-all duration-200 ease-out;
+}
+
+/* State saat elemen tersembunyi */
+.popup-hidden {
+    @apply opacity-0 scale-95 -translate-y-2 pointer-events-none;
+}
+
+/* State saat elemen terlihat */
+.popup-visible {
+    @apply opacity-100 scale-100 translate-y-0 pointer-events-auto;
+}
+
+/* Khusus untuk latar belakang overlay (hanya fade) */
+.overlay-backdrop-transition {
+    @apply transition-opacity duration-300 ease-in-out;
+}
+
+.overlay-backdrop-hidden {
+    @apply opacity-0 pointer-events-none;
+}
+
+.overlay-backdrop-visible {
+    @apply opacity-100 pointer-events-auto;
+}

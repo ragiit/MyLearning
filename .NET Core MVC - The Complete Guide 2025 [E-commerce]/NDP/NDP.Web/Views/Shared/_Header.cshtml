@@ -1,0 +1,64 @@
+﻿@*
+    Ganti href statis dengan Tag Helper seperti asp-controller dan asp-action.
+    Contoh: <a href="index-shop.html">HOME</a> menjadi <a asp-controller="Home" asp-action="Index">HOME</a>
+    Ubah juga src gambar: src="shop/img/logo.jpg" menjadi src="~/shop/img/logo.jpg"
+*@
+
+<div class="header-area">
+    <div class="container">
+        <div class="row upper-nav">
+
+            <div class="col-3 nav-icon pt-3">
+                <ul class="social-icons-simple text-left">
+                    <li><a href="javascript:void(0)" class="facebook-bg-hvr"><i class="fab fa-facebook-f" aria-hidden="true"></i></a></li>
+                    <li><a href="javascript:void(0)" class="twitter-bg-hvr"><i class="fab fa-twitter" aria-hidden="true"></i></a> </li>
+                    <li><a href="javascript:void(0)" class="instagram-bg-hvr"><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
+                </ul>
+            </div>
+            <div class="col-6 text-center nav-logo pt-3">
+                <a asp-controller="Home" asp-action="Index" class="navbar-brand"><img src="~/shop/img/logo.jpg" alt="img"></a>
+            </div>
+
+            <div class="col-3 nav-utility text-right d-flex justify-content-end align-items-center pt-3">
+                @* ... Sisanya dari menu utility (search, cart, dll.) ... *@
+                <div class="manage-icons d-inline-block">
+                    <ul>
+                        <li class="d-inline-block">
+                            <a id="add_search_box">
+                                <i class="fas fa-search search-sidebar-hover"></i>
+                            </a>
+                        </li>
+                        @* ... dan seterusnya ... *@
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-12 nav-mega">
+                <header class="site-header" id="header">
+                    <nav class="navbar navbar-expand-md static-nav">
+                        <div class="container position-relative megamenu-custom">
+                            <a class="navbar-brand center-brand" asp-controller="Home" asp-action="Index">
+                                <img src="~/shop/img/logo.jpg" alt="logo" class="logo-scrolled">
+                            </a>
+                            <div class="collapse navbar-collapse">
+                                <ul class="navbar-nav ml-auto mr-auto">
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-controller="Home" asp-action="Index">HOME</a>
+                                    </li>
+                                    <li class="nav-item dropdown static">
+                                        <a class="nav-link dropdown-toggle active" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> WOMEN </a>
+                                        @* ... Konten Mega Menu ... *@
+                                    </li>
+                                    @* ... Menu item lainnya ... *@
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-controller="Home" asp-action="Contact">CONTACT</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                </header>
+            </div>
+        </div>
+    </div>
+</div>

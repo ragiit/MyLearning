@@ -1,0 +1,157 @@
+﻿@using NDP.Web.Controllers
+@model HomeViewModel
+
+@* Ini akan menggantikan <HeadContent> di Blazor *@
+@section MetaTags {
+    <meta name="description" content="@Model.MetaDescription" />
+    <meta name="keywords" content="@Model.MetaKeywords" />
+    <meta property="og:title" content="@Model.OgTitle" />
+    <meta property="og:description" content="@Model.OgDescription" />
+    <meta property="og:image" content="@Model.OgImageUrl" />
+    <meta property="og:url" content="@Model.OgUrl" />
+    <meta name="twitter:card" content="summary_large_image" />
+}
+
+<div class="font-poppins text-gray-700">
+
+    <div class="slider-container relative h-[calc(100vh-80px)] min-h-[500px] bg-gray-800 text-white overflow-hidden">
+        <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-6 z-10 bg-gradient-to-t from-gray-900 via-gray-900/50 to-transparent">
+            <div class="max-w-3xl">
+                <div data-aos="fade-down" data-aos-delay="200" class="mb-4 text-sm sm:text-base font-semibold uppercase tracking-widest text-pink-400">
+                    NEW DESIGN PRINT
+                </div>
+                <h1 data-aos="fade-up" data-aos-delay="400" class="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-6 leading-tight text-white shadow-lg">
+                    Wujudkan Desain Impian Anda
+                </h1>
+                <p data-aos="fade-up" data-aos-delay="600" class="text-base sm:text-lg md:text-xl mb-8 max-w-2xl mx-auto text-gray-200">
+                    Cetak custom kaos, payung, mug, souvenir, dan merchandise unik untuk segala kebutuhan Anda.
+                </p>
+                <div data-aos="fade-up" data-aos-delay="800" class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="https://wa.me/+6285156615269?text=Halo%20New%20Design%20Print%2C%20saya%20mau%20konsultasi%20produk%20custom." target="_blank" class="w-full sm:w-auto bg-pink-600 hover:bg-pink-700 text-white font-bold py-3 px-8 rounded-full text-sm sm:text-base uppercase tracking-wider transition-all duration-300 transform hover:scale-105 shadow-lg">
+                        <i class="fab fa-whatsapp mr-2"></i> Hubungi Kami
+                    </a>
+                    <a asp-controller="Product" asp-action="Index" class="w-full sm:w-auto inline-flex items-center gap-2 bg-white/10 border border-white/20 text-white hover:bg-white/20 font-semibold py-3 px-8 rounded-full text-sm sm:text-base uppercase tracking-wider transition-colors backdrop-blur-sm">
+                        <i class="fas fa-boxes-stacked"></i> Lihat Produk
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="services-section py-16 lg:py-24 bg-white">
+        </section>
+
+    <div class="portfolio-section py-16 lg:py-24 bg-gray-100">
+        <div class="container mx-auto px-4 sm:px-6">
+            <div class="text-center mb-12">
+                <h2 data-aos="fade-up" class="text-3xl sm:text-4xl font-bold text-gray-800">Galeri Produk Kami</h2>
+                <p data-aos="fade-up" data-aos-delay="100" class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
+                    Lihat beberapa contoh produk custom yang telah kami kerjakan untuk berbagai klien.
+                </p>
+            </div>
+
+            @* Logika if/else diganti dengan mengakses data dari Model *@
+            @if (Model.Portfolios != null && Model.Portfolios.Any())
+            {
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    @foreach (var portfolio in Model.Portfolios.Take(6))
+                    {
+                        <div data-aos="zoom-in" class="bg-white rounded-lg shadow-lg overflow-hidden group">
+                            <a href="@(portfolio.ImageUrl ?? "#")" data-fancybox="portfolio" data-caption="@portfolio.Name">
+                                <img src="@(portfolio.ImageUrl ?? "https://placehold.co/600x400/E2E8F0/A0AEC0?text=Gambar+Tidak+Tersedia")"
+                                     alt="@portfolio.Name"
+                                     class="w-[600px] h-[400px] object-cover transform group-hover:scale-105 transition-transform duration-300" />
+                            </a>
+                            <div class="p-6">
+                                <h3 class="text-xl font-semibold text-gray-800 mb-2 group-hover:text-pink-600 transition-colors">
+                                    @portfolio.Name
+                                </h3>
+                                <p class="text-sm text-gray-600">
+                                    @portfolio.Description
+                                </p>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <div data-aos="fade-up" class="text-center mt-12">
+                    <a asp-controller="Portfolio" asp-action="Index" class="btn-primary py-3 px-8 text-base tracking-wider rounded-full transform hover:scale-105">
+                        Lihat Semua Portofolio
+                    </a>
+                </div>
+            }
+            else
+            {
+                <div class="text-center py-10">
+                    <p class="text-gray-500">Saat ini belum ada portofolio yang bisa ditampilkan.</p>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="latest-arrivals py-16 lg:py-24 bg-white">
+    <div class="container mx-auto px-0 sm:px-6">
+        <div class="px-4 sm:px-0 text-center mb-12">
+            <h2 data-aos="fade-up" class="text-3xl sm:text-4xl font-bold text-gray-800">Inspirasi Desain Terbaru</h2>
+            <p data-aos="fade-up" data-aos-delay="100" class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
+                Temukan inspirasi dari produk dan desain terbaru yang sedang tren di New Design Print.
+            </p>
+        </div>
+
+        @if (Model.LatestProducts != null && Model.LatestProducts.Any())
+        {
+            <div class="flex overflow-x-auto pb-8 pt-2 space-x-6 scrollbar-thin">
+                <div class="pl-4 sm:pl-0"></div> 
+                
+                @* Ganti 'for' loop dengan '@foreach' untuk menampilkan data produk dinamis *@
+                @foreach (var product in Model.LatestProducts)
+                {
+                    <div class="flex-shrink-0 w-64 sm:w-72 md:w-80" data-aos="fade-left">
+                        <div class="bg-white rounded-lg shadow-lg overflow-hidden h-full flex flex-col group border border-gray-200">
+                            
+                            @* Arahkan link ke halaman detail produk menggunakan slug *@
+                            <a href="/products/@product.Slug" class="block relative">
+                                <img src="@(product.PrimaryImageUrl ?? "https://placehold.co/400x400/FBCFE8/831843?text=Gambar")" 
+                                     alt="@product.Name" 
+                                     class="w-full h-72 object-cover group-hover:opacity-80 transition-opacity duration-300" />
+                                <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 flex items-center justify-center transition-all duration-300">
+                                    <span class="text-white text-lg font-bold opacity-0 group-hover:opacity-100 transform scale-75 group-hover:scale-100 transition-all duration-300">
+                                        <i class="fas fa-search-plus mr-2"></i>Lihat Detail
+                                    </span>
+                                </div>
+                            </a>
+                            
+                            <div class="p-5 text-center flex-grow flex flex-col">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2 flex-grow group-hover:text-pink-600 transition-colors">
+                                    @product.Name
+                                </h3>
+                                <p class="text-pink-600 font-bold mt-auto">
+                                    @* Tampilkan harga atau pesan khusus jika harga 0 *@
+                                    @(product.Price > 0 ? product.Price.ToString("c0", new System.Globalization.CultureInfo("id-ID")) : "Hubungi Kami")
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <div class="flex-shrink-0 w-64 sm:w-72 md:w-80" data-aos="fade-left">
+                    <div class="bg-transparent rounded-lg h-full flex flex-col items-center justify-center border-2 border-dashed border-gray-300 hover:border-pink-500 hover:bg-pink-50 transition-all duration-300">
+                        <a href="/products" class="flex flex-col items-center justify-center text-center h-full w-full p-6 group">
+                            <i class="fas fa-arrow-right text-3xl sm:text-4xl text-gray-400 group-hover:text-pink-500 transition-colors mb-4"></i>
+                            <span class="text-lg font-semibold text-gray-600 group-hover:text-pink-600 transition-colors">Lihat Semua Produk</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="pr-4 sm:pr-0"></div>
+            </div>
+        }
+        else
+        {
+             <div class="text-center py-10">
+                <p class="text-gray-500">Saat ini belum ada produk terbaru yang bisa ditampilkan.</p>
+            </div>
+        }
+    </div>
+     
+</div>

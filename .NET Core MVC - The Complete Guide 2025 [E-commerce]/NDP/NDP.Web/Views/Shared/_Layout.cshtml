@@ -1,50 +1,89 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - NDP.Web</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/NDP.Web.styles.css" asp-append-version="true" />
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <meta name="author" content="Themes Industry">
+    <meta name="description" content="MegaOne is a highly creative, modern, visually stunning and Bootstrap responsive multipurpose studio and portfolio HTML5 template with 8 ready home page demos.">
+    <meta name="keywords" content="Creative, modern, clean, bootstrap responsive, html5, css3, portfolio, blog, studio, templates, multipurpose, one page, corporate, start-up, studio, branding, designer, freelancer, carousel, parallax, photography, studio, masonry, grid, faq">
+    <title>@ViewData["Title"] | Women Store</title>
+    <link rel="icon" href="~/shop/img/favicon.ico">
+    <link rel="stylesheet" href="~/vendor/css/bundle.min.css">
+    <link rel="stylesheet" href="~/vendor/css/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="~/vendor/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/vendor/css/swiper.min.css">
+    <link rel="stylesheet" href="~/vendor/css/cubeportfolio.min.css">
+    <link rel="stylesheet" href="~/vendor/css/wow.css">
+    <link rel="stylesheet" href="~/vendor/css/LineIcons.min.css">
+    <link rel="stylesheet" href="~/shop/css/nouislider.min.css">
+    <link rel="stylesheet" href="~/shop/css/range-slider.css">
+    <link rel="stylesheet" href="~/shop/css/settings.css">
+    <link rel="stylesheet" href="~/shop/css/megamenu.css">
+    <link rel="stylesheet" href="~/shop/css/style.css">
+    <link rel="stylesheet" href="~/shop/css/custom.css">
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">NDP.Web</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                    <partial name="_LoginPartial" />
+
+    <a class="scroll-top-arrow" href="javascript:void(0);"><i class="fa fa-angle-up"></i></a>
+
+    <div class="loader1">
+        <div class="loader-inner">
+            <div id="preloader">
+                <div id="loader"></div>
+            </div>
+        </div>
+    </div>
+    @await Html.PartialAsync("_Header")
+
+    <main role="main">
+        @RenderBody()
+    </main>
+
+    @await Html.PartialAsync("_Footer")
+
+    <div class="search-box-overlay">
+        <a><i class="fas fa-times cross-sign" id="close-window"></i></a>
+        <div class="container">
+            <div class="row">
+                <div class="col-12 search-col">
+                    <form action="#">
+                        <div class="input-group search-box-form">
+                            <input type="text" class="form-control" placeholder="Search Here" aria-label="Search Here">
+                            <div class="input-group-prepend">
+                                <button class="input-group-text" type="submit" id="basic-addon1"><i class="fas fa-search"></i></button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - NDP.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    </div>
+    <script src="~/vendor/js/bundle.min.js"></script>
+    <script src="~/vendor/js/jquery.fancybox.min.js"></script>
+    <script src="~/vendor/js/owl.carousel.min.js"></script>
+    <script src="~/vendor/js/swiper.min.js"></script>
+    <script src="~/vendor/js/jquery.cubeportfolio.min.js"></script>
+    <script src="~/vendor/js/wow.min.js"></script>
+    <script src="~/vendor/js/bootstrap-input-spinner.js"></script>
+    <script src="~/vendor/js/parallaxie.min.js"></script>
+    <script src="~/vendor/js/stickyfill.min.js"></script>
+    <script src="~/shop/js/nouislider.min.js"></script>
+
+    <script src="~/vendor/js/jquery.themepunch.tools.min.js"></script>
+    <script src="~/vendor/js/jquery.themepunch.revolution.min.js"></script>
+    <script src="~/vendor/js/extensions/revolution.extension.actions.min.js"></script>
+    <script src="~/vendor/js/extensions/revolution.extension.carousel.min.js"></script>
+    <script src="~/vendor/js/extensions/revolution.extension.kenburn.min.js"></script>
+    <script src="~/vendor/js/extensions/revolution.extension.layeranimation.min.js"></script>
+    <script src="~/vendor/js/extensions/revolution.extension.migration.min.js"></script>
+    <script src="~/vendor/js/extensions/revolution.extension.navigation.min.js"></script>
+    <script src="~/vendor/js/extensions/revolution.extension.parallax.min.js"></script>
+    <script src="~/vendor/js/extensions/revolution.extension.slideanims.min.js"></script>
+    <script src="~/vendor/js/extensions/revolution.extension.video.min.js"></script>
+
+    <script src="~/shop/js/script.js"></script>
+
     @await RenderSectionAsync("Scripts", required: false)
+
 </body>
 </html>

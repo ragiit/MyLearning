@@ -1,0 +1,81 @@
+﻿@using static NDP.Web.Controllers.FaqController
+@model List<FaqItemViewModel>
+
+<div class="container mx-auto px-4 sm:px-6 py-12 sm:py-16 lg:py-20">
+    <div class="max-w-3xl mx-auto">
+        <div class="text-center mb-10 sm:mb-12">
+            <h1 class="text-3xl sm:text-4xl font-bold text-gray-800 mb-3" data-aos="fade-down">
+                <i class="fas fa-question-circle mr-3 text-pink-600"></i>Pertanyaan Umum (FAQ)
+            </h1>
+            <p class="text-lg text-gray-600" data-aos="fade-up" data-aos-delay="100">
+                Temukan jawaban atas pertanyaan yang sering diajukan mengenai layanan dan produk kami.
+            </p>
+        </div>
+
+        @if (Model == null || !Model.Any())
+        {
+            <div class="text-center py-10 bg-white p-6 rounded-lg shadow" data-aos="zoom-in">
+                <i class="fas fa-comment-slash fa-3x text-gray-400 mb-4"></i>
+                <p class="text-xl text-gray-500">Saat ini belum ada pertanyaan yang tersedia.</p>
+            </div>
+        }
+        else
+        {
+            <div class="space-y-4">
+                @for (var i = 0; i < Model.Count; i++)
+                {
+                    var item = Model[i];
+                    <div class="faq-item bg-white rounded-lg shadow-md overflow-hidden border border-gray-200" data-aos="fade-up" data-aos-delay="@(200 + (i * 50))">
+
+                        <button class="faq-toggle w-full flex justify-between items-center p-5 sm:p-6 text-left focus:outline-none hover:bg-gray-50 transition-colors">
+                            <h2 class="text-lg sm:text-xl font-semibold text-gray-800">@item.Question</h2>
+                            <span class="faq-icon text-pink-600 transform transition-transform duration-300">
+                                <i class="fas fa-chevron-down"></i>
+                            </span>
+                        </button>
+
+                        <div class="faq-answer hidden transition-all duration-500 ease-in-out overflow-hidden">
+                            <div class="p-5 sm:p-6 border-t border-gray-200 bg-gray-50/50">
+                                <div class="prose prose-sm sm:prose-base max-w-none text-gray-700">
+                                    @* Gunakan @Html.Raw untuk merender string sebagai HTML *@
+                                    @Html.Raw(item.Answer)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+
+        <div class="mt-16 text-center" data-aos="fade-up" data-aos-delay="400">
+            <p class="text-gray-600 mb-4">Tidak menemukan jawaban yang Anda cari?</p>
+            <a asp-controller="Contact" asp-action="Index"
+               class="inline-block bg-pink-600 hover:bg-pink-700 text-white font-semibold py-3 px-8 rounded-md transition-all duration-300 transform hover:scale-105 shadow-lg">
+                <i class="fas fa-headset mr-2"></i> Hubungi Tim Kami
+            </a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Ambil semua tombol toggle FAQ
+            const faqToggles = document.querySelectorAll('.faq-toggle');
+
+            faqToggles.forEach(toggle => {
+                toggle.addEventListener('click', function () {
+                    // Ambil elemen jawaban dan ikon yang sesuai
+                    const answer = this.nextElementSibling;
+                    const icon = this.querySelector('.faq-icon');
+
+                    // Buka/tutup jawaban dengan toggle class 'hidden'
+                    answer.classList.toggle('hidden');
+
+                    // Putar ikon dengan toggle class 'rotate-180'
+                    icon.classList.toggle('rotate-180');
+                });
+            });
+        });
+    </script>
+}

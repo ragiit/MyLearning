@@ -1,0 +1,101 @@
+﻿@using NDP.Controllers
+@model ContactFormModel
+
+@{
+    ViewData["Title"] = "Kontak Kami";
+}
+
+<div class="font-poppins text-gray-700">
+    <div class="map-load h-72 md:h-96 bg-gray-300" data-aos="fade-in">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.011409395273!2d106.8016893747514!3d-6.262176493729909!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f162e78b1359%3A0x2cd25952f411b0e2!2sBlok%20M%20Square!5e0!3m2!1sen!2sid!4v1719305411037!5m2!1sen!2sid"
+                width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+
+    <section class="contact-sec py-12 sm:py-16 lg:py-20 bg-gray-50" id="contact-sec">
+        <div class="container mx-auto px-4 sm:px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+                <div data-aos="fade-right">
+                    <div class="contact-detail p-6 lg:p-8 rounded-lg shadow-lg bg-white h-full">
+                        <span class="text-sm font-semibold text-pink-600 uppercase tracking-wider">KONTAK KAMI</span>
+                        <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mt-1 mb-4">Hubungi <span class="text-pink-600">Tim Kami</span></h2>
+                        <p class="text-gray-600 mb-6 leading-relaxed">
+                            Punya pertanyaan, butuh konsultasi desain, atau ingin langsung order produk custom Anda? Tim New Design Print siap membantu!
+                        </p>
+                        <div class="space-y-4">
+                            <h4 class="text-xl font-semibold text-gray-700 border-b pb-2">New Design Print - Jakarta</h4>
+                            <a href="https://wa.me/+6285156615269?text=Halo%20New%20Design%20Print" target="_blank" class="flex items-center text-gray-700 hover:text-pink-600 transition-colors group">
+                                <i class="fab fa-whatsapp text-pink-600 text-xl w-6 mr-3 group-hover:scale-110 transition-transform"></i> +62 851-5661-5269 (WhatsApp)
+                            </a>
+                            <a href="mailto:info@newdesignprint.com" class="flex items-center text-gray-700 hover:text-pink-600 transition-colors group">
+                                <i class="fas fa-envelope text-pink-600 text-xl w-6 mr-3 group-hover:scale-110 transition-transform"></i> info@newdesignprint.com
+                            </a>
+                            <div class="flex items-start text-gray-700">
+                                <i class="fas fa-map-marker-alt text-pink-600 text-xl w-6 mr-3 mt-1"></i>
+                                <div>
+                                    Jl. Contoh Alamat Proyek No. 123 <br />Jakarta Pusat, DKI Jakarta, Indonesia
+                                    <a href="https://maps.app.goo.gl/S31tq6f7b1hNqUaA9" target="_blank" class="text-xs text-pink-600 hover:underline ml-1">(Lihat Peta)</a>
+                                </div>
+                            </div>
+                            <div class="flex items-center text-gray-700">
+                                <i class="fas fa-clock text-pink-600 text-xl w-6 mr-3"></i> Senin - Sabtu: 09:00 - 17:00 WIB
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div data-aos="fade-left" data-aos-delay="200">
+                    <div class="p-6 md:p-8 rounded-lg shadow-xl bg-white border border-gray-200">
+                        <h4 class="text-2xl font-semibold text-gray-800 mb-6">Tinggalkan Pesan</h4>
+
+                        @if (ViewBag.ResultMessage != null)
+                        {
+                            <div class="mb-4 p-3 rounded-md @((bool)ViewBag.ResultSuccess ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700")">
+                                @ViewBag.ResultMessage
+                            </div>
+                        }
+
+                        <form asp-controller="Contact" asp-action="Index" method="post" class="space-y-5">
+                            @Html.AntiForgeryToken() <div asp-validation-summary="ModelOnly" class="text-red-500 text-sm"></div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                <div>
+                                    <label asp-for="FirstName" class="block text-sm font-medium text-gray-700 mb-1">Nama Depan</label>
+                                    <input asp-for="FirstName" class="form-input block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-pink-500 focus:border-pink-500 sm:text-sm" placeholder="John" />
+                                    <span asp-validation-for="FirstName" class="text-red-500 text-xs mt-1"></span>
+                                </div>
+                                <div>
+                                    <label asp-for="LastName" class="block text-sm font-medium text-gray-700 mb-1">Nama Belakang</label>
+                                    <input asp-for="LastName" class="form-input block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-pink-500 focus:border-pink-500 sm:text-sm" placeholder="Doe" />
+                                    <span asp-validation-for="LastName" class="text-red-500 text-xs mt-1"></span>
+                                </div>
+                            </div>
+                            <div>
+                                <label asp-for="Email" class="block text-sm font-medium text-gray-700 mb-1">Alamat Email</label>
+                                <input asp-for="Email" class="form-input block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-pink-500 focus:border-pink-500 sm:text-sm" placeholder="anda@contoh.com" />
+                                <span asp-validation-for="Email" class="text-red-500 text-xs mt-1"></span>
+                            </div>
+                            <div>
+                                <label asp-for="Subject" class="block text-sm font-medium text-gray-700 mb-1">Subjek Pesan</label>
+                                <input asp-for="Subject" class="form-input block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-pink-500 focus:border-pink-500 sm:text-sm" placeholder="Pertanyaan tentang produk kaos" />
+                                <span asp-validation-for="Subject" class="text-red-500 text-xs mt-1"></span>
+                            </div>
+                            <div>
+                                <label asp-for="Message" class="block text-sm font-medium text-gray-700 mb-1">Isi Pesan Anda</label>
+                                <textarea asp-for="Message" rows="5" class="form-input block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-pink-500 focus:border-pink-500 sm:text-sm" placeholder="Detail pertanyaan atau permintaan Anda..."></textarea>
+                                <span asp-validation-for="Message" class="text-red-500 text-xs mt-1"></span>
+                            </div>
+                            <div>
+                                <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 transition-colors">
+                                    <i class="fab fa-whatsapp mr-2"></i> KIRIM VIA WHATSAPP
+                                </button>
+                            </div>
+                        </form>
+                        <small class="block mt-4 text-xs text-gray-500">
+                            <i>Dengan mengklik tombol di atas, Anda akan diarahkan ke WhatsApp dengan pesan yang telah diisi sesuai data form.</i>
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

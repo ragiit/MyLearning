@@ -1,0 +1,13 @@
+D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\NewDesignPrint.Web\NewDesignPrint.Models\bin\Debug\net8.0\NewDesignPrint.Models.deps.json
+D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\NewDesignPrint.Web\NewDesignPrint.Models\bin\Debug\net8.0\NewDesignPrint.Models.dll
+D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\NewDesignPrint.Web\NewDesignPrint.Models\bin\Debug\net8.0\NewDesignPrint.Models.pdb
+D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\NewDesignPrint.Web\NewDesignPrint.Models\obj\Debug\net8.0\NewDesignPrint.Models.GeneratedMSBuildEditorConfig.editorconfig
+D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\NewDesignPrint.Web\NewDesignPrint.Models\obj\Debug\net8.0\NewDesignPrint.Models.AssemblyInfoInputs.cache
+D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\NewDesignPrint.Web\NewDesignPrint.Models\obj\Debug\net8.0\NewDesignPrint.Models.AssemblyInfo.cs
+D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\NewDesignPrint.Web\NewDesignPrint.Models\obj\Debug\net8.0\NewDesignPrint.Models.csproj.CoreCompileInputs.cache
+D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\NewDesignPrint.Web\NewDesignPrint.Models\obj\Debug\net8.0\NewDesignPrint.Models.sourcelink.json
+D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\NewDesignPrint.Web\NewDesignPrint.Models\obj\Debug\net8.0\NewDesignPrint.Models.dll
+D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\NewDesignPrint.Web\NewDesignPrint.Models\obj\Debug\net8.0\refint\NewDesignPrint.Models.dll
+D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\NewDesignPrint.Web\NewDesignPrint.Models\obj\Debug\net8.0\NewDesignPrint.Models.pdb
+D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\NewDesignPrint.Web\NewDesignPrint.Models\obj\Debug\net8.0\ref\NewDesignPrint.Models.dll
+D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\NewDesignPrint.Web\NewDesignPrint.Models\obj\Debug\net8.0\NewDesignPrint.Models.csproj.AssemblyReference.cache

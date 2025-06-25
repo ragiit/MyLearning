@@ -1,0 +1,212 @@
+﻿@using NDP.Web.ViewComponents
+@model HeaderViewModel
+@{
+    // Helper untuk menentukan link aktif, digunakan di menu navigasi
+    string? IsActive(string controller, string action = "Index", string? area = "")
+    {
+        var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+        var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
+        // Anda bisa menambahkan logika untuk area atau parameter lain jika perlu
+
+        return (controller == currentController && action == currentAction) ? "text-pink-600 border-b-2 border-pink-600" : "";
+    }
+}
+
+<header id="main-header" class="header-area shadow-md sticky top-0 bg-white z-[1000]">
+    <div class="container mx-auto px-4 sm:px-6">
+        <div class="row upper-nav flex items-center py-2">
+            <div class="w-1/4">
+                <ul class="social-icons-simple flex space-x-3">
+                    <li><a href="https://wa.me/+6285156615269" target="_blank" class="text-gray-600 hover:text-green-500 transition-colors"><i class="fab fa-whatsapp text-xl"></i></a></li>
+                    <li><a href="#" target="_blank" class="text-gray-600 hover:text-pink-500 transition-colors"><i class="fab fa-instagram text-xl"></i></a></li>
+                    <li><a href="#" target="_blank" class="text-gray-600 hover:text-blue-600 transition-colors"><i class="fab fa-facebook-f text-xl"></i></a></li>
+                </ul>
+            </div>
+            <div class="w-1/2 text-center">
+                <a asp-controller="Home" asp-action="Index">
+                    <img src="https://placehold.co/150x50/FFFFFF/E6007E?text=NDP+Logo" alt="New Design Print Logo" style="max-height: 50px" class="mx-auto" />
+                </a>
+            </div>
+            <div class="w-1/4 flex justify-end items-center space-x-4">
+                <button id="search-toggle-btn" title="Cari Produk" class="text-gray-600 hover:text-pink-600 transition-colors">
+                    <i class="fas fa-search text-lg"></i>
+                </button>
+                <div class="relative">
+                    <button id="minicart-toggle-btn" title="Lihat Pesanan Anda" class="text-gray-600 hover:text-pink-600 transition-colors">
+                        <i class="fas fa-shopping-cart text-lg"></i>
+                        @if (Model.TotalItems > 0)
+                        {
+                            <span class="absolute -top-2 -right-2 bg-pink-600 text-white text-xs font-bold rounded-full px-1.5 py-0.5">@Model.TotalItems</span>
+                        }
+                    </button>
+                    <div id="mini-cart-dropdown" class="hidden absolute right-0 mt-2 w-80 bg-white rounded-md shadow-xl z-20 border border-gray-200">
+                        <div class="p-4 border-b"><h4 class="text-md font-semibold text-gray-800">Ringkasan Pesanan</h4></div>
+                        <div class="p-4 max-h-60 overflow-y-auto">
+                            @if (Model.CartItems.Any())
+                            {
+                                @foreach (var item in Model.CartItems)
+                                {
+                                    <div class="flex items-center mb-3">
+                                        <img src="@item.ImageUrl" alt="@item.ProductName" class="w-12 h-12 object-cover rounded mr-3">
+                                        <div class="flex-grow">
+                                            <h5 class="text-sm font-semibold text-gray-700">@item.ProductName</h5>
+                                            <p class="text-xs text-gray-500">@item.Price.ToString("c0", new System.Globalization.CultureInfo("id-ID")) x @item.Quantity</p>
+                                            <p class="text-sm text-pink-600 font-semibold">@item.SubTotal.ToString("c0", new System.Globalization.CultureInfo("id-ID"))</p>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <p class="text-sm text-gray-500 text-center">Keranjang Anda kosong.</p>
+                            }
+                        </div>
+                        @if (Model.CartItems.Any())
+                        {
+                            <div class="p-4 border-t">
+                                <div class="flex justify-between items-center mb-3">
+                                    <span class="text-md font-semibold text-gray-800">Total:</span>
+                                    <span class="text-md font-bold text-pink-600">@Model.TotalAmount.ToString("c0", new System.Globalization.CultureInfo("id-ID"))</span>
+                                </div>
+                                <a asp-controller="Cart" asp-action="Index" class="block w-full text-center bg-pink-600 hover:bg-pink-700 text-white font-semibold py-2 px-4 rounded-md transition-colors">
+                                    Lihat Keranjang & Checkout
+                                </a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <nav class="hidden md:flex justify-center py-2 border-t border-gray-200">
+            <ul class="navbar-nav flex space-x-6">
+                <li class="nav-item">
+                    <a asp-controller="Home" asp-action="Index" class="nav-link font-semibold uppercase text-sm tracking-wider text-gray-700 hover:text-pink-600 @IsActive("Home", "Index")">Beranda</a>
+                </li>
+                <li class="nav-item dropdown static group">
+                    <a href="#" class="nav-link dropdown-toggle text-gray-700 hover:text-pink-600 font-semibold uppercase text-sm tracking-wider">
+                        Produk Kami <i class="fas fa-chevron-down text-xs ml-1"></i>
+                    </a>
+                    <div class="dropdown-menu megamenu hidden group-hover:block absolute left-0 right-0 mt-0 w-full bg-white shadow-lg border-t border-pink-600 p-6">
+                        <div class="container mx-auto">
+                            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                                <!-- Apparel Custom -->
+                                <div>
+                                    <h5 class="dropdown-title text-md font-bold text-gray-800 mb-3">Apparel Custom</h5>
+                                    <ul class="space-y-2">
+                                        <li>
+                                            <a class="dropdown-item text-sm text-gray-600 hover:text-pink-600"
+                                               href="/products/kaos">
+                                                <i class="fas fa-angle-right text-xs mr-1"></i>Kaos & T-Shirt
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item text-sm text-gray-600 hover:text-pink-600"
+                                               href="/products/polo">
+                                                <i class="fas fa-angle-right text-xs mr-1"></i>Polo Shirt
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item text-sm text-gray-600 hover:text-pink-600"
+                                               href="/products/jaket">
+                                                <i class="fas fa-angle-right text-xs mr-1"></i>Jaket & Hoodie
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <!-- Souvenir & Merchandise -->
+                                <div>
+                                    <h5 class="dropdown-title text-md font-bold text-gray-800 mb-3">Souvenir & Merchandise</h5>
+                                    <ul class="space-y-2">
+                                        <li>
+                                            <a class="dropdown-item text-sm text-gray-600 hover:text-pink-600"
+                                               href="/products/payung">
+                                                <i class="fas fa-angle-right text-xs mr-1"></i>Payung Custom
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item text-sm text-gray-600 hover:text-pink-600"
+                                               href="/products/mug">
+                                                <i class="fas fa-angle-right text-xs mr-1"></i>Mug & Tumbler
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <!-- Produk Unggulan -->
+                                <div class="col-span-2">
+                                    <h5 class="dropdown-title text-md font-bold text-gray-800 mb-3">Produk Unggulan</h5>
+                                    <div class="grid grid-cols-3 gap-4">
+                                        <a href="/products/payung">
+                                            <img src="https://placehold.co/150x100/E2E8F0/A0AEC0?text=Payung"
+                                                 alt="Custom Payung"
+                                                 class="rounded hover:opacity-80 transition-opacity" />
+                                        </a>
+                                        <a href="/products/kaos">
+                                            <img src="https://placehold.co/150x100/E2E8F0/A0AEC0?text=Kaos"
+                                                 alt="Custom Kaos"
+                                                 class="rounded hover:opacity-80 transition-opacity" />
+                                        </a>
+                                        <a href="/products/mug">
+                                            <img src="https://placehold.co/150x100/E2E8F0/A0AEC0?text=Mug"
+                                                 alt="Custom Mug"
+                                                 class="rounded hover:opacity-80 transition-opacity" />
+                                        </a>
+                                    </div>
+                                    <p class="mt-4 text-sm text-gray-600">
+                                        Temukan berbagai produk custom berkualitas untuk promosi dan personal Anda.
+                                    </p>
+                                    <a href="/products"
+                                       class="inline-block mt-3 bg-pink-600 hover:bg-pink-700 text-white text-sm font-semibold py-2 px-4 rounded-md transition-colors">
+                                        Lihat Katalog
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a asp-controller="Home" asp-action="HowToOrder" class="nav-link font-semibold uppercase text-sm tracking-wider text-gray-700 hover:text-pink-600 @IsActive("Order", "HowTo")">Cara Pesan</a>
+                </li>
+                <li class="nav-item">
+                    <a asp-controller="Home" asp-action="Faq" class="nav-link font-semibold uppercase text-sm tracking-wider text-gray-700 hover:text-pink-600 @IsActive("Home", "Faq")">FAQ</a>
+                </li>
+                <li class="nav-item">
+                    <a asp-controller="Home" asp-action="Contact" class="nav-link font-semibold uppercase text-sm tracking-wider text-gray-700 hover:text-pink-600 @IsActive("Home", "Contact")">Kontak Kami</a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="md:hidden flex justify-end items-center py-2 border-t border-gray-200">
+            <button id="mobile-menu-toggle-btn" class="text-gray-600 hover:text-pink-600">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+    </div>
+
+    <div id="mobile-menu-overlay" class="hidden fixed inset-0 bg-black bg-opacity-50 z-[1001]"></div>
+    <div id="mobile-menu-panel" class="fixed top-0 right-0 h-full w-72 bg-gradient-to-b from-pink-600 to-purple-700 shadow-xl p-6 z-[1002] transform transition-transform duration-300 translate-x-full">
+        <div class="flex justify-between items-center mb-6">
+            <img src="https://placehold.co/120x40/FFFFFF/FFFFFF?text=LogoMobile" alt="Logo Mobile" class="max-h-8" />
+            <button id="mobile-menu-close-btn" class="text-white hover:text-pink-200"><i class="fas fa-times text-2xl"></i></button>
+        </div>
+        <nav>
+            ...
+        </nav>
+    </div>
+
+    <div id="search-overlay" class="hidden fixed inset-0 bg-black bg-opacity-75 z-[2000] items-center justify-center p-4">
+        <div class="bg-white p-6 sm:p-8 rounded-lg shadow-xl w-full max-w-xl relative">
+            <button id="search-overlay-close-btn" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800"><i class="fas fa-times text-2xl"></i></button>
+            <h3 class="text-2xl font-semibold text-gray-800 mb-6 text-center">Cari Produk</h3>
+            <div class="relative">
+                <input type="text" id="search-overlay-input" class="w-full py-3 px-4 pr-12 rounded-lg border-2 border-gray-300 focus:border-pink-500 focus:ring-pink-500 outline-none text-lg" placeholder="Ketik nama produk..." />
+                <button id="search-overlay-exec-btn" class="absolute right-0 top-0 h-full px-4 text-pink-600 hover:text-pink-700"><i class="fas fa-search text-xl"></i></button>
+            </div>
+            <div id="search-overlay-results" class="mt-6 max-h-60 overflow-y-auto space-y-3">
+            </div>
+        </div>
+    </div>
+</header>

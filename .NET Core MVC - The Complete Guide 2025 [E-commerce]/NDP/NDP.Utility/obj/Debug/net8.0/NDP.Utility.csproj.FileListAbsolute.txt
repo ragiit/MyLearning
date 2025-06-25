@@ -10,3 +10,15 @@ D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\NewDes
 D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\NewDesignPrint.Web\NewDesignPrint.Utility\obj\Debug\net8.0\refint\NDP.Utility.dll
 D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\NewDesignPrint.Web\NewDesignPrint.Utility\obj\Debug\net8.0\NDP.Utility.pdb
 D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\NewDesignPrint.Web\NewDesignPrint.Utility\obj\Debug\net8.0\ref\NDP.Utility.dll
+D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\NDP\NDP.Utility\bin\Debug\net8.0\NDP.Utility.deps.json
+D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\NDP\NDP.Utility\bin\Debug\net8.0\NDP.Utility.dll
+D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\NDP\NDP.Utility\bin\Debug\net8.0\NDP.Utility.pdb
+D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\NDP\NDP.Utility\obj\Debug\net8.0\NDP.Utility.GeneratedMSBuildEditorConfig.editorconfig
+D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\NDP\NDP.Utility\obj\Debug\net8.0\NDP.Utility.AssemblyInfoInputs.cache
+D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\NDP\NDP.Utility\obj\Debug\net8.0\NDP.Utility.AssemblyInfo.cs
+D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\NDP\NDP.Utility\obj\Debug\net8.0\NDP.Utility.csproj.CoreCompileInputs.cache
+D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\NDP\NDP.Utility\obj\Debug\net8.0\NDP.Utility.sourcelink.json
+D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\NDP\NDP.Utility\obj\Debug\net8.0\NDP.Utility.dll
+D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\NDP\NDP.Utility\obj\Debug\net8.0\refint\NDP.Utility.dll
+D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\NDP\NDP.Utility\obj\Debug\net8.0\NDP.Utility.pdb
+D:\GitHub\MyLearning\.NET Core MVC - The Complete Guide 2025 [E-commerce]\NDP\NDP.Utility\obj\Debug\net8.0\ref\NDP.Utility.dll
