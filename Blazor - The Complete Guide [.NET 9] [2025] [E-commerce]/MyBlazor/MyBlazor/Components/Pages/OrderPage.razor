@@ -1,0 +1,171 @@
+﻿@page "/order/history"
+@page "/admin/orders"
+@inject MyBlazor.Repository.IRepository.IOrderRepository OrderRepository
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+@using Microsoft.AspNetCore.Components.Authorization
+@using System.Security.Claims
+@using MyBlazor.Data
+@using System.Globalization
+
+<PageTitle>Riwayat Pesanan Anda</PageTitle>
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2><i class="bi bi-receipt me-2"></i> @(IsAdminView ? "Daftar Semua Pesanan" : "Riwayat Pesanan Saya")</h2>
+    </div>
+
+    @if (orderHeaders == null)
+    {
+        <div class="alert alert-info text-center mt-5" role="alert">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Memuat...</span>
+            </div>
+            <p class="mt-2 mb-0">Memuat daftar pesanan...</p>
+        </div>
+    }
+    else if (!orderHeaders.Any())
+    {
+        <div class="alert alert-warning text-center mt-5" role="alert">
+            <i class="bi bi-info-circle-fill me-2"></i> Belum ada pesanan yang ditemukan.
+            <button class="btn btn-sm btn-outline-primary ms-3" @onclick='() => NavigationManager.NavigateTo("/")'>
+                Lanjut Belanja!
+            </button>
+
+        </div>
+    }
+    else
+    {
+        <div class="card shadow-sm">
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead class="bg-light">
+                            <tr>
+                                <th scope="col" class="py-3 ps-4">ID Pesanan</th>
+                                <th scope="col" class="py-3">Tanggal</th>
+                                <th scope="col" class="py-3">Total</th>
+                                <th scope="col" class="py-3">Status</th>
+                                @if (IsAdminView)
+                                {
+                                    <th scope="col" class="py-3">Pelanggan</th>
+                                }
+                                <th scope="col" class="py-3 pe-4 text-end">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var order in orderHeaders)
+                            {
+                                <tr>
+                                    <td class="py-3 ps-4">@order.Id</td>
+                                    <td class="py-3">@order.OrderDate.ToString("dd MMM yyyy HH:mm")</td>
+                                    <td class="py-3">@order.OrderTotal.ToString("C", CultureInfo.GetCultureInfo("id-ID"))</td>
+                                    <td class="py-3">
+                                        <span class="badge @GetStatusBadgeClass(order.Status)">@order.Status</span>
+                                    </td>
+                                    @if (IsAdminView)
+                                    {
+                                        <td class="py-3">@order.Name (@order.ApplicationUser?.Email)</td>
+                                    }
+                                    <td class="py-3 pe-4 text-end">
+                                        <button class="btn btn-info btn-sm" @onclick="(() => ViewOrderDetails(order.Id))">
+                                            <i class="bi bi-eye"></i> Detail
+                                        </button>
+                                        @* Tambahkan tombol admin actions di sini jika IsAdminView, misal: Update Status *@
+                                        @if (IsAdminView)
+                                        {
+                                            @* <button class="btn btn-warning btn-sm ms-2"><i class="bi bi-pencil"></i> Edit Status</button> *@
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationState { get; set; } = default!;
+
+    private IEnumerable<OrderHeader>? orderHeaders;
+    private string? currentUserId;
+    private bool IsAdminView = false; // Akan true jika rute adalah /admin/orders
+    private bool _hasLoadedInitialData = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Tentukan apakah ini tampilan Admin atau Customer
+        IsAdminView = NavigationManager.Uri.Contains("/admin/orders", StringComparison.OrdinalIgnoreCase);
+
+        // Dapatkan user ID dan peran
+        var authState = await authenticationState;
+        var user = authState.User;
+        currentUserId = user.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        // Jika bukan admin, dan tidak login, arahkan ke login
+        if (!IsAdminView && string.IsNullOrEmpty(currentUserId))
+        {
+            await JSRuntime.InvokeVoidAsync("showToastr", "info", "Anda perlu login untuk melihat riwayat pesanan.");
+            NavigationManager.NavigateTo("Account/Login");
+            return;
+        }
+
+        // Jika admin, pastikan user adalah Admin
+        if (IsAdminView && !user.IsInRole("Admin"))
+        {
+            await JSRuntime.InvokeVoidAsync("showToastr", "error", "Anda tidak memiliki akses ke halaman ini.");
+            NavigationManager.NavigateTo("/"); // Arahkan ke halaman utama jika bukan Admin
+            return;
+        }
+
+
+        if (!_hasLoadedInitialData)
+        {
+            await LoadOrdersAsync();
+            _hasLoadedInitialData = true;
+        }
+    }
+
+    private async Task LoadOrdersAsync()
+    {
+        try
+        {
+            if (IsAdminView)
+            {
+                orderHeaders = await OrderRepository.GetAllOrdersAsync();
+            }
+            else
+            {
+                orderHeaders = await OrderRepository.GetAllOrdersAsync(currentUserId!);
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error loading orders: {ex.Message}");
+            await JSRuntime.InvokeVoidAsync("showToastr", "error", $"Gagal memuat daftar pesanan: {ex.Message}");
+            orderHeaders = Enumerable.Empty<OrderHeader>();
+        }
+    }
+
+    private void ViewOrderDetails(int orderId)
+    {
+        NavigationManager.NavigateTo($"/order/confirmation/{orderId}"); // Re-use halaman konfirmasi sebagai detail
+    }
+
+    private string GetStatusBadgeClass(string status)
+    {
+        return status switch
+        {
+            "Pending" => "bg-warning text-dark",
+            "Approved" => "bg-primary",
+            "Shipped" => "bg-info text-dark",
+            "Completed" => "bg-success",
+            "Cancelled" => "bg-danger",
+            _ => "bg-secondary", // Default status
+        };
+    }
+}

@@ -1,6 +1,6 @@
 ﻿@page "/carts"
 @inject MyBlazor.Repository.IRepository.IShoppingCartRepository ShoppingCartRepository
-@* @inject MyBlazor.Repository.IRepository.IHe OrderRepository // Inject Order Repository *@
+@inject MyBlazor.Repository.IRepository.IOrderRepository OrderRepository
 @inject NavigationManager NavigationManager
 @attribute [Authorize]
 @inject IJSRuntime JSRuntime
@@ -9,7 +9,7 @@
 @using System.Security.Claims
 @using Microsoft.AspNetCore.Components.Authorization
 @using System.Globalization
-@using Microsoft.AspNetCore.Identity // Untuk mendapatkan ApplicationUser
+@using Microsoft.AspNetCore.Identity
 @using MyBlazor.Utility
 @inject UserManager<ApplicationUser> UserManager // Inject UserManager
 
@@ -255,7 +255,7 @@
         {
             await LoadCartItemsAsync();
             orderHeader.OrderTotal = (double)GetCartTotal(); // Perbarui total di orderHeader
-            await JSRuntime.InvokeVoidAsync("showToastr", "info", "Kuantitas diperbarui!");
+            // await JSRuntime.InvokeVoidAsync("showToastr", "info", "Kuantitas diperbarui!");
         }
         else
         {
@@ -305,9 +305,7 @@
     // Dipanggil saat tombol "Lanjut ke Pembayaran" diklik
     private void ProceedToCheckout()
     {
-        // Secara implisit, form checkout akan ditampilkan
-        // Tidak ada navigasi di sini, hanya persiapan UI
-        // orderHeader.OrderTotal sudah diisi dari GetCartTotal()
+
     }
 
     // Dipanggil saat form "Konfirmasi Pesanan" di-submit
@@ -324,21 +322,20 @@
             // Periksa ulang total order
             orderHeader.OrderTotal = (double)GetCartTotal();
             orderHeader.OrderDate = DateTime.Now;
-            orderHeader.Status = "Pending"; // Status awal pesanan
+            orderHeader.OrderDetails = SD.ConvertShoppingCartToOrderDetails(cartItems.ToList());
+            orderHeader.Status = "Pending";
 
-            // Buat order dan detailnya, lalu kosongkan keranjang
-            // var createdOrder = await OrderRepository.CreateOrderAsync(orderHeader, cartItems);
+            var createdOrder = await OrderRepository.CreateAsync(orderHeader);
 
-            // if (createdOrder != null && createdOrder.Id > 0)
-            // {
-            //     await JSRuntime.InvokeVoidAsync("showToastr", "success", "Pesanan Anda berhasil dibuat! Order ID: " + createdOrder.Id);
-            //     Setelah order dibuat, navigasi ke halaman konfirmasi atau detail order
-            //     NavigationManager.NavigateTo($"/order/confirmation/{createdOrder.Id}"); Contoh navigasi
-            // }
-            // else
-            // {
-            //     await JSRuntime.InvokeVoidAsync("showToastr", "error", "Gagal membuat pesanan. Silakan coba lagi.");
-            // }
+            if (createdOrder != null && createdOrder.Id > 0)
+            {
+                await JSRuntime.InvokeVoidAsync("showToastr", "success", "Pesanan Anda berhasil dibuat! Order ID: " + createdOrder.Id);
+                NavigationManager.NavigateTo($"/order/confirmation/{createdOrder.Id}");
+            }
+            else
+            {
+                await JSRuntime.InvokeVoidAsync("showToastr", "error", "Gagal membuat pesanan. Silakan coba lagi.");
+            }
         }
         catch (Exception ex)
         {

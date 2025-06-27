@@ -1,12 +1,207 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\Dev\\MyLearning\\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\\MyBlazor\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{9EEE177E-468B-432D-B1ED-F86E580EECC1}|MyBlazor\\MyBlazor.csproj|d:\\dev\\mylearning\\blazor - the complete guide [.net 9] [2025] [e-commerce]\\myblazor\\myblazor\\repository\\orderrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9EEE177E-468B-432D-B1ED-F86E580EECC1}|MyBlazor\\MyBlazor.csproj|solutionrelative:myblazor\\repository\\orderrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9EEE177E-468B-432D-B1ED-F86E580EECC1}|MyBlazor\\MyBlazor.csproj|d:\\dev\\mylearning\\blazor - the complete guide [.net 9] [2025] [e-commerce]\\myblazor\\myblazor\\repository\\irepository\\iorderrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9EEE177E-468B-432D-B1ED-F86E580EECC1}|MyBlazor\\MyBlazor.csproj|solutionrelative:myblazor\\repository\\irepository\\iorderrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9EEE177E-468B-432D-B1ED-F86E580EECC1}|MyBlazor\\MyBlazor.csproj|d:\\dev\\mylearning\\blazor - the complete guide [.net 9] [2025] [e-commerce]\\myblazor\\myblazor\\components\\pages\\orderpage.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9EEE177E-468B-432D-B1ED-F86E580EECC1}|MyBlazor\\MyBlazor.csproj|solutionrelative:myblazor\\components\\pages\\orderpage.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9EEE177E-468B-432D-B1ED-F86E580EECC1}|MyBlazor\\MyBlazor.csproj|d:\\dev\\mylearning\\blazor - the complete guide [.net 9] [2025] [e-commerce]\\myblazor\\myblazor\\data\\orderdetail.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9EEE177E-468B-432D-B1ED-F86E580EECC1}|MyBlazor\\MyBlazor.csproj|solutionrelative:myblazor\\data\\orderdetail.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9EEE177E-468B-432D-B1ED-F86E580EECC1}|MyBlazor\\MyBlazor.csproj|d:\\dev\\mylearning\\blazor - the complete guide [.net 9] [2025] [e-commerce]\\myblazor\\myblazor\\components\\pages\\cartpage.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9EEE177E-468B-432D-B1ED-F86E580EECC1}|MyBlazor\\MyBlazor.csproj|solutionrelative:myblazor\\components\\pages\\cartpage.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9EEE177E-468B-432D-B1ED-F86E580EECC1}|MyBlazor\\MyBlazor.csproj|d:\\dev\\mylearning\\blazor - the complete guide [.net 9] [2025] [e-commerce]\\myblazor\\myblazor\\data\\orderheader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9EEE177E-468B-432D-B1ED-F86E580EECC1}|MyBlazor\\MyBlazor.csproj|solutionrelative:myblazor\\data\\orderheader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9EEE177E-468B-432D-B1ED-F86E580EECC1}|MyBlazor\\MyBlazor.csproj|d:\\dev\\mylearning\\blazor - the complete guide [.net 9] [2025] [e-commerce]\\myblazor\\myblazor\\components\\pages\\orderconfirmation.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9EEE177E-468B-432D-B1ED-F86E580EECC1}|MyBlazor\\MyBlazor.csproj|solutionrelative:myblazor\\components\\pages\\orderconfirmation.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9EEE177E-468B-432D-B1ED-F86E580EECC1}|MyBlazor\\MyBlazor.csproj|d:\\dev\\mylearning\\blazor - the complete guide [.net 9] [2025] [e-commerce]\\myblazor\\myblazor\\utility\\sd.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9EEE177E-468B-432D-B1ED-F86E580EECC1}|MyBlazor\\MyBlazor.csproj|solutionrelative:myblazor\\utility\\sd.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Dev\\MyLearning\\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\\MyBlazor\\MyBlazor\\Migrations\\20250627172548_AddProductId.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:MyBlazor\\Migrations\\20250627172548_AddProductId.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9EEE177E-468B-432D-B1ED-F86E580EECC1}|MyBlazor\\MyBlazor.csproj|d:\\dev\\mylearning\\blazor - the complete guide [.net 9] [2025] [e-commerce]\\myblazor\\myblazor\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9EEE177E-468B-432D-B1ED-F86E580EECC1}|MyBlazor\\MyBlazor.csproj|solutionrelative:myblazor\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9EEE177E-468B-432D-B1ED-F86E580EECC1}|MyBlazor\\MyBlazor.csproj|d:\\dev\\mylearning\\blazor - the complete guide [.net 9] [2025] [e-commerce]\\myblazor\\myblazor\\repository\\irepository\\iproductrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9EEE177E-468B-432D-B1ED-F86E580EECC1}|MyBlazor\\MyBlazor.csproj|solutionrelative:myblazor\\repository\\irepository\\iproductrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 5,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "OrderPage.razor",
+              "DocumentMoniker": "D:\\Dev\\MyLearning\\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\\MyBlazor\\MyBlazor\\Components\\Pages\\OrderPage.razor",
+              "RelativeDocumentMoniker": "MyBlazor\\Components\\Pages\\OrderPage.razor",
+              "ToolTip": "D:\\Dev\\MyLearning\\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\\MyBlazor\\MyBlazor\\Components\\Pages\\OrderPage.razor",
+              "RelativeToolTip": "MyBlazor\\Components\\Pages\\OrderPage.razor",
+              "ViewState": "AgIAAHgAAAAAAAAAAAAAAIgAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-27T17:38:12.687Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "OrderHeader.cs",
+              "DocumentMoniker": "D:\\Dev\\MyLearning\\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\\MyBlazor\\MyBlazor\\Data\\OrderHeader.cs",
+              "RelativeDocumentMoniker": "MyBlazor\\Data\\OrderHeader.cs",
+              "ToolTip": "D:\\Dev\\MyLearning\\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\\MyBlazor\\MyBlazor\\Data\\OrderHeader.cs",
+              "RelativeToolTip": "MyBlazor\\Data\\OrderHeader.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAkwBcAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-27T17:37:19.82Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "OrderConfirmation.razor",
+              "DocumentMoniker": "D:\\Dev\\MyLearning\\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\\MyBlazor\\MyBlazor\\Components\\Pages\\OrderConfirmation.razor",
+              "RelativeDocumentMoniker": "MyBlazor\\Components\\Pages\\OrderConfirmation.razor",
+              "ToolTip": "D:\\Dev\\MyLearning\\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\\MyBlazor\\MyBlazor\\Components\\Pages\\OrderConfirmation.razor",
+              "RelativeToolTip": "MyBlazor\\Components\\Pages\\OrderConfirmation.razor",
+              "ViewState": "AgIAAFwAAAAAAAAAAAAUwG0AAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-27T17:32:16.646Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "20250627172548_AddProductId.cs",
+              "DocumentMoniker": "D:\\Dev\\MyLearning\\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\\MyBlazor\\MyBlazor\\Migrations\\20250627172548_AddProductId.cs",
+              "RelativeDocumentMoniker": "MyBlazor\\Migrations\\20250627172548_AddProductId.cs",
+              "ToolTip": "D:\\Dev\\MyLearning\\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\\MyBlazor\\MyBlazor\\Migrations\\20250627172548_AddProductId.cs",
+              "RelativeToolTip": "MyBlazor\\Migrations\\20250627172548_AddProductId.cs",
+              "ViewState": "AgIAADIAAAAAAAAAAAAAADIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-27T17:25:48.454Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "OrderDetail.cs",
+              "DocumentMoniker": "D:\\Dev\\MyLearning\\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\\MyBlazor\\MyBlazor\\Data\\OrderDetail.cs",
+              "RelativeDocumentMoniker": "MyBlazor\\Data\\OrderDetail.cs",
+              "ToolTip": "D:\\Dev\\MyLearning\\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\\MyBlazor\\MyBlazor\\Data\\OrderDetail.cs",
+              "RelativeToolTip": "MyBlazor\\Data\\OrderDetail.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-27T17:21:31.311Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "OrderRepository.cs",
+              "DocumentMoniker": "D:\\Dev\\MyLearning\\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\\MyBlazor\\MyBlazor\\Repository\\OrderRepository.cs",
+              "RelativeDocumentMoniker": "MyBlazor\\Repository\\OrderRepository.cs",
+              "ToolTip": "D:\\Dev\\MyLearning\\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\\MyBlazor\\MyBlazor\\Repository\\OrderRepository.cs",
+              "RelativeToolTip": "MyBlazor\\Repository\\OrderRepository.cs",
+              "ViewState": "AgIAABgAAAAAAAAAAAAswCMAAABMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-27T17:17:40.67Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "IOrderRepository.cs",
+              "DocumentMoniker": "D:\\Dev\\MyLearning\\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\\MyBlazor\\MyBlazor\\Repository\\IRepository\\IOrderRepository.cs",
+              "RelativeDocumentMoniker": "MyBlazor\\Repository\\IRepository\\IOrderRepository.cs",
+              "ToolTip": "D:\\Dev\\MyLearning\\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\\MyBlazor\\MyBlazor\\Repository\\IRepository\\IOrderRepository.cs",
+              "RelativeToolTip": "MyBlazor\\Repository\\IRepository\\IOrderRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-27T17:17:00.317Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "IProductRepository.cs",
+              "DocumentMoniker": "D:\\Dev\\MyLearning\\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\\MyBlazor\\MyBlazor\\Repository\\IRepository\\IProductRepository.cs",
+              "RelativeDocumentMoniker": "MyBlazor\\Repository\\IRepository\\IProductRepository.cs",
+              "ToolTip": "D:\\Dev\\MyLearning\\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\\MyBlazor\\MyBlazor\\Repository\\IRepository\\IProductRepository.cs",
+              "RelativeToolTip": "MyBlazor\\Repository\\IRepository\\IProductRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-27T17:16:59.851Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "SD.cs",
+              "DocumentMoniker": "D:\\Dev\\MyLearning\\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\\MyBlazor\\MyBlazor\\Utility\\SD.cs",
+              "RelativeDocumentMoniker": "MyBlazor\\Utility\\SD.cs",
+              "ToolTip": "D:\\Dev\\MyLearning\\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\\MyBlazor\\MyBlazor\\Utility\\SD.cs",
+              "RelativeToolTip": "MyBlazor\\Utility\\SD.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAQwBcAAABcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-27T17:16:32.46Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "CartPage.razor",
+              "DocumentMoniker": "D:\\Dev\\MyLearning\\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\\MyBlazor\\MyBlazor\\Components\\Pages\\CartPage.razor",
+              "RelativeDocumentMoniker": "MyBlazor\\Components\\Pages\\CartPage.razor",
+              "ToolTip": "D:\\Dev\\MyLearning\\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\\MyBlazor\\MyBlazor\\Components\\Pages\\CartPage.razor",
+              "RelativeToolTip": "MyBlazor\\Components\\Pages\\CartPage.razor",
+              "ViewState": "AgIAABcAAAAAAAAAAIAywCsAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-27T17:15:58.786Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\Dev\\MyLearning\\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\\MyBlazor\\MyBlazor\\Program.cs",
+              "RelativeDocumentMoniker": "MyBlazor\\Program.cs",
+              "ToolTip": "D:\\Dev\\MyLearning\\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\\MyBlazor\\MyBlazor\\Program.cs",
+              "RelativeToolTip": "MyBlazor\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-27T17:13:52.177Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }

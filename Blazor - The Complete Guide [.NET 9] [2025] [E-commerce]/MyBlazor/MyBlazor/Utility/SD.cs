@@ -10,5 +10,22 @@
         public static string Status_ReadyForPickup = "ReadyForPickup";
         public static string Status_Completed = "Completed";
         public static string Status_Cancelled = "Cancelled";
+
+        public static List<OrderDetail> ConvertShoppingCartToOrderDetails(List<ShoppingCart> shoppingCarts)
+        {
+            List<OrderDetail> orderDetails = new List<OrderDetail>();
+            foreach (var cart in shoppingCarts)
+            {
+                OrderDetail orderDetail = new OrderDetail
+                {
+                    ProductId = cart.ProductId,
+                    Count = cart.Quantity,
+                    Price = Convert.ToDouble(cart.Product.Price),
+                    ProductName = cart.Product.Name, // Assuming Product has a Name property
+                };
+                orderDetails.Add(orderDetail);
+            }
+            return orderDetails;
+        }
     }
 }

@@ -1,5 +1,6 @@
 wwwroot\app.css
 wwwroot\favicon.png
+wwwroot\images\product\841e301c-a453-4603-b36a-c421ddf7aa6d.jpeg
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css
@@ -45,49 +46,48 @@ wwwroot\lib\bootstrap\dist\js\bootstrap.js.map
 wwwroot\lib\bootstrap\dist\js\bootstrap.min.js
 wwwroot\lib\bootstrap\dist\js\bootstrap.min.js.map
 wwwroot\lib\js\site.js
-wwwroot\images\product\841e301c-a453-4603-b36a-c421ddf7aa6d.jpeg
-D:\Dev\MyLearning\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\MyBlazor\MyBlazor\wwwroot\app.css
-D:\Dev\MyLearning\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\MyBlazor\MyBlazor\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
+D:\Dev\MyLearning\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\MyBlazor\MyBlazor\wwwroot\lib\bootstrap\dist\js\bootstrap.js
+D:\Dev\MyLearning\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\MyBlazor\MyBlazor\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js
 D:\Dev\MyLearning\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\MyBlazor\MyBlazor\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map
 D:\Dev\MyLearning\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\MyBlazor\MyBlazor\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css
 D:\Dev\MyLearning\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\MyBlazor\MyBlazor\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css.map
-D:\Dev\MyLearning\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\MyBlazor\MyBlazor\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.css
+D:\Dev\MyLearning\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\MyBlazor\MyBlazor\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js
 D:\Dev\MyLearning\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\MyBlazor\MyBlazor\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.css.map
 D:\Dev\MyLearning\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\MyBlazor\MyBlazor\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css
 D:\Dev\MyLearning\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\MyBlazor\MyBlazor\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css.map
-D:\Dev\MyLearning\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\MyBlazor\MyBlazor\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css
+D:\Dev\MyLearning\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\MyBlazor\MyBlazor\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.css
 D:\Dev\MyLearning\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\MyBlazor\MyBlazor\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css.map
 D:\Dev\MyLearning\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\MyBlazor\MyBlazor\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css
 D:\Dev\MyLearning\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\MyBlazor\MyBlazor\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css.map
-D:\Dev\MyLearning\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\MyBlazor\MyBlazor\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.css
+D:\Dev\MyLearning\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\MyBlazor\MyBlazor\wwwroot\lib\bootstrap\dist\css\bootstrap.css
 D:\Dev\MyLearning\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\MyBlazor\MyBlazor\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.css.map
 D:\Dev\MyLearning\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\MyBlazor\MyBlazor\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css
 D:\Dev\MyLearning\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\MyBlazor\MyBlazor\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css.map
-D:\Dev\MyLearning\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\MyBlazor\MyBlazor\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.css
+D:\Dev\MyLearning\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\MyBlazor\MyBlazor\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css
 D:\Dev\MyLearning\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\MyBlazor\MyBlazor\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.css.map
 D:\Dev\MyLearning\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\MyBlazor\MyBlazor\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.min.css
 D:\Dev\MyLearning\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\MyBlazor\MyBlazor\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.min.css.map
-D:\Dev\MyLearning\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\MyBlazor\MyBlazor\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css
+D:\Dev\MyLearning\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\MyBlazor\MyBlazor\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.css
 D:\Dev\MyLearning\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\MyBlazor\MyBlazor\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css.map
 D:\Dev\MyLearning\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\MyBlazor\MyBlazor\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css
 D:\Dev\MyLearning\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\MyBlazor\MyBlazor\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css.map
-D:\Dev\MyLearning\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\MyBlazor\MyBlazor\wwwroot\lib\bootstrap\dist\css\bootstrap.css
+D:\Dev\MyLearning\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\MyBlazor\MyBlazor\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.css
 D:\Dev\MyLearning\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\MyBlazor\MyBlazor\wwwroot\lib\bootstrap\dist\css\bootstrap.css.map
 D:\Dev\MyLearning\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\MyBlazor\MyBlazor\wwwroot\lib\bootstrap\dist\css\bootstrap.min.css
 D:\Dev\MyLearning\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\MyBlazor\MyBlazor\wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map
-D:\Dev\MyLearning\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\MyBlazor\MyBlazor\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.css
+D:\Dev\MyLearning\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\MyBlazor\MyBlazor\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css
 D:\Dev\MyLearning\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\MyBlazor\MyBlazor\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.css.map
 D:\Dev\MyLearning\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\MyBlazor\MyBlazor\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.min.css
 D:\Dev\MyLearning\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\MyBlazor\MyBlazor\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.min.css.map
-D:\Dev\MyLearning\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\MyBlazor\MyBlazor\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js
+D:\Dev\MyLearning\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\MyBlazor\MyBlazor\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.css
 D:\Dev\MyLearning\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\MyBlazor\MyBlazor\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js.map
 D:\Dev\MyLearning\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\MyBlazor\MyBlazor\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js
 D:\Dev\MyLearning\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\MyBlazor\MyBlazor\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map
-D:\Dev\MyLearning\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\MyBlazor\MyBlazor\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js
+D:\Dev\MyLearning\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\MyBlazor\MyBlazor\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
 D:\Dev\MyLearning\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\MyBlazor\MyBlazor\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js.map
 D:\Dev\MyLearning\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\MyBlazor\MyBlazor\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js
 D:\Dev\MyLearning\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\MyBlazor\MyBlazor\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js.map
-D:\Dev\MyLearning\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\MyBlazor\MyBlazor\wwwroot\lib\bootstrap\dist\js\bootstrap.js
+D:\Dev\MyLearning\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\MyBlazor\MyBlazor\wwwroot\app.css
 D:\Dev\MyLearning\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\MyBlazor\MyBlazor\wwwroot\lib\bootstrap\dist\js\bootstrap.js.map
 D:\Dev\MyLearning\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\MyBlazor\MyBlazor\wwwroot\lib\bootstrap\dist\js\bootstrap.min.js
 D:\Dev\MyLearning\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\MyBlazor\MyBlazor\wwwroot\lib\bootstrap\dist\js\bootstrap.min.js.map

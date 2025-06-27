@@ -208,6 +208,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xIb21lLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Dev/MyLearning/Blazor - The Complete Guide \[.NET 9\] \[2025\] \[E-commerce\]/MyBlazor/MyBlazor/Components/Pages/OrderConfirmation.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xPcmRlckNvbmZpcm1hdGlvbi5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Dev/MyLearning/Blazor - The Complete Guide \[.NET 9\] \[2025\] \[E-commerce\]/MyBlazor/MyBlazor/Components/Pages/OrderPage.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xPcmRlclBhZ2UucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Dev/MyLearning/Blazor - The Complete Guide \[.NET 9\] \[2025\] \[E-commerce\]/MyBlazor/MyBlazor/Components/Pages/Products/ProductPage.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xQcm9kdWN0c1xQcm9kdWN0UGFnZS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
