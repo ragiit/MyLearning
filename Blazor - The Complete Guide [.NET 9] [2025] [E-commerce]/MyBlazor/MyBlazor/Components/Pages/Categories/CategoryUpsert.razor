@@ -1,0 +1,104 @@
+﻿@page "/categories/create"
+@page "/categories/edit/{Id:int}"
+@inject MyBlazor.Repository.IRepository.ICategoryRepository CategoryRepository
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime // Tambahkan ini jika ingin notifikasi Toast
+
+<PageTitle>@((Id == 0) ? "Tambah Kategori Baru" : "Edit Kategori")</PageTitle>
+
+<div class="container mt-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">
+                <i class="bi bi-tags-fill me-2"></i> @((Id == 0) ? "Tambah Kategori Baru" : "Edit Kategori")
+            </h4>
+        </div>
+        <div class="card-body">
+            <EditForm FormName="CategoryForm" Model="@category" OnValidSubmit="@HandleUpsert">
+                <DataAnnotationsValidator />
+                <ValidationSummary class="alert alert-danger" role="alert" />
+
+                <div class="mb-3">
+                    <label for="name" class="form-label">Nama Kategori:</label>
+                    <InputText id="name" class="form-control" @bind-Value="category.Name" placeholder="Masukkan nama kategori" />
+                    <ValidationMessage For="@(() => category.Name)" class="text-danger mt-1" />
+                </div>
+
+                <hr class="my-4">
+
+                <div class="d-flex justify-content-end">
+                    <button type="button" class="btn btn-secondary me-2" @onclick="Cancel">
+                        <i class="bi bi-x-circle me-2"></i> Batal
+                    </button>
+                    <button type="submit" class="btn btn-success">
+                        <i class="bi bi-check-circle me-2"></i> @((Id == 0) ? "Simpan Kategori" : "Perbarui Kategori")
+                    </button>
+                </div>
+            </EditForm>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public int Id { get; set; } // Akan diisi jika halaman diakses untuk edit
+    [SupplyParameterFromForm]
+    private MyBlazor.Data.Category category  { get; set; } = new MyBlazor.Data.Category();
+
+    protected override async Task OnInitializedAsync()
+    { 
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            if (Id != 0) // Jika Id tidak nol, berarti mode edit
+            {
+                var existingCategory = await CategoryRepository.GetByIdAsync(Id);
+                if (existingCategory != null)
+                {
+                    category = existingCategory;
+                }
+                else
+                {
+                    // Kategori tidak ditemukan, mungkin navigasi ke halaman 404 atau daftar kategori
+                    Console.WriteLine($"Kategori dengan ID {Id} tidak ditemukan.");
+                    NavigationManager.NavigateTo("/categories", forceLoad: true); // Kembali ke daftar kategori
+                }
+                StateHasChanged(); // Memastikan UI diperbarui setelah mengambil data
+            }
+        } 
+    }
+
+    private async Task HandleUpsert()
+    {
+        try
+        {
+            if (Id == 0) // Mode tambah (Insert)
+            {
+                await CategoryRepository.CreateAsync(category);
+                // Tambahkan notifikasi sukses (misal: Toast)
+                await JSRuntime.InvokeVoidAsync("showToastr", "success", "Kategori baru berhasil ditambahkan!");
+            }
+            else // Mode edit (Update)
+            {
+                await CategoryRepository.UpdateAsync(category);
+                // Tambahkan notifikasi sukses (misal: Toast)
+                await JSRuntime.InvokeVoidAsync("showToastr", "success", "Kategori berhasil diperbarui!");
+            }
+            NavigationManager.NavigateTo("/categories"); // Kembali ke daftar kategori setelah berhasil
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error saving category: {ex.Message}");
+            // Tambahkan notifikasi error (misal: Toast)
+            await JSRuntime.InvokeVoidAsync("showToastr", "error", $"Gagal menyimpan kategori: {ex.Message}");
+        }
+    }
+
+    private void Cancel()
+    {
+        NavigationManager.NavigateTo("/categories");
+    }
+}

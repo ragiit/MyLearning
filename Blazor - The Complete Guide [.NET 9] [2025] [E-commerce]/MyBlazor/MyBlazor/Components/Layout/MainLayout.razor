@@ -1,0 +1,93 @@
+﻿@inherits LayoutComponentBase
+@using Microsoft.AspNetCore.Components.Authorization
+@inject NavigationManager NavigationManager
+
+@* Import CSS yang relevan di sini jika perlu, atau pastikan sudah ada di index.html *@
+@* <link rel="stylesheet" href="mainlayout.css" />
+<link rel="stylesheet" href="NavMenu.css" /> *@
+
+
+<AuthorizeView>
+    <Authorized>
+        @if (context.User.IsInRole("Admin")) // Asumsikan ada peran "Admin"
+        {
+            @* --- Layout untuk Admin (Sidebar) --- *@
+            <div class="page admin-layout">
+                <div class="sidebar">
+                    <NavMenu IsAdmin="true" /> @* Kirim parameter ke NavMenu untuk admin *@
+                </div>
+
+                <main>
+                    <div class="top-row px-4">
+                        <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
+                        @* Tambahkan komponen LoginDisplay atau UserDisplay jika Anda mau *@
+                        <partial name="_LoginPartial" /> @* Jika Anda punya _LoginPartial.cshtml di Views/Shared *@
+                    </div>
+
+                    <article class="content px-4">
+                        @Body
+                    </article>
+                </main>
+            </div>
+        }
+        else // Jika user terautentikasi tapi BUKAN Admin (misal: Customer)
+        {
+            @* --- Layout untuk Customer (Navbar Atas) --- *@
+            <div class="page customer-layout">
+                <header class="navbar navbar-expand-md navbar-dark bg-dark fixed-top shadow">
+                    @* Navbar atas *@
+                    <div class="container-fluid">
+                        <a class="navbar-brand me-auto" href="/">MyBlazor</a>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+                                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarCollapse">
+                            <NavMenu IsAdmin="false" IsTopNav="true" /> @* Kirim parameter ke NavMenu untuk customer (top-nav) *@
+                            @* Tambahkan komponen LoginDisplay atau UserDisplay jika Anda mau *@
+                            <partial name="_LoginPartial" /> @* Atau bisa buat LoginDisplay.razor komponen *@
+                        </div>
+                    </div>
+                </header>
+
+                <main style="padding-top: 70px;">
+                    @* Sesuaikan padding-top dengan tinggi navbar *@
+                    <article class="content px-4">
+                        @Body
+                    </article>
+                </main>
+            </div>
+        }
+    </Authorized>
+    <NotAuthorized>
+        @* --- Layout untuk Pengguna Belum Login (Navbar Atas Sederhana) --- *@
+        <div class="page public-layout">
+            <header class="navbar navbar-expand-md navbar-dark bg-dark fixed-top shadow">
+                <div class="container-fluid">
+                    <a class="navbar-brand me-auto" href="/">MyBlazor</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+                            aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <NavMenu IsAdmin="false" IsTopNav="true" /> @* Untuk pengguna belum login, tampilkan menu yang sesuai di atas *@
+                        @* Atau buat NavMenuLoginRegister.razor terpisah *@
+                    </div>
+                </div>
+            </header>
+
+            <main style="padding-top: 70px;">
+                <article class="content px-4">
+                    @Body
+                </article>
+            </main>
+        </div>
+    </NotAuthorized>
+</AuthorizeView>
+
+
+<div id="blazor-error-ui" data-nosnippet>
+    An unhandled error has occurred.
+    <a href="." class="reload">Reload</a>
+    <span class="dismiss">🗙</span>
+</div>

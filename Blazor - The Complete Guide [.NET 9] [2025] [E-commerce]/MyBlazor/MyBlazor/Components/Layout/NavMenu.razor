@@ -1,0 +1,142 @@
+﻿@implements IDisposable
+
+@inject NavigationManager NavigationManager
+@using Microsoft.AspNetCore.Components.Authorization // Tambahkan ini
+ 
+<div class="@(IsTopNav ? "navbar-wrapper" : "top-row ps-3") navbar @(IsTopNav ? "navbar-expand-md" : "navbar-dark")">
+    @if (!IsTopNav) // Hanya tampilkan brand di sidebar jika bukan top-nav
+    {
+        <div class="container-fluid">
+            <a class="navbar-brand" href="">MyBlazor</a>
+        </div>
+    }
+</div>
+
+@if (!IsTopNav) // Hanya tampilkan toggler untuk sidebar
+{
+    <input type="checkbox" title="Navigation menu" class="navbar-toggler" />
+}
+
+@* Perbaikan pada onclick untuk top-nav (jika ini navbar-collapse Bootstrap) *@
+<div class="@(IsTopNav ? "collapse navbar-collapse" : "nav-scrollable")" id="@(IsTopNav ? "navbarCollapse" : "")">
+    <nav class="nav @(IsTopNav ? "navbar-nav ms-auto mb-2 mb-md-0" : "flex-column")">
+
+        @if (IsTopNav) // Menu untuk navbar atas (Customer/Public)
+        { 
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                    <i class="bi bi-house-door-fill me-2" aria-hidden="true"></i> Home
+                </NavLink>
+            </div>
+
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="carts">
+                    <i class="bi bi-bag me-2" aria-hidden="true"></i> Keranjang
+                </NavLink>
+            </div>
+
+            @* Autentikasi untuk Navbar Atas (Customer/Public) *@
+            <AuthorizeView>
+                <Authorized>
+                    <div class="nav-item px-3">
+                        <NavLink class="nav-link" href="Account/Manage">
+                            <i class="bi bi-person-fill me-2" aria-hidden="true"></i> Welcome, @context.User.Identity?.Name!
+                        </NavLink>
+                    </div>
+                    <div class="nav-item px-3">
+                        <form action="Account/Logout" method="post">
+                            <AntiforgeryToken />
+                            <input type="hidden" name="ReturnUrl" value="@currentUrl" />
+                            <button type="submit" class="nav-link btn btn-link">
+                                <i class="bi bi-arrow-bar-left me-2" aria-hidden="true"></i> Logout
+                            </button>
+                        </form>
+                    </div>
+                </Authorized>
+                <NotAuthorized>
+                    <div class="nav-item px-3">
+                        <NavLink class="nav-link" href="Account/Register">
+                            <i class="bi bi-person me-2" aria-hidden="true"></i> Register
+                        </NavLink>
+                    </div>
+                    <div class="nav-item px-3">
+                        <NavLink class="nav-link" href="Account/Login">
+                            <i class="bi bi-person-badge me-2" aria-hidden="true"></i> Login
+                        </NavLink>
+                    </div>
+                </NotAuthorized>
+            </AuthorizeView>
+        }
+        else // Menu untuk sidebar (Admin)
+        {
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                    <i class="bi bi-house-door-fill me-2" aria-hidden="true"></i> Home
+                </NavLink>
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="categories">
+                    <i class="bi bi-list-nested me-2" aria-hidden="true"></i> Kategori
+                </NavLink>
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="products">
+                    <i class="bi bi-box-seam me-2" aria-hidden="true"></i> Produk
+                </NavLink>
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="auth">
+                    <i class="bi bi-lock me-2" aria-hidden="true"></i> Auth Required
+                </NavLink>
+            </div>
+
+            @* Autentikasi untuk Sidebar (Admin) *@
+            <AuthorizeView>
+                <Authorized>
+                    <div class="nav-item px-3">
+                        <NavLink class="nav-link" href="Account/Manage">
+                            <i class="bi bi-person-fill me-2" aria-hidden="true"></i> @context.User.Identity?.Name
+                        </NavLink>
+                    </div>
+                    <div class="nav-item px-3">
+                        <form action="Account/Logout" method="post">
+                            <AntiforgeryToken />
+                            <input type="hidden" name="ReturnUrl" value="@currentUrl" />
+                            <button type="submit" class="nav-link btn btn-link">
+                                <i class="bi bi-arrow-bar-left me-2" aria-hidden="true"></i> Logout
+                            </button>
+                        </form>
+                    </div>
+                </Authorized>
+                @* Bagian NotAuthorized tidak diperlukan di sidebar admin, karena hanya admin yang akan melihat sidebar ini *@
+            </AuthorizeView>
+        }
+    </nav>
+</div>
+
+@code {
+    private string? currentUrl;
+
+    [Parameter]
+    public bool IsAdmin { get; set; } = false;
+
+    [Parameter]
+    public bool IsTopNav { get; set; } = false; // Jika ini adalah navbar di bagian atas
+
+    protected override void OnInitialized()
+    {
+        currentUrl = NavigationManager.ToBaseRelativePath(NavigationManager.Uri);
+        NavigationManager.LocationChanged += OnLocationChanged;
+    }
+
+    private void OnLocationChanged(object? sender, LocationChangedEventArgs e)
+    {
+        currentUrl = NavigationManager.ToBaseRelativePath(e.Location);
+        StateHasChanged();
+    }
+
+    public void Dispose()
+    {
+        NavigationManager.LocationChanged -= OnLocationChanged;
+    }
+}

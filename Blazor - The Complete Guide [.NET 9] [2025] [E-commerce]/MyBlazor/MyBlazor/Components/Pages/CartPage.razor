@@ -1,0 +1,349 @@
+﻿@page "/carts"
+@inject MyBlazor.Repository.IRepository.IShoppingCartRepository ShoppingCartRepository
+@* @inject MyBlazor.Repository.IRepository.IHe OrderRepository // Inject Order Repository *@
+@inject NavigationManager NavigationManager
+@attribute [Authorize]
+@inject IJSRuntime JSRuntime
+@using Microsoft.AspNetCore.Authorization
+@using MyBlazor.Data
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Components.Authorization
+@using System.Globalization
+@using Microsoft.AspNetCore.Identity // Untuk mendapatkan ApplicationUser
+@using MyBlazor.Utility
+@inject UserManager<ApplicationUser> UserManager // Inject UserManager
+
+<PageTitle>Keranjang Belanja Anda</PageTitle>
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2><i class="bi bi-cart me-2"></i> Keranjang Belanja Anda</h2>
+        @if (cartItems != null && cartItems.Any())
+        {
+            <button class="btn btn-outline-danger d-flex align-items-center" @onclick="ClearAllItemsAsync">
+                <i class="bi bi-trash me-2"></i> Kosongkan Keranjang
+            </button>
+        }
+    </div>
+
+    @if (cartItems == null)
+    {
+        <div class="alert alert-info text-center mt-5" role="alert">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Memuat...</span>
+            </div>
+            <p class="mt-2 mb-0">Memuat keranjang...</p>
+        </div>
+    }
+    else if (!cartItems.Any())
+    {
+        <div class="alert alert-warning text-center mt-5" role="alert">
+            <i class="bi bi-info-circle-fill me-2"></i> Keranjang belanja Anda kosong.
+            <button class="btn btn-sm btn-outline-primary ms-3" @onclick='() => NavigationManager.NavigateTo("/")'>
+                Lanjut Belanja!
+            </button>
+
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-light">
+                        <h5>Item di Keranjang</h5>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" class="py-3 ps-4">Produk</th>
+                                        <th scope="col" class="py-3">Harga</th>
+                                        <th scope="col" class="py-3">Kuantitas</th>
+                                        <th scope="col" class="py-3">Total</th>
+                                        <th scope="col" class="py-3 pe-4 text-end">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in cartItems)
+                                    {
+                                        <tr>
+                                            <td class="py-3 ps-4 d-flex align-items-center">
+                                                <img src="@(string.IsNullOrEmpty(item.Product?.ImageUrl) ? "https://placehold.co/50x50?text=No+Img" : item.Product?.ImageUrl)"
+                                                     class="img-thumbnail me-3" style="width: 50px; height: 50px; object-fit: cover;" alt="@item.Product?.Name" />
+                                                <span>@item.Product?.Name</span>
+                                            </td>
+                                            <td class="py-3">@( (item.Product?.Price ?? 0).ToString("C", CultureInfo.GetCultureInfo("id-ID")) )</td>
+
+                                            <td class="py-3">
+                                                <div class="input-group input-group-sm" style="width: 120px;">
+                                                    <button class="btn btn-outline-secondary" @onclick="(() => UpdateItemQuantityAsync(item.ProductId, item.Quantity - 1))">-</button>
+                                                    <input type="number" class="form-control text-center" @bind-value="item.Quantity" @bind-value:event="oninput" @onchange="(() => UpdateItemQuantityAsync(item.ProductId, item.Quantity))" min="1" />
+                                                    <button class="btn btn-outline-secondary" @onclick="(() => UpdateItemQuantityAsync(item.ProductId, item.Quantity + 1))">+</button>
+                                                </div>
+                                            </td>
+                                            <td class="py-3">@item.TotalPrice.ToString("C", CultureInfo.GetCultureInfo("id-ID"))</td>
+
+                                            <td class="py-3 pe-4 text-end">
+                                                <button class="btn btn-danger btn-sm" @onclick='() => RemoveSingleItemAsync(item.ProductId, item.Product?.Name ?? "Produk")'>
+                                                    <i class="bi bi-x-lg"></i> Hapus
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-primary text-white">
+                        <h5>Ringkasan Belanja</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Subtotal
+                                <span>@GetCartTotal().ToString("C", CultureInfo.GetCultureInfo("id-ID"))</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center fw-bold">
+                                Total
+                                <span>@GetCartTotal().ToString("C", CultureInfo.GetCultureInfo("id-ID"))</span>
+                            </li>
+                        </ul>
+                        <div class="d-grid mt-4">
+                            <button class="btn btn-success btn-lg" @onclick="ProceedToCheckout">
+                                <i class="bi bi-bag-check me-2"></i> Lanjut ke Pembayaran
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @* --- Checkout Form --- *@
+        <div class="row mt-5">
+            <div class="col-12">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-info text-white">
+                        <h5>Detail Pengiriman dan Pembayaran</h5>
+                    </div>
+                    <div class="card-body">
+                        <EditForm Model="orderHeader" OnValidSubmit="PlaceOrderAsync">
+                            <DataAnnotationsValidator />
+                            <ValidationSummary class="alert alert-danger" role="alert" />
+
+                            <div class="form-floating mb-3">
+                                <InputText @bind-Value="orderHeader.Name" class="form-control" placeholder="Nama Lengkap" />
+                                <label>Nama Lengkap</label>
+                                <ValidationMessage For="@(() => orderHeader.Name)" class="text-danger" />
+                            </div>
+                            <div class="form-floating mb-3">
+                                <InputText @bind-Value="orderHeader.PhoneNumber" class="form-control" placeholder="Nomor Telepon" />
+                                <label>Nomor Telepon</label>
+                                <ValidationMessage For="@(() => orderHeader.PhoneNumber)" class="text-danger" />
+                            </div>
+                            <div class="form-floating mb-3">
+                                <InputText @bind-Value="orderHeader.Email" class="form-control" placeholder="Alamat Email" />
+                                <label>Alamat Email</label>
+                                <ValidationMessage For="@(() => orderHeader.Email)" class="text-danger" />
+                            </div>
+                            @* <div class="form-floating mb-3">
+                                <InputTextArea @bind-Value="orderHeader.ShippingAddress" class="form-control" placeholder="Alamat Pengiriman" rows="3" />
+                                <label>Alamat Pengiriman</label>
+                                <ValidationMessage For="@(() => orderHeader.ShippingAddress)" class="text-danger" />
+                            </div>
+                            <div class="form-floating mb-3">
+                                <InputText @bind-Value="orderHeader.City" class="form-control" placeholder="Kota" />
+                                <label>Kota</label>
+                                <ValidationMessage For="@(() => orderHeader.City)" class="text-danger" />
+                            </div>
+                            <div class="form-floating mb-3">
+                                <InputText @bind-Value="orderHeader.PostalCode" class="form-control" placeholder="Kode Pos" />
+                                <label>Kode Pos</label>
+                                <ValidationMessage For="@(() => orderHeader.PostalCode)" class="text-danger" />
+                            </div> *@
+
+                            <div class="d-grid mt-4">
+                                <button type="submit" class="btn btn-primary btn-lg">
+                                    <i class="bi bi-credit-card me-2"></i> Konfirmasi Pesanan
+                                </button>
+                            </div>
+                        </EditForm>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationState { get; set; } = default!;
+    private string? currentUserId;
+
+    private IEnumerable<MyBlazor.Data.ShoppingCart>? cartItems;
+    private OrderHeader orderHeader = new OrderHeader(); // Model untuk checkout form
+    private bool _hasLoadedInitialData = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await authenticationState;
+        currentUserId = authState.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        if (string.IsNullOrEmpty(currentUserId))
+        {
+            // Karena sudah ada [Authorize], ini mungkin tidak perlu, tapi bagus sebagai fallback
+            NavigationManager.NavigateTo("Account/Login");
+            return;
+        }
+
+        if (!_hasLoadedInitialData)
+        {
+            await LoadCartItemsAsync();
+            await InitializeOrderHeaderAsync(); // Panggil untuk mengisi data user
+            _hasLoadedInitialData = true;
+        }
+    }
+
+    private async Task LoadCartItemsAsync()
+    {
+        try
+        {
+            cartItems = await ShoppingCartRepository.GetCartAsync(currentUserId!);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error loading cart items: {ex.Message}");
+            await JSRuntime.InvokeVoidAsync("showToastr", "error", $"Gagal memuat item keranjang: {ex.Message}");
+            cartItems = Enumerable.Empty<MyBlazor.Data.ShoppingCart>();
+        }
+    }
+
+    private async Task InitializeOrderHeaderAsync()
+    {
+        // Dapatkan detail pengguna untuk mengisi form checkout
+        var user = await UserManager.FindByIdAsync(currentUserId!);
+        if (user != null)
+        {
+            orderHeader.ApplicationUserId = currentUserId!;
+            orderHeader.Name = user.UserName ?? string.Empty; // Atau nama asli jika ada di ApplicationUser
+            orderHeader.PhoneNumber = user.PhoneNumber ?? string.Empty;
+            orderHeader.Email = user.Email ?? string.Empty;
+            orderHeader.Status = SD.Status_Pending; // Status awal pesanan
+            // Anda bisa tambahkan default untuk alamat pengiriman jika ada di ApplicationUser
+            // orderHeader.ShippingAddress = user.Address ?? string.Empty;
+            // orderHeader.City = user.City ?? string.Empty;
+            // orderHeader.PostalCode = user.PostalCode ?? string.Empty;
+        }
+        orderHeader.OrderTotal = (double)GetCartTotal(); // Pastikan OrderTotal terisi
+    }
+
+
+    private decimal GetCartTotal()
+    {
+        return cartItems?.Sum(item => item.TotalPrice) ?? 0;
+    }
+
+    private async Task UpdateItemQuantityAsync(int productId, int newQuantity)
+    {
+        var success = await ShoppingCartRepository.UpdateCartAsync(currentUserId!, productId, newQuantity);
+        if (success)
+        {
+            await LoadCartItemsAsync();
+            orderHeader.OrderTotal = (double)GetCartTotal(); // Perbarui total di orderHeader
+            await JSRuntime.InvokeVoidAsync("showToastr", "info", "Kuantitas diperbarui!");
+        }
+        else
+        {
+            await JSRuntime.InvokeVoidAsync("showToastr", "error", "Gagal memperbarui kuantitas.");
+        }
+    }
+
+    private async Task RemoveSingleItemAsync(int productId, string productName)
+    {
+        var confirmed = await JSRuntime.InvokeAsync<bool>("confirm", $"Apakah Anda yakin ingin menghapus '{productName}' dari keranjang?");
+        if (confirmed)
+        {
+            var success = await ShoppingCartRepository.UpdateCartAsync(currentUserId!, productId, 0);
+            if (success)
+            {
+                await LoadCartItemsAsync();
+                orderHeader.OrderTotal = (double)GetCartTotal(); // Perbarui total di orderHeader
+                await JSRuntime.InvokeVoidAsync("showToastr", "success", $"'{productName}' dihapus dari keranjang.");
+            }
+            else
+            {
+                await JSRuntime.InvokeVoidAsync("showToastr", "error", $"Gagal menghapus '{productName}' dari keranjang.");
+            }
+        }
+    }
+
+    private async Task ClearAllItemsAsync()
+    {
+        var confirmed = await JSRuntime.InvokeAsync<bool>("confirm", "Apakah Anda yakin ingin mengosongkan seluruh keranjang belanja Anda?");
+        if (confirmed)
+        {
+            var success = await ShoppingCartRepository.ClearCartAsync(currentUserId!);
+            if (success)
+            {
+                await LoadCartItemsAsync();
+                orderHeader = new OrderHeader(); // Reset orderHeader setelah keranjang dikosongkan
+                orderHeader.OrderTotal = 0; // Pastikan total juga 0
+                await JSRuntime.InvokeVoidAsync("showToastr", "success", "Keranjang belanja Anda telah dikosongkan.");
+            }
+            else
+            {
+                await JSRuntime.InvokeVoidAsync("showToastr", "error", "Gagal mengosongkan keranjang.");
+            }
+        }
+    }
+
+    // Dipanggil saat tombol "Lanjut ke Pembayaran" diklik
+    private void ProceedToCheckout()
+    {
+        // Secara implisit, form checkout akan ditampilkan
+        // Tidak ada navigasi di sini, hanya persiapan UI
+        // orderHeader.OrderTotal sudah diisi dari GetCartTotal()
+    }
+
+    // Dipanggil saat form "Konfirmasi Pesanan" di-submit
+    private async Task PlaceOrderAsync()
+    {
+        if (cartItems == null || !cartItems.Any())
+        {
+            await JSRuntime.InvokeVoidAsync("showToastr", "error", "Keranjang Anda kosong. Tidak dapat membuat pesanan.");
+            return;
+        }
+
+        try
+        {
+            // Periksa ulang total order
+            orderHeader.OrderTotal = (double)GetCartTotal();
+            orderHeader.OrderDate = DateTime.Now;
+            orderHeader.Status = "Pending"; // Status awal pesanan
+
+            // Buat order dan detailnya, lalu kosongkan keranjang
+            // var createdOrder = await OrderRepository.CreateOrderAsync(orderHeader, cartItems);
+
+            // if (createdOrder != null && createdOrder.Id > 0)
+            // {
+            //     await JSRuntime.InvokeVoidAsync("showToastr", "success", "Pesanan Anda berhasil dibuat! Order ID: " + createdOrder.Id);
+            //     Setelah order dibuat, navigasi ke halaman konfirmasi atau detail order
+            //     NavigationManager.NavigateTo($"/order/confirmation/{createdOrder.Id}"); Contoh navigasi
+            // }
+            // else
+            // {
+            //     await JSRuntime.InvokeVoidAsync("showToastr", "error", "Gagal membuat pesanan. Silakan coba lagi.");
+            // }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error placing order: {ex.Message}");
+            await JSRuntime.InvokeVoidAsync("showToastr", "error", $"Terjadi kesalahan saat membuat pesanan: {ex.Message}");
+        }
+    }
+}

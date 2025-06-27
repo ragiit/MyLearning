@@ -1,0 +1,167 @@
+/* --- Global Styling for NavMenu --- */
+
+/* Base styling for the navbar toggler (hamburger menu) */
+.navbar-toggler {
+    appearance: none;
+    cursor: pointer;
+    width: 3.5rem;
+    height: 2.5rem;
+    color: white;
+    position: absolute;
+    top: 0.5rem;
+    right: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    /* Keep Bootstrap's default background-image for toggler icon */
+    background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.55%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") no-repeat center/1.75rem rgba(255, 255, 255, 0.1);
+}
+
+    /* Style when the toggler is checked (menu open) */
+    .navbar-toggler:checked {
+        background-color: rgba(255, 255, 255, 0.5);
+    }
+
+/* Base styling for the top row (used by sidebar in mobile) */
+.top-row {
+    min-height: 3.5rem;
+    background-color: rgba(0,0,0,0.4); /* Dark background for visibility */
+}
+
+/* Styling for the brand name (e.g., "MyBlazor") */
+.navbar-brand {
+    font-size: 1.1rem;
+}
+
+/* --- ICON ALIGNMENT & STYLING --- */
+/* This is crucial for fixing the icon position. */
+/* Ensure you are using <i class="bi bi-ICON_NAME"> directly in your HTML */
+.bi {
+    vertical-align: middle; /* Align icon vertically with text */
+    margin-right: 0.75rem; /* Space between icon and text */
+    font-size: 1.1rem; /* Adjust icon size to match link text */
+    /* REMOVE any specific background-image, width, height, position, top properties here */
+    /* Example of what to remove if they exist: */
+    /* background-image: none; */
+    /* width: 1.25rem; */
+    /* height: 1.25rem; */
+    /* position: relative; */
+    /* top: -1px; */
+    /* background-size: cover; */
+}
+
+/* --- Nav Item Styling (for both sidebar and top-nav) --- */
+.nav-item {
+    font-size: 0.9rem;
+    padding-bottom: 0.5rem; /* Default padding for nav items */
+}
+
+    .nav-item:first-of-type {
+        /*padding-top: 1rem;*/ /* Top padding for the first item */
+    }
+
+    .nav-item:last-of-type {
+        /*padding-bottom: 1rem;*/ /* Bottom padding for the last item */
+    }
+
+    /* Styling for navigation links (common for both sidebar and top-nav, adjusted below) */
+    /* Using ::deep for Blazor component scope if needed, though often unnecessary for basic elements */
+    .nav-item ::deep .nav-link {
+        background: none;
+        border: none;
+        border-radius: 4px;
+        display: flex; /* Use flexbox for robust vertical alignment */
+        align-items: center; /* Vertically center icon and text */
+        line-height: normal; /* Reset line-height to allow flexbox to control height */
+        width: 100%;
+        padding: 0.5rem 1rem !important; /* Consistent padding */
+    }
+
+    /* Specific styling for sidebar navigation links */
+    .nav-item ::deep .nav-link { /* This selector specifically targets links within nav-item for sidebar */
+        color: #d7d7d7; /* Default link color for sidebar */
+        height: 3rem; /* Fixed height for sidebar links for consistency */
+    }
+
+    .nav-item ::deep a.active { /* Active link styling for sidebar */
+        background-color: rgba(255,255,255,0.37);
+        color: white;
+    }
+
+    .nav-item ::deep .nav-link:hover { /* Hover styling for sidebar links */
+        background-color: rgba(255,255,255,0.1);
+        color: white;
+    }
+
+/* --- Styling for Top-Navbar Links (Customer/Public Layout) --- */
+/* These rules override/complement the general .nav-item .nav-link rules for top-nav */
+.nav.navbar-nav .nav-item .nav-link {
+    color: rgba(255, 255, 255, 0.75); /* Default link color for top-nav */
+    /*height: auto;*/ /* Allow height to adjust based on content */
+    padding: 0.5rem 1rem !important; /* Adjust padding for horizontal layout */
+    /* display: flex; align-items: center; line-height: normal; are already set by .nav-item ::deep .nav-link */
+}
+
+    .nav.navbar-nav .nav-item .nav-link:hover {
+        color: rgba(255, 255, 255, 1); /* Hover color for top-nav */
+    }
+
+    .nav.navbar-nav .nav-item .nav-link.active {
+        color: white;
+        background-color: rgba(255,255,255,0.2); /* Active link styling for top-nav */
+    }
+
+/* --- Collapsible Navigation (Mobile) --- */
+/* This is for the sidebar's collapse behavior on mobile */
+.nav-scrollable {
+    display: none; /* Hidden by default on mobile */
+}
+
+/* When the navbar-toggler is checked, display the nav-scrollable (sidebar) */
+.navbar-toggler:checked ~ .nav-scrollable {
+    display: block;
+}
+
+/* For Bootstrap's .navbar-collapse when used in top-nav (managed by Bootstrap JS) */
+.collapse.navbar-collapse {
+    transition: none; /* Disable Blazor's default transition that might conflict with Bootstrap's JS */
+    /* Do NOT set display: none here, Bootstrap's JS manages it */
+}
+
+/* --- Media Queries for Desktop (min-width: 641px) --- */
+@media (min-width: 641px) {
+    /* Hide the toggler button on larger screens */
+    .navbar-toggler {
+        display: none;
+    }
+
+    /* Always display the sidebar on larger screens */
+    .nav-scrollable {
+        display: block;
+        height: calc(100vh - 3.5rem); /* Fill remaining height */
+        overflow-y: auto; /* Enable scrolling for long menus */
+    }
+
+    /* Adjust navbar-collapse and navbar-nav for horizontal top-navigation on larger screens */
+    .navbar-collapse {
+        display: flex !important; /* Ensure it's always visible and flex on desktop */
+        flex-grow: 1; /* Allow it to take available space */
+    }
+
+    .navbar-nav {
+        flex-direction: row; /* Arrange nav items horizontally */
+        margin-left: auto !important; /* Push nav items to the right */
+        margin-right: 0 !important;
+    }
+
+        .navbar-nav .nav-item {
+            padding-bottom: 0;
+            padding-left: 0.5rem; /* Horizontal padding for top-nav items */
+            padding-right: 0.5rem;
+        }
+
+            .navbar-nav .nav-item .nav-link {
+                /*height: auto;*/ /* Allow height to adjust */
+                line-height: normal;
+                align-items: center;
+                padding: 0.5rem 1rem !important; /* Consistent padding */
+            }
+}

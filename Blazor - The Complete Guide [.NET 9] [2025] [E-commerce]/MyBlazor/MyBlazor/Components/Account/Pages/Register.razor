@@ -1,0 +1,207 @@
+﻿@page "/Account/Register"
+
+@using System.ComponentModel.DataAnnotations
+@using System.Text
+@using System.Text.Encodings.Web
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.WebUtilities
+@using MyBlazor.Data
+@using MyBlazor.Utility
+
+@inject UserManager<ApplicationUser> UserManager
+@inject IUserStore<ApplicationUser> UserStore
+@inject SignInManager<ApplicationUser> SignInManager
+@inject RoleManager<IdentityRole> RoleManager
+@inject IEmailSender<ApplicationUser> EmailSender
+@inject ILogger<Register> Logger
+@inject NavigationManager NavigationManager
+@inject IdentityRedirectManager RedirectManager
+@* @inject IJSRuntime JSRuntime *@
+
+<PageTitle>Register Akun Baru</PageTitle>
+
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-lg border-0 rounded-lg mt-5">
+                @* PERBAIKAN DI SINI: Ubah warna latar belakang header untuk kontras yang lebih baik *@
+                <div class="card-header bg-dark text-white text-center py-4 rounded-top-lg">
+                    @* Menggunakan bg-dark untuk kontras yang jelas *@
+                    @* ATAU: Anda bisa menggunakan bg-primary jika warna primary di tema Bootstrap Anda cukup gelap *@
+                    @* ATAU: Gunakan bg-secondary, bg-info, bg-success, dll., dan sesuaikan text-color sesuai kebutuhan *@
+                    <h3 class="fw-light my-2">
+                        <i class="bi bi-person-plus-fill me-2"></i> Buat Akun Baru
+                    </h3>
+                </div>
+                <div class="card-body p-4">
+                    <StatusMessage Message="@Message" />
+
+                    <EditForm Model="Input" asp-route-returnUrl="@ReturnUrl" method="post" OnValidSubmit="RegisterUser" FormName="register">
+                        <DataAnnotationsValidator />
+                        <ValidationSummary class="text-danger small mb-3" role="alert" />
+
+                        <div class="form-floating mb-3">
+                            <InputText @bind-Value="Input.Email" id="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="nama@email.com" />
+                            <label for="Input.Email">Email</label>
+                            <ValidationMessage For="() => Input.Email" class="text-danger small" />
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <InputText type="password" @bind-Value="Input.Password" id="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="kata sandi" />
+                            <label for="Input.Password">Password</label>
+                            <ValidationMessage For="() => Input.Password" class="text-danger small" />
+                        </div>
+
+                        <div class="form-floating mb-4">
+                            <InputText type="password" @bind-Value="Input.ConfirmPassword" id="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="konfirmasi kata sandi" />
+                            <label for="Input.ConfirmPassword">Konfirmasi Password</label>
+                            <ValidationMessage For="() => Input.ConfirmPassword" class="text-danger small" />
+                        </div>
+
+                        <div class="form-floating mb-4">
+                            <InputSelect @bind-Value="Input.Role" id="Input.Role" class="form-select"   placeholder="Role">
+                                <option value="@SD.Role_Customer" selected>@SD.Role_Customer</option>
+                                <option value="@SD.Role_Admin" >@SD.Role_Admin</option>
+                            </InputSelect>
+                            <label for="Input.Role">Role</label>
+                            <ValidationMessage For="() => Input.Role" class="text-danger small" />
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="bi bi-person-check me-2"></i> Register
+                            </button>
+                        </div>
+                    </EditForm>
+                </div>
+                <div class="card-footer text-center py-3 bg-light rounded-bottom-lg">
+                    <div class="small">
+                        Sudah punya akun? <a href="/Account/Login">Login di sini</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-4">
+                <h4 class="fw-light mb-3">Atau daftar dengan:</h4>
+                <hr class="w-75 mx-auto mb-3" />
+                <ExternalLoginPicker />
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private IEnumerable<IdentityError>? identityErrors;
+
+    [SupplyParameterFromForm]
+    private InputModel Input { get; set; } = new();
+
+    [SupplyParameterFromQuery]
+    private string? ReturnUrl { get; set; }
+
+    private string? Message => identityErrors is null ? null : $"Error: {string.Join(", ", identityErrors.Select(error => error.Description))}";
+
+    public async Task RegisterUser(EditContext editContext)
+    {
+        identityErrors = null;
+
+        var user = CreateUser();
+
+        await UserStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
+        var emailStore = GetEmailStore();
+        await emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+        var result = await UserManager.CreateAsync(user, Input.Password);
+
+        if (!result.Succeeded)
+        {
+            identityErrors = result.Errors;
+            // await JSRuntime.InvokeVoidAsync("showToastr", "error", Message);
+            return;
+        }
+
+        if (!string.IsNullOrEmpty(Input.Role) && Input.Role != SD.Role_Customer)
+        {
+            var roleExists = await RoleManager.RoleExistsAsync(SD.Role_Admin);
+            if (!roleExists)
+            {
+                await RoleManager.CreateAsync(new IdentityRole(SD.Role_Admin)); 
+                await RoleManager.CreateAsync(new IdentityRole(SD.Role_Customer)); 
+                // await RoleManager.CreateAsync(new IdentityRole(SD.Role_User)); 
+            }
+        }
+
+        if (!string.IsNullOrEmpty(Input.Role) && Input.Role != SD.Role_Customer)
+        {
+            await UserManager.AddToRoleAsync(user, Input.Role);
+        }
+        else
+        {
+            await UserManager.AddToRoleAsync(user, SD.Role_Customer);
+        }
+
+        Logger.LogInformation("User created a new account with password.");
+        // await JSRuntime.InvokeVoidAsync("showToastr", "success", "Akun berhasil dibuat!");
+
+        var userId = await UserManager.GetUserIdAsync(user);
+        var code = await UserManager.GenerateEmailConfirmationTokenAsync(user);
+        code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+        var callbackUrl = NavigationManager.GetUriWithQueryParameters(
+            NavigationManager.ToAbsoluteUri("Account/ConfirmEmail").AbsoluteUri,
+            new Dictionary<string, object?> { ["userId"] = userId, ["code"] = code, ["returnUrl"] = ReturnUrl });
+
+        await EmailSender.SendConfirmationLinkAsync(user, Input.Email, HtmlEncoder.Default.Encode(callbackUrl));
+
+        if (UserManager.Options.SignIn.RequireConfirmedAccount)
+        {
+            RedirectManager.RedirectTo(
+                "Account/RegisterConfirmation",
+                new() { ["email"] = Input.Email, ["returnUrl"] = ReturnUrl });
+        }
+
+        await SignInManager.SignInAsync(user, isPersistent: false);
+        RedirectManager.RedirectTo(ReturnUrl);
+    }
+
+    private ApplicationUser CreateUser()
+    {
+        try
+        {
+            return Activator.CreateInstance<ApplicationUser>();
+        }
+        catch
+        {
+            throw new InvalidOperationException($"Can't create an instance of '{nameof(ApplicationUser)}'. " +
+                $"Ensure that '{nameof(ApplicationUser)}' is not an abstract class and has a parameterless constructor.");
+        }
+    }
+
+    private IUserEmailStore<ApplicationUser> GetEmailStore()
+    {
+        if (!UserManager.SupportsUserEmail)
+        {
+            throw new NotSupportedException("The default UI requires a user store with email support.");
+        }
+        return (IUserEmailStore<ApplicationUser>)UserStore;
+    }
+
+    private sealed class InputModel
+    {
+        [Required(ErrorMessage = "Email wajib diisi.")]
+        [EmailAddress(ErrorMessage = "Format email tidak valid.")]
+        [Display(Name = "Email")]
+        public string Email { get; set; } = "";
+
+        [Required(ErrorMessage = "Password wajib diisi.")]
+        [StringLength(100, ErrorMessage = "{0} harus setidaknya {2} dan maksimal {1} karakter.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Display(Name = "Password")]
+        public string Password { get; set; } = "";
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirm password")]
+        [Compare("Password", ErrorMessage = "Password dan konfirmasi password tidak cocok.")]
+        public string ConfirmPassword { get; set; } = "";
+
+        public string? Role { get; set; } = "Customer";
+    }
+}

@@ -1,0 +1,97 @@
+﻿@* BsModal.razor *@
+<div class="modal fade @ModalClass" tabindex="-1" role="dialog" style="display:@(Show ? "block" : "none")" aria-hidden="@(!Show)" aria-labelledby="BsModalLabel">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header @HeaderCssClass">
+                <h5 class="modal-title" id="BsModalLabel">@Title</h5>
+                <button type="button" class="btn-close @CloseButtonCssClass" @onclick="OnClose" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                @ChildContent
+            </div>
+            <div class="modal-footer">
+                @* Slot untuk tombol kustom di footer, jika tidak ada, gunakan tombol default *@
+                @if (FooterContent is not null)
+                {
+                    @FooterContent
+                }
+                else
+                {
+                    <button type="button" class="btn btn-secondary" @onclick="OnClose">Batal</button>
+                    <button type="button" class="btn @ConfirmButtonCssClass" @onclick="OnConfirm">@ConfirmButtonText</button>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (Show)
+{
+    <div class="modal-backdrop fade show"></div>
+}
+
+@code {
+    /// <summary>
+    /// Menentukan apakah modal harus ditampilkan atau tidak.
+    /// </summary>
+    [Parameter]
+    public bool Show { get; set; }
+
+    /// <summary>
+    /// Judul modal.
+    /// </summary>
+    [Parameter]
+    public string Title { get; set; } = "Konfirmasi";
+
+    /// <summary>
+    /// CSS class tambahan untuk header modal (misal: bg-danger, bg-primary).
+    /// </summary>
+    [Parameter]
+    public string HeaderCssClass { get; set; } = "bg-primary text-white";
+
+    /// <summary>
+    /// CSS class tambahan untuk tombol tutup (btn-close-white).
+    /// </summary>
+    [Parameter]
+    public string CloseButtonCssClass { get; set; } = "btn-close-white";
+
+    /// <summary>
+    /// Teks untuk tombol konfirmasi.
+    /// </summary>
+    [Parameter]
+    public string ConfirmButtonText { get; set; } = "OK";
+
+    /// <summary>
+    /// CSS class tambahan untuk tombol konfirmasi (misal: btn-danger, btn-success).
+    /// </summary>
+    [Parameter]
+    public string ConfirmButtonCssClass { get; set; } = "btn-primary";
+
+    /// <summary>
+    /// Event callback yang dipanggil ketika tombol tutup modal diklik.
+    /// </summary>
+    [Parameter]
+    public EventCallback OnClose { get; set; }
+
+    /// <summary>
+    /// Event callback yang dipanggil ketika tombol konfirmasi diklik.
+    /// </summary>
+    [Parameter]
+    public EventCallback OnConfirm { get; set; }
+
+    /// <summary>
+    /// Konten yang akan ditampilkan di dalam body modal.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
+    /// Konten yang akan ditampilkan di footer modal (menggantikan tombol default jika ada).
+    /// Berguna jika Anda ingin tombol kustom.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? FooterContent { get; set; }
+
+    // Properti internal untuk mengontrol tampilan CSS Bootstrap
+    private string ModalClass => Show ? "show" : "";
+}

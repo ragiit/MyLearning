@@ -1,0 +1,204 @@
+﻿@page "/"
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject MyBlazor.Repository.IRepository.IProductRepository ProductRepository
+@inject MyBlazor.Repository.IRepository.ICategoryRepository CategoryRepository
+@inject MyBlazor.Repository.IRepository.IShoppingCartRepository ShoppingCartRepository
+@inject IJSRuntime JSRuntime
+@inject NavigationManager NavigationManager
+
+
+<PageTitle>Home - MyBlazor Shop</PageTitle>
+
+<div class="container mt-4">
+    <div class="row mb-4 align-items-center">
+        <div class="col-md-6">
+            <h1 class="display-4 fw-bold text-primary">Selamat Datang di MyBlazor Shop!</h1>
+            <p class="lead">Temukan produk-produk terbaik kami.</p>
+        </div>
+        <div class="col-md-6 text-end">
+            @* Anda bisa menambahkan banner atau gambar promo di sini *@
+            <img src="https://placehold.co/600x400?text=Banner" alt="Shop Banner" class="img-fluid rounded shadow-sm" style="max-height: 150px;">
+        </div>
+    </div>
+
+    <hr class="my-5">
+
+    @* --- Search and Filter Section --- *@
+    <div class="row mb-4 g-3 align-items-center">
+        <div class="col-md-6">
+            <div class="input-group shadow-sm">
+                <span class="input-group-text bg-light border-end-0"><i class="bi bi-search"></i></span>
+                <input type="text" class="form-control border-start-0" placeholder="Cari produk..." @bind-value="searchTerm" @bind-value:event="oninput" @onkeyup="ApplyFilters" />
+            </div>
+        </div>
+        <div class="col-md-4">
+            <select class="form-select shadow-sm" @bind="selectedCategoryId" @bind:event="onchange">
+                <option value="0">Semua Kategori</option>
+                @if (categories != null)
+                {
+                    @foreach (var category in categories)
+                    {
+                        <option value="@category.Id">@category.Name</option>
+                    }
+                }
+            </select>
+
+        </div>
+        <div class="col-md-2">
+            <button class="btn btn-outline-secondary w-100 shadow-sm" @onclick="ResetFilters">
+                <i class="bi bi-x-circle me-1"></i> Reset
+            </button>
+        </div>
+    </div>
+
+    @* --- Product Display Section --- *@
+    @if (filteredProducts == null)
+    {
+        <div class="alert alert-info text-center mt-5" role="alert">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Memuat...</span>
+            </div>
+            <p class="mt-2 mb-0">Memuat produk dan kategori...</p>
+        </div>
+    }
+    else if (!filteredProducts.Any())
+    {
+        <div class="alert alert-warning text-center mt-5" role="alert">
+            <i class="bi bi-info-circle-fill me-2"></i> Tidak ada produk yang ditemukan dengan kriteria pencarian Anda.
+        </div>
+    }
+    else
+    {
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mt-4">
+            @foreach (var product in filteredProducts)
+            {
+                <div class="col">
+                    <div class="card h-100 shadow-sm border-0 rounded-lg product-card">
+                        <img src="@(string.IsNullOrEmpty(product.ImageUrl) ? "https://placehold.co/600x400?text=Not+Found" : product.ImageUrl)"
+                             class="card-img-top" alt="@product.Name"
+                             style="width: 100%; height: 250px; object-fit: cover; display: block; border-top-left-radius: 0.75rem; border-top-right-radius: 0.75rem;">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title text-truncate mb-1">@product.Name</h5>
+                            <p class="card-text text-muted small mb-2">@product.Category?.Name</p>
+                            <p class="card-text fs-4 fw-bold text-primary mb-3">@product.Price.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("id-ID"))</p> @* Format IDR atau sesuai locale *@
+                            <p class="card-text flex-grow-1 overflow-hidden text-muted small" style="max-height: 4.5em;">@product.Description</p>
+                            <div class="mt-auto text-end">
+                                <button class="btn btn-success btn-sm" @onclick="(() => AddProductToCart(product))">
+                                    @* Perubahan di sini *@
+                                    <i class="bi bi-cart-plus me-1"></i> Tambah ke Keranjang
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+@code {
+    private IEnumerable<MyBlazor.Data.Product>? allProducts; // Menyimpan semua produk yang dimuat
+    private IEnumerable<MyBlazor.Data.Product>? filteredProducts; // Produk setelah difilter
+    private IEnumerable<MyBlazor.Data.Category>? categories; // Daftar kategori untuk filter
+    private string searchTerm = string.Empty; // Input search
+    private bool _hasLoadedInitialData = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (!_hasLoadedInitialData)
+        {
+            await LoadData();
+            _hasLoadedInitialData = true;
+        }
+    }
+    private async Task AddProductToCart(MyBlazor.Data.Product product)
+    {
+        var athState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = athState.User;
+        var authenticated = user is not null && user.Identity.IsAuthenticated;
+
+        if (!authenticated)
+        {
+            NavigationManager.NavigateTo("Account/Login", forceLoad: true);
+        }
+        else
+        {
+            var result = await ShoppingCartRepository.UpdateCartAsync(user.FindFirst(x => x.Type.Contains("nameidentifier"))?.Value, product.Id, 1);
+            if (result)
+            {
+                await JSRuntime.InvokeVoidAsync("showToastr", "success", $"'{product.Name}' telah ditambahkan ke keranjang!");
+            }
+            else
+            {
+                await JSRuntime.InvokeVoidAsync("showToastr", "error", $"'{product.Name}' gagal ditambahkan ke keranjang!");
+            }
+        }
+
+        // await ShoppingCartService.AddToCartAsync(product, 1);
+        // Anda mungkin ingin menampilkan jumlah item di keranjang di NavMenu atau tempat lain
+        // Jika perlu, Anda bisa menggunakan EventCallback atau StateContainer untuk update UI di NavMenu
+    }
+    private async Task LoadData()
+    {
+        try
+        {
+            // Ambil semua kategori
+            categories = await CategoryRepository.GetAllAsync();
+            // Ambil semua produk
+            allProducts = await ProductRepository.GetAllAsync();
+            ApplyFilters(); // Terapkan filter awal (menampilkan semua)
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error loading initial data: {ex.Message}");
+            await JSRuntime.InvokeVoidAsync("showToastr", "error", $"Gagal memuat data: {ex.Message}");
+            allProducts = Enumerable.Empty<MyBlazor.Data.Product>();
+            categories = Enumerable.Empty<MyBlazor.Data.Category>();
+            filteredProducts = Enumerable.Empty<MyBlazor.Data.Product>();
+        }
+    }
+    private int _selectedCategoryId;
+    private int selectedCategoryId
+    {
+        get => _selectedCategoryId;
+        set
+        {
+            if (_selectedCategoryId != value)
+            {
+                _selectedCategoryId = value;
+                ApplyFilters(); // Panggil saat ada perubahan
+            }
+        }
+    }
+
+
+    private void ApplyFilters()
+    {
+        if (allProducts == null) return;
+
+        filteredProducts = allProducts;
+
+        // Filter by Search Term
+        if (!string.IsNullOrWhiteSpace(searchTerm))
+        {
+            filteredProducts = filteredProducts.Where(p =>
+                p.Name.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+                p.Description.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)
+            );
+        }
+
+        // Filter by Category
+        if (selectedCategoryId != 0)
+        {
+            filteredProducts = filteredProducts.Where(p => p.CategoryId == selectedCategoryId);
+        }
+        StateHasChanged(); // Memaksa Blazor untuk me-render ulang komponen dengan data yang difilter
+    }
+
+    private void ResetFilters()
+    {
+        searchTerm = string.Empty;
+        selectedCategoryId = 0;
+        ApplyFilters(); // Terapkan filter lagi untuk mereset tampilan
+    }
+}
