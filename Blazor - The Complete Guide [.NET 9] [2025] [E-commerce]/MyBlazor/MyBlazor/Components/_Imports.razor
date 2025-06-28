@@ -8,4 +8,21 @@
 @using Microsoft.AspNetCore.Components.Web.Virtualization
 @using Microsoft.JSInterop
 @using MyBlazor
+@using Microsoft.AspNetCore.Authorization
+@using MyBlazor.Components.Shared
+@using MyBlazor.Utility
+ @inject MyBlazor.Repository.IRepository.ICategoryRepository CategoryRepository
+ 
 @using MyBlazor.Components
+@inject MyBlazor.Repository.IRepository.IProductRepository ProductRepository
+ @inject NavigationManager NavigationManager
+
+@inject IJSRuntime JSRuntime
+
+
+
+@using System.ComponentModel.DataAnnotations
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Identity
+
+@inject IWebHostEnvironment WebHostEnvironment

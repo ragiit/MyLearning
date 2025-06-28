@@ -1,9 +1,5 @@
 ﻿@page "/products"
-@using MyBlazor.Components.Shared
-@inject MyBlazor.Repository.IRepository.IProductRepository ProductRepository
-@inject MyBlazor.Repository.IRepository.ICategoryRepository CategoryRepository
-@inject NavigationManager NavigationManager
-@inject IJSRuntime JSRuntime
+@attribute [Authorize(Roles = SD.Role_Admin)]
 
 <PageTitle>Daftar Produk</PageTitle>
 

@@ -1,0 +1,136 @@
+﻿@page "/order-list"
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Identity
+@using MyBlazor.Data  
+@attribute [Authorize]
+
+<PageTitle>Daftar Pesanan</PageTitle>
+
+<h3>Daftar Pesanan</h3>
+
+@if (IsLoading)
+{
+    <p><em>Memuat data pesanan...</em></p>
+}
+else if (!string.IsNullOrEmpty(ErrorMessage))
+{
+    <div class="alert alert-danger">@ErrorMessage</div>
+}
+else if (Orders != null && Orders.Any())
+{
+    <table class="table table-striped table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th>ID Pesanan</th>
+                <th>Nama Pelanggan</th>
+                <th>Email</th>
+                <th>Tanggal Pesanan</th>
+                <th>Total Pesanan</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in Orders)
+            {
+                <tr>
+                    <td>@order.Id</td>
+                    <td>@order.Name</td>
+                    <td>@order.Email</td>
+                    <td>@order.OrderDate.ToShortDateString()</td>
+                    <td>@order.OrderTotal.ToString("C")</td>
+                    <td>
+                        <span class="badge @GetStatusBadgeClass(order.Status)">
+                            @order.Status
+                        </span>
+                    </td>
+                    <td>
+                        <a href="@($"order-details/{order.Id}")" class="btn btn-primary btn-sm">Detail</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Tidak ada pesanan yang ditemukan.</p>
+}
+
+@code {
+    private string GetStatusBadgeClass(string status)
+    {
+        return status switch
+        {
+            "Pending" => "bg-warning text-dark",
+            "Approved" => "bg-info text-dark",
+            "Processing" => "bg-primary",
+            "Shipped" => "bg-secondary",
+            "Completed" => "bg-success",
+            "Cancelled" => "bg-danger",
+            _ => "bg-light text-dark",
+        };
+    }
+
+    // Inject services yang dibutuhkan
+    [Inject]
+    private ApplicationDbContext DbContext { get; set; } // Ganti dengan nama DbContext Anda
+
+    [Inject]
+    private AuthenticationStateProvider AuthenticationStateProvider { get; set; }
+
+    [Inject]
+    private UserManager<ApplicationUser> UserManager { get; set; } // Pastikan ApplicationUser adalah kelas user Anda
+
+    // Properti untuk menampung daftar pesanan yang akan ditampilkan
+    private IEnumerable<OrderHeader> Orders { get; set; } = new List<OrderHeader>();
+    private bool IsLoading = true;
+    private string? ErrorMessage;
+
+    // Metode ini akan dipanggil saat komponen pertama kali di-render
+    protected override async Task OnInitializedAsync()
+    {
+        IsLoading = true;
+        try
+        {
+            // Dapatkan status otentikasi pengguna saat ini
+            var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+            var user = authState.User;
+
+            // Jika pengguna terotentikasi
+            if (user.Identity != null && user.Identity.IsAuthenticated)
+            {
+                // Cek apakah pengguna memiliki peran "Admin"
+                if (user.IsInRole("Admin"))
+                {
+                    // Jika Admin, ambil semua pesanan, diurutkan dari yang terbaru
+                    Orders = await DbContext.OrderHeaders
+                                            .OrderByDescending(o => o.OrderDate)
+                                            .ToListAsync();
+                }
+                else
+                {
+                    // Jika bukan Admin (customer), ambil ID pengguna saat ini
+                    var currentUser = await UserManager.GetUserAsync(user);
+                    if (currentUser != null)
+                    {
+                        // Ambil hanya pesanan milik pengguna tersebut
+                        Orders = await DbContext.OrderHeaders
+                                                .Where(o => o.ApplicationUserId == currentUser.Id)
+                                                .OrderByDescending(o => o.OrderDate)
+                                                .ToListAsync();
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            // Tangani jika ada error saat pengambilan data
+            ErrorMessage = $"Terjadi kesalahan saat memuat data: {ex.Message}";
+        }
+        finally
+        {
+            IsLoading = false;
+        }
+    }
+}

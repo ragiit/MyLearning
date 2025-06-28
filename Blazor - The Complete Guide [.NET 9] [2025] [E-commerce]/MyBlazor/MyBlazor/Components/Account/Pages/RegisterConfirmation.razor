@@ -10,25 +10,48 @@
 @inject NavigationManager NavigationManager
 @inject IdentityRedirectManager RedirectManager
 
-<PageTitle>Register confirmation</PageTitle>
+<PageTitle>Konfirmasi Pendaftaran</PageTitle>
 
-<h1>Register confirmation</h1>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-7">
+            <div class="card shadow-lg border-0 text-center">
+                <div class="card-body p-5">
 
-<StatusMessage Message="@statusMessage" />
+                    <i class="bi bi-envelope-check-fill text-primary" style="font-size: 5rem;"></i>
 
-@if (emailConfirmationLink is not null)
-{
-    <p>
-        This app does not currently have a real email sender registered, see <a href="https://aka.ms/aspaccountconf">these docs</a> for how to configure a real email sender.
-        Normally this would be emailed: <a href="@emailConfirmationLink">Click here to confirm your account</a>
-    </p>
-}
-else
-{
-    <p role="alert">Please check your email to confirm your account.</p>
-}
+                    <h1 class="display-5 fw-bold mt-4">Pendaftaran Berhasil!</h1>
+
+                    <p class="lead text-muted mt-3">
+                        Silakan periksa email Anda untuk menemukan link konfirmasi dan mengaktifkan akun Anda.
+                    </p>
+
+                    @if (emailConfirmationLink is not null)
+                    {
+                        <div class="alert alert-warning mt-4">
+                            <h5 class="alert-heading">Mode Development</h5>
+                            <p class="mb-0">
+                                Saat ini aplikasi belum memiliki pengirim email asli. Klik link di bawah ini untuk konfirmasi manual:
+                                <br />
+                                <a href="@emailConfirmationLink" class="fw-bold">Konfirmasi Akun Saya</a>
+                            </p>
+                        </div>
+                    }
+
+                    <div class="mt-4">
+                        <a href="/" class="btn btn-secondary">
+                            <i class="bi bi-house-door-fill me-2"></i> Kembali ke Beranda
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 @code {
+    // Kode C# dari file asli Anda tetap sama dan berfungsi dengan baik.
     private string? emailConfirmationLink;
     private string? statusMessage;
 
@@ -38,14 +61,12 @@ else
     [SupplyParameterFromQuery]
     private string? Email { get; set; }
 
-    [SupplyParameterFromQuery]
-    private string? ReturnUrl { get; set; }
-
     protected override async Task OnInitializedAsync()
     {
         if (Email is null)
         {
             RedirectManager.RedirectTo("");
+            return;
         }
 
         var user = await UserManager.FindByEmailAsync(Email);
@@ -56,13 +77,12 @@ else
         }
         else if (EmailSender is IdentityNoOpEmailSender)
         {
-            // Once you add a real email sender, you should remove this code that lets you confirm the account
             var userId = await UserManager.GetUserIdAsync(user);
             var code = await UserManager.GenerateEmailConfirmationTokenAsync(user);
             code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
             emailConfirmationLink = NavigationManager.GetUriWithQueryParameters(
                 NavigationManager.ToAbsoluteUri("Account/ConfirmEmail").AbsoluteUri,
-                new Dictionary<string, object?> { ["userId"] = userId, ["code"] = code, ["returnUrl"] = ReturnUrl });
+                new Dictionary<string, object?> { ["userId"] = userId, ["code"] = code });
         }
     }
 }

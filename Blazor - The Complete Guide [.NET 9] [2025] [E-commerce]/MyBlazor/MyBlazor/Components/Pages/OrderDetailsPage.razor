@@ -1,0 +1,236 @@
+﻿@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Identity
+@using MyBlazor.Data
+@using MyBlazor.Repository 
+
+@attribute [Authorize]
+@page "/order-details/{Id:int}"
+
+<PageTitle>Detail Pesanan #@Id</PageTitle>
+
+@if (IsLoading)
+{
+    <p><em>Memuat detail pesanan...</em></p>
+}
+else if (!string.IsNullOrEmpty(ErrorMessage))
+{
+    <div class="alert alert-danger">@ErrorMessage</div>
+}
+else if (Order != null)
+{
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h3>Detail Pesanan #@Order.Id</h3>
+        </div>
+        <div class="card-body">
+            @* Bagian ini tetap sama *@
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="card-title">Informasi Pelanggan</h5>
+                    <dl class="row">
+                        <dt class="col-sm-4">Nama</dt>
+                        <dd class="col-sm-8">@Order.Name</dd>
+                        <dt class="col-sm-4">Email</dt>
+                        <dd class="col-sm-8">@Order.Email</dd>
+                        <dt class="col-sm-4">No. Telepon</dt>
+                        <dd class="col-sm-8">@Order.PhoneNumber</dd>
+                    </dl>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="card-title">Informasi Pesanan</h5>
+                    <dl class="row">
+                        <dt class="col-sm-4">Tanggal</dt>
+                        <dd class="col-sm-8">@Order.OrderDate.ToString("dd MMMM yyyy, HH:mm")</dd>
+                        <dt class="col-sm-4">Status</dt>
+                        <dd class="col-sm-8"><span class="badge bg-info text-dark fs-6">@Order.Status</span></dd>
+                        <dt class="col-sm-4">Total</dt>
+                        <dd class="col-sm-8 fw-bold fs-5 text-success">@Order.OrderTotal.ToString("C")</dd>
+                    </dl>
+                </div>
+            </div>
+
+            <hr />
+
+            <h4 class="mt-4">Item yang Dipesan</h4>
+            @* Bagian tabel item tetap sama *@
+            @if (Order.OrderDetails != null && Order.OrderDetails.Any())
+            {
+                <table class="table table-striped table-bordered mt-3">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Nama Produk</th>
+                            <th class="text-center">Jumlah</th>
+                            <th class="text-end">Harga Satuan</th>
+                            <th class="text-end">Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var detail in Order.OrderDetails)
+                        {
+                            <tr>
+                                <td>@detail.ProductName</td>
+                                <td class="text-center">@detail.Count</td>
+                                <td class="text-end">@detail.Price.ToString("C")</td>
+                                <td class="text-end fw-bold">@((detail.Count * detail.Price).ToString("C"))</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            
+            <div class="mt-4 d-flex justify-content-between">
+                <a href="/order-list" class="btn btn-secondary">
+                    <i class="bi bi-arrow-left-circle"></i> Kembali ke Daftar Pesanan
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <AuthorizeView Roles="Admin">
+        <Authorized>
+            <div class="card shadow-sm mt-4">
+                <div class="card-header bg-dark text-white">
+                    <h4>Panel Admin: Ubah Status Pesanan</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row align-items-end">
+                        <div class="col-md-4">
+                            <label for="statusSelect" class="form-label">Pilih Status Baru:</label>
+                            <select id="statusSelect" class="form-select" @bind="SelectedStatus">
+                                <option value="Pending">Pending</option>
+                                <option value="Approved">Approved</option>
+                                <option value="Processing">Processing</option>
+                                <option value="Shipped">Shipped</option>
+                                <option value="Completed">Completed</option>
+                                <option value="Cancelled">Cancelled</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <button class="btn btn-success" @onclick="UpdateOrderStatus" disabled="@isUpdating">
+                                @if (isUpdating)
+                                {
+                                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                    <span>Updating...</span>
+                                }
+                                else
+                                {
+                                    <i class="bi bi-check-circle"></i> <span>Update Status</span>
+                                }
+                            </button>
+                        </div>
+                    </div>
+                    @if (!string.IsNullOrEmpty(UpdateMessage))
+                    {
+                        <div class="alert alert-success mt-3">@UpdateMessage</div>
+                    }
+                    @if (!string.IsNullOrEmpty(UpdateErrorMessage))
+                    {
+                        <div class="alert alert-danger mt-3">@UpdateErrorMessage</div>
+                    }
+                </div>
+            </div>
+        </Authorized>
+    </AuthorizeView>
+    }
+
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    // PERUBAHAN: Inject Repository, bukan DbContext lagi
+    [Inject]
+    private IOrderRepository OrderRepository { get; set; } = null!;
+    
+    [Inject]
+    private AuthenticationStateProvider AuthenticationStateProvider { get; set; } = null!;
+
+    [Inject]
+    private UserManager<ApplicationUser> UserManager { get; set; } = null!;
+     
+    private OrderHeader? Order;
+    private bool IsLoading = true;
+    private string? ErrorMessage;
+    
+    // PENAMBAHAN: Properti untuk form update status
+    private string SelectedStatus { get; set; } = string.Empty;
+    private bool isUpdating = false;
+    private string? UpdateMessage;
+    private string? UpdateErrorMessage;
+    
+    protected override async Task OnParametersSetAsync()
+    {
+        IsLoading = true;
+        try
+        {
+            // PERUBAHAN: Menggunakan GetOrderByIdAsync dari repository
+            Order = await OrderRepository.GetOrderByIdAsync(Id);
+
+            if (Order == null)
+            {
+                ErrorMessage = $"Pesanan dengan ID {Id} tidak ditemukan.";
+            }
+            else
+            {
+                // Inisialisasi status terpilih di dropdown dengan status saat ini
+                SelectedStatus = Order.Status;
+                
+                // Pengecekan keamanan (tetap sama)
+                var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+                var user = authState.User;
+
+                if (user.Identity != null && user.Identity.IsAuthenticated && !user.IsInRole("Admin"))
+                {
+                    var currentUser = await UserManager.GetUserAsync(user);
+                    if (currentUser != null && Order.ApplicationUserId != currentUser.Id)
+                    {
+                        NavigationManager.NavigateTo("/order-list");
+                        return;
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            ErrorMessage = $"Terjadi kesalahan: {ex.Message}";
+        }
+        finally
+        {
+            IsLoading = false;
+        }
+    }
+
+    // PENAMBAHAN: Metode untuk menangani update status
+    private async Task UpdateOrderStatus()
+    {
+        isUpdating = true;
+        UpdateMessage = null;
+        UpdateErrorMessage = null;
+        
+        try
+        {
+            if (Order != null && !string.IsNullOrEmpty(SelectedStatus))
+            {
+                var updatedOrder = await OrderRepository.UpdateStatusAsync(Order.Id, SelectedStatus);
+                if (updatedOrder != null)
+                {
+                    // Update status di object lokal agar UI langsung berubah
+                    Order.Status = updatedOrder.Status;
+                    UpdateMessage = $"Status pesanan berhasil diubah menjadi '{updatedOrder.Status}'.";
+                }
+                else
+                {
+                    UpdateErrorMessage = "Gagal memperbarui status. Pesanan mungkin tidak ditemukan.";
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            UpdateErrorMessage = $"Terjadi error: {ex.Message}";
+        }
+        finally
+        {
+            isUpdating = false;
+        }
+    }
+}

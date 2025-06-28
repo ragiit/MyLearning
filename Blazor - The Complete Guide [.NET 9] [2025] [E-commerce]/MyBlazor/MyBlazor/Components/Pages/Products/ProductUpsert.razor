@@ -1,10 +1,6 @@
 ﻿@page "/products/create"
 @page "/products/edit/{Id:int}"
-@inject MyBlazor.Repository.IRepository.IProductRepository ProductRepository
-@inject MyBlazor.Repository.IRepository.ICategoryRepository CategoryRepository
-@inject NavigationManager NavigationManager
-@inject IJSRuntime JSRuntime
-@inject IWebHostEnvironment WebHostEnvironment
+@attribute [Authorize(Roles = SD.Role_Admin)]
 
 <PageTitle>@((Id == 0) ? "Tambah Produk Baru" : "Edit Produk")</PageTitle>
 

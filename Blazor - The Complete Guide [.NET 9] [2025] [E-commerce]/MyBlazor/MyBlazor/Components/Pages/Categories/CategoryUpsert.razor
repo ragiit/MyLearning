@@ -1,8 +1,6 @@
 ﻿@page "/categories/create"
 @page "/categories/edit/{Id:int}"
-@inject MyBlazor.Repository.IRepository.ICategoryRepository CategoryRepository
-@inject NavigationManager NavigationManager
-@inject IJSRuntime JSRuntime // Tambahkan ini jika ingin notifikasi Toast
+@attribute [Authorize(Roles = SD.Role_Admin)]
 
 <PageTitle>@((Id == 0) ? "Tambah Kategori Baru" : "Edit Kategori")</PageTitle>
 

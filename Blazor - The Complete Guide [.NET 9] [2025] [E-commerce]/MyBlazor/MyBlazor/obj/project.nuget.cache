@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "+3rVrwdgDQ4=",
+  "dgSpecHash": "Qbhxgdd5J0M=",
   "success": true,
-  "projectFilePath": "D:\\Dev\\MyLearning\\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\\MyBlazor\\MyBlazor\\MyBlazor.csproj",
+  "projectFilePath": "D:\\GitHub\\MyLearning\\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\\MyBlazor\\MyBlazor\\MyBlazor.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\argip\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\argip\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
