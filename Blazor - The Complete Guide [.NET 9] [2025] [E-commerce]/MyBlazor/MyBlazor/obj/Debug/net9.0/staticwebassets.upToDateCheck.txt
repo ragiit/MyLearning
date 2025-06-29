@@ -1,5 +1,6 @@
 wwwroot\app.css
 wwwroot\favicon.png
+wwwroot\images\product\6ea70f0d-0e95-40b1-8542-e1d7d582b92f.png
 wwwroot\images\product\841e301c-a453-4603-b36a-c421ddf7aa6d.jpeg
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map

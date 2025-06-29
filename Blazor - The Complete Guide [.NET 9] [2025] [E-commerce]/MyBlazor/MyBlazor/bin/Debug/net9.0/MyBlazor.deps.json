@@ -8,10 +8,12 @@
     ".NETCoreApp,Version=v9.0": {
       "MyBlazor/1.0.0": {
         "dependencies": {
+          "Microsoft.AspNetCore.Authentication.Facebook": "9.0.6",
           "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "9.0.6",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "9.0.6",
           "Microsoft.EntityFrameworkCore.SqlServer": "9.0.6",
-          "Microsoft.EntityFrameworkCore.Tools": "9.0.6"
+          "Microsoft.EntityFrameworkCore.Tools": "9.0.6",
+          "Radzen.Blazor": "7.1.2"
         },
         "runtime": {
           "MyBlazor.dll": {}
@@ -60,6 +62,66 @@
           }
         }
       },
+      "Microsoft.AspNetCore.Authentication.Facebook/9.0.6": {
+        "runtime": {
+          "lib/net9.0/Microsoft.AspNetCore.Authentication.Facebook.dll": {
+            "assemblyVersion": "9.0.6.0",
+            "fileVersion": "9.0.625.26701"
+          }
+        }
+      },
+      "Microsoft.AspNetCore.Authorization/9.0.6": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Metadata": "9.0.6",
+          "Microsoft.Extensions.Logging.Abstractions": "9.0.6",
+          "Microsoft.Extensions.Options": "9.0.6"
+        },
+        "runtime": {
+          "lib/net9.0/Microsoft.AspNetCore.Authorization.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.625.26701"
+          }
+        }
+      },
+      "Microsoft.AspNetCore.Components/9.0.6": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Authorization": "9.0.6",
+          "Microsoft.AspNetCore.Components.Analyzers": "9.0.6"
+        },
+        "runtime": {
+          "lib/net9.0/Microsoft.AspNetCore.Components.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.625.26701"
+          }
+        }
+      },
+      "Microsoft.AspNetCore.Components.Analyzers/9.0.6": {},
+      "Microsoft.AspNetCore.Components.Forms/9.0.6": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Components": "9.0.6"
+        },
+        "runtime": {
+          "lib/net9.0/Microsoft.AspNetCore.Components.Forms.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.625.26701"
+          }
+        }
+      },
+      "Microsoft.AspNetCore.Components.Web/9.0.6": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Components": "9.0.6",
+          "Microsoft.AspNetCore.Components.Forms": "9.0.6",
+          "Microsoft.Extensions.DependencyInjection": "9.0.6",
+          "Microsoft.Extensions.Primitives": "9.0.6",
+          "Microsoft.JSInterop": "9.0.6"
+        },
+        "runtime": {
+          "lib/net9.0/Microsoft.AspNetCore.Components.Web.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.625.26701"
+          }
+        }
+      },
       "Microsoft.AspNetCore.Cryptography.Internal/9.0.6": {
         "runtime": {
           "lib/net9.0/Microsoft.AspNetCore.Cryptography.Internal.dll": {
@@ -98,6 +160,14 @@
         "runtime": {
           "lib/net9.0/Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll": {
             "assemblyVersion": "9.0.6.0",
+            "fileVersion": "9.0.625.26701"
+          }
+        }
+      },
+      "Microsoft.AspNetCore.Metadata/9.0.6": {
+        "runtime": {
+          "lib/net9.0/Microsoft.AspNetCore.Metadata.dll": {
+            "assemblyVersion": "9.0.0.0",
             "fileVersion": "9.0.625.26701"
           }
         }
@@ -770,6 +840,14 @@
           }
         }
       },
+      "Microsoft.JSInterop/9.0.6": {
+        "runtime": {
+          "lib/net9.0/Microsoft.JSInterop.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.625.26701"
+          }
+        }
+      },
       "Microsoft.NETCore.Platforms/1.1.0": {},
       "Microsoft.NETCore.Targets/1.1.0": {},
       "Microsoft.SqlServer.Server/1.0.0": {
@@ -804,6 +882,18 @@
           "lib/net6.0/Mono.TextTemplating.dll": {
             "assemblyVersion": "3.0.0.0",
             "fileVersion": "3.0.0.1"
+          }
+        }
+      },
+      "Radzen.Blazor/7.1.2": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Components": "9.0.6",
+          "Microsoft.AspNetCore.Components.Web": "9.0.6"
+        },
+        "runtime": {
+          "lib/net9.0/Radzen.Blazor.dll": {
+            "assemblyVersion": "7.1.2.0",
+            "fileVersion": "7.1.2.0"
           }
         }
       },
@@ -1092,6 +1182,48 @@
       "path": "humanizer.core/2.14.1",
       "hashPath": "humanizer.core.2.14.1.nupkg.sha512"
     },
+    "Microsoft.AspNetCore.Authentication.Facebook/9.0.6": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-LHaGP0o2OoPepL4+4qyOeF8UQMlj+zy4adO60VuzLCrnvIF0milBTpBUEpiBKMUtRZPv3lC1P4s5Zl9obKxQSw==",
+      "path": "microsoft.aspnetcore.authentication.facebook/9.0.6",
+      "hashPath": "microsoft.aspnetcore.authentication.facebook.9.0.6.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Authorization/9.0.6": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-FG/fHZAg2J9NKt+y2BH+fMjc+TqA7wlri/3PNtoSgvclMlr5iPshDLXHQgvS9l7IUzzfkqQ3/DWPYuA4OJu75A==",
+      "path": "microsoft.aspnetcore.authorization/9.0.6",
+      "hashPath": "microsoft.aspnetcore.authorization.9.0.6.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Components/9.0.6": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-4WzUBnpxqm0Gvv3XX47h5g09LN4dtQpJjYW2LAfoaVeho5TLM00uDj2YHzjxQwcRTdrG7tZDCyf4V4wwRpjGcA==",
+      "path": "microsoft.aspnetcore.components/9.0.6",
+      "hashPath": "microsoft.aspnetcore.components.9.0.6.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Components.Analyzers/9.0.6": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-UXMjbezwMMoL21L20OB1BLGF9M1BFPzdWiezaiZSBG55z36BEXvs8hetKw7PiuytOdUqWFI1wkPd3MD9jpeKAw==",
+      "path": "microsoft.aspnetcore.components.analyzers/9.0.6",
+      "hashPath": "microsoft.aspnetcore.components.analyzers.9.0.6.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Components.Forms/9.0.6": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-GHdFdrU+9ePkuE7S2g7iu+Lg8FPBY9qGaK+FPSBHNx8ulEdrOHJhufb1FZH/m++NoJgcikOzJ14+eL96HfBr8g==",
+      "path": "microsoft.aspnetcore.components.forms/9.0.6",
+      "hashPath": "microsoft.aspnetcore.components.forms.9.0.6.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Components.Web/9.0.6": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-c+2B1DdgAOKXt+mMcZgeQPbdoW0Ro+783m+yPK/QQHhjV8cbkPBWXg6OMJC2Vzum5tfAC3coNhlmcLUUBwc3ZQ==",
+      "path": "microsoft.aspnetcore.components.web/9.0.6",
+      "hashPath": "microsoft.aspnetcore.components.web.9.0.6.nupkg.sha512"
+    },
     "Microsoft.AspNetCore.Cryptography.Internal/9.0.6": {
       "type": "package",
       "serviceable": true,
@@ -1119,6 +1251,13 @@
       "sha512": "sha512-50+a2SQEx0eOQmLPjxO0sy/leDNvwsU1/HFXpTbIjXGUURrL5fCZGlTENM3CJNWzwd2cCGB/ZLFHFgKTdSyLzw==",
       "path": "microsoft.aspnetcore.identity.entityframeworkcore/9.0.6",
       "hashPath": "microsoft.aspnetcore.identity.entityframeworkcore.9.0.6.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Metadata/9.0.6": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-SZAmFKGsQPP/xyDir96J5UNTAdCsfeCpPwFO9EewIcgQ8gUr3KHmn4CTC2HmHIDdiTujGC2T3VBcSxmrY+3n/g==",
+      "path": "microsoft.aspnetcore.metadata/9.0.6",
+      "hashPath": "microsoft.aspnetcore.metadata.9.0.6.nupkg.sha512"
     },
     "Microsoft.Bcl.AsyncInterfaces/7.0.0": {
       "type": "package",
@@ -1393,6 +1532,13 @@
       "path": "microsoft.identitymodel.tokens/6.35.0",
       "hashPath": "microsoft.identitymodel.tokens.6.35.0.nupkg.sha512"
     },
+    "Microsoft.JSInterop/9.0.6": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-IS9tI2pnpeoX+d4CO4FuTsm+6uymanPGSpBhHefTfMNIwBUvwLIcXch4su0QEW4MSslYdDJ9yzz2+OuIUuI5lw==",
+      "path": "microsoft.jsinterop/9.0.6",
+      "hashPath": "microsoft.jsinterop.9.0.6.nupkg.sha512"
+    },
     "Microsoft.NETCore.Platforms/1.1.0": {
       "type": "package",
       "serviceable": true,
@@ -1427,6 +1573,13 @@
       "sha512": "sha512-YqueG52R/Xej4VVbKuRIodjiAhV0HR/XVbLbNrJhCZnzjnSjgMJ/dCdV0akQQxavX6hp/LC6rqLGLcXeQYU7XA==",
       "path": "mono.texttemplating/3.0.0",
       "hashPath": "mono.texttemplating.3.0.0.nupkg.sha512"
+    },
+    "Radzen.Blazor/7.1.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-pZMUDRp1hdv2Ydt+/HIktMqJp0FvpqCm7Pihi77j6lPjAc8gUGojjI53inO5xfebdNxQziAT4ksKpGlEsaXfcg==",
+      "path": "radzen.blazor/7.1.2",
+      "hashPath": "radzen.blazor.7.1.2.nupkg.sha512"
     },
     "System.ClientModel/1.0.0": {
       "type": "package",

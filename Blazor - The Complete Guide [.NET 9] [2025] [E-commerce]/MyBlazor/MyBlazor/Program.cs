@@ -7,13 +7,14 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using MyBlazor.Components;
 using MyBlazor.Components.Account;
+using Radzen;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
-
+builder.Services.AddRadzenComponents();
 builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IdentityUserAccessor>();
@@ -24,6 +25,11 @@ builder.Services.AddAuthentication(options =>
     {
         options.DefaultScheme = IdentityConstants.ApplicationScheme;
         options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
+    })
+    .AddFacebook(options =>
+    {
+        options.AppId = "987547106627070";
+        options.AppSecret = "f84d33cbfd409061e50c605fd502e6aa";
     })
     .AddIdentityCookies();
 

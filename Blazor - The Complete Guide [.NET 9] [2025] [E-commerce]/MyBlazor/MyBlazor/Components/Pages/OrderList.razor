@@ -1,120 +1,116 @@
 ﻿@page "/order-list"
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Identity
-@using MyBlazor.Data  
+@using MyBlazor.Data
 @attribute [Authorize]
 
 <PageTitle>Daftar Pesanan</PageTitle>
 
-<h3>Daftar Pesanan</h3>
+<RadzenText TextStyle="TextStyle.H3" TagName="TagName.H1" class="mb-4">Daftar Pesanan</RadzenText>
 
-@if (IsLoading)
+@if (!string.IsNullOrEmpty(ErrorMessage))
 {
-    <p><em>Memuat data pesanan...</em></p>
-}
-else if (!string.IsNullOrEmpty(ErrorMessage))
-{
-    <div class="alert alert-danger">@ErrorMessage</div>
-}
-else if (Orders != null && Orders.Any())
-{
-    <table class="table table-striped table-hover">
-        <thead class="thead-dark">
-            <tr>
-                <th>ID Pesanan</th>
-                <th>Nama Pelanggan</th>
-                <th>Email</th>
-                <th>Tanggal Pesanan</th>
-                <th>Total Pesanan</th>
-                <th>Status</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var order in Orders)
-            {
-                <tr>
-                    <td>@order.Id</td>
-                    <td>@order.Name</td>
-                    <td>@order.Email</td>
-                    <td>@order.OrderDate.ToShortDateString()</td>
-                    <td>@order.OrderTotal.ToString("C")</td>
-                    <td>
-                        <span class="badge @GetStatusBadgeClass(order.Status)">
-                            @order.Status
-                        </span>
-                    </td>
-                    <td>
-                        <a href="@($"order-details/{order.Id}")" class="btn btn-primary btn-sm">Detail</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    <RadzenAlert AlertStyle="AlertStyle.Danger" Variant="Variant.Flat" Shade="Shade.Lighter">
+        @ErrorMessage
+    </RadzenAlert>
 }
 else
 {
-    <p>Tidak ada pesanan yang ditemukan.</p>
+    <RadzenCard>
+        <RadzenDataGrid @ref="ordersGrid" AllowFiltering="true" AllowPaging="true" PageSize="10" AllowSorting="true"
+                        Data="@Orders" TItem="OrderHeader" IsLoading="@IsLoading"
+                        EmptyText="Tidak ada pesanan yang ditemukan."
+                        FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                        FilterMode="FilterMode.Simple"
+                        LogicalFilterOperator="LogicalFilterOperator.Or">
+            <Columns>
+                <RadzenDataGridColumn TItem="OrderHeader" Property="Id" Title="ID" Width="80px" TextAlign="TextAlign.Center" />
+
+                <RadzenDataGridColumn TItem="OrderHeader" Property="Name" Title="Nama Pelanggan" Width="220px" />
+
+                <RadzenDataGridColumn TItem="OrderHeader" Property="Email" Title="Email" Width="220px" />
+
+                <RadzenDataGridColumn TItem="OrderHeader" Property="OrderDate" Title="Tanggal" Width="150px" FormatString="{0:dd MMM yyyy}" />
+
+                <RadzenDataGridColumn TItem="OrderHeader" Property="OrderTotal" Title="Total Pesanan" Width="160px">
+                    <Template Context="order">
+                        @order.OrderTotal.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("id-ID"))
+                    </Template>
+                </RadzenDataGridColumn>
+
+                <RadzenDataGridColumn TItem="OrderHeader" Property="Status" Title="Status" Width="140px" Filterable="false" Sortable="false">
+                    <Template Context="order">
+                        <RadzenBadge Text="@order.Status" BadgeStyle="@GetBadgeStyle(order.Status)" Shade="Shade.Lighter" IsPill="true" />
+                    </Template>
+                </RadzenDataGridColumn>
+
+                <RadzenDataGridColumn TItem="OrderHeader" Title="Aksi" Width="120px" Sortable="false" Filterable="false" TextAlign="TextAlign.Center">
+                    <Template Context="order">
+                        <RadzenButton Icon="pageview" ButtonStyle="ButtonStyle.Info" Variant="Variant.Flat" Shade="Shade.Lighter"
+                                      Click="@(() => NavigationManager.NavigateTo($"/order-details/{order.Id}"))"
+                                      Size="ButtonSize.Small" />
+                    </Template>
+                </RadzenDataGridColumn>
+            </Columns>
+        </RadzenDataGrid>
+    </RadzenCard>
 }
 
+
 @code {
-    private string GetStatusBadgeClass(string status)
+    private RadzenDataGrid<OrderHeader> ordersGrid; // Referensi ke DataGrid
+
+    // Logika Anda dari sini ke bawah TIDAK BERUBAH SAMA SEKALI.
+    // Cukup ganti GetStatusBadgeClass dengan GetBadgeStyle agar lebih sesuai.
+
+    private BadgeStyle GetBadgeStyle(string status)
     {
         return status switch
         {
-            "Pending" => "bg-warning text-dark",
-            "Approved" => "bg-info text-dark",
-            "Processing" => "bg-primary",
-            "Shipped" => "bg-secondary",
-            "Completed" => "bg-success",
-            "Cancelled" => "bg-danger",
-            _ => "bg-light text-dark",
+            "Pending" => BadgeStyle.Warning,
+            "Approved" => BadgeStyle.Info,
+            "Processing" => BadgeStyle.Primary,
+            "Shipped" => BadgeStyle.Secondary,
+            "Completed" => BadgeStyle.Success,
+            "Cancelled" => BadgeStyle.Danger,
+            _ => BadgeStyle.Light,
         };
-    }
+    } 
 
-    // Inject services yang dibutuhkan
     [Inject]
-    private ApplicationDbContext DbContext { get; set; } // Ganti dengan nama DbContext Anda
+    private ApplicationDbContext DbContext { get; set; }
 
     [Inject]
     private AuthenticationStateProvider AuthenticationStateProvider { get; set; }
 
     [Inject]
-    private UserManager<ApplicationUser> UserManager { get; set; } // Pastikan ApplicationUser adalah kelas user Anda
+    private UserManager<ApplicationUser> UserManager { get; set; }
 
-    // Properti untuk menampung daftar pesanan yang akan ditampilkan
     private IEnumerable<OrderHeader> Orders { get; set; } = new List<OrderHeader>();
     private bool IsLoading = true;
     private string? ErrorMessage;
 
-    // Metode ini akan dipanggil saat komponen pertama kali di-render
     protected override async Task OnInitializedAsync()
     {
         IsLoading = true;
         try
         {
-            // Dapatkan status otentikasi pengguna saat ini
             var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
             var user = authState.User;
 
-            // Jika pengguna terotentikasi
             if (user.Identity != null && user.Identity.IsAuthenticated)
             {
-                // Cek apakah pengguna memiliki peran "Admin"
                 if (user.IsInRole("Admin"))
                 {
-                    // Jika Admin, ambil semua pesanan, diurutkan dari yang terbaru
                     Orders = await DbContext.OrderHeaders
                                             .OrderByDescending(o => o.OrderDate)
                                             .ToListAsync();
                 }
                 else
                 {
-                    // Jika bukan Admin (customer), ambil ID pengguna saat ini
                     var currentUser = await UserManager.GetUserAsync(user);
                     if (currentUser != null)
                     {
-                        // Ambil hanya pesanan milik pengguna tersebut
                         Orders = await DbContext.OrderHeaders
                                                 .Where(o => o.ApplicationUserId == currentUser.Id)
                                                 .OrderByDescending(o => o.OrderDate)
@@ -125,7 +121,6 @@ else
         }
         catch (Exception ex)
         {
-            // Tangani jika ada error saat pengambilan data
             ErrorMessage = $"Terjadi kesalahan saat memuat data: {ex.Message}";
         }
         finally

@@ -2,256 +2,229 @@
 @page "/products/edit/{Id:int}"
 @attribute [Authorize(Roles = SD.Role_Admin)]
 
-<PageTitle>@((Id == 0) ? "Tambah Produk Baru" : "Edit Produk")</PageTitle>
+@inject MyBlazor.Repository.IRepository.IProductRepository ProductRepository
+@inject MyBlazor.Repository.IRepository.ICategoryRepository CategoryRepository
+@inject IWebHostEnvironment WebHostEnvironment
+@inject NavigationManager NavigationManager
+@inject NotificationService NotificationService
 
-<div class="container mt-4">
-    <div class="card shadow-sm">
-        <div class="card-header bg-primary text-white">
-            <h4 class="mb-0">
-                <i class="bi bi-box-seam me-2"></i> @((Id == 0) ? "Tambah Produk Baru" : "Edit Produk")
-            </h4>
+<PageTitle>@Title</PageTitle>
+
+<RadzenCard class="mt-4">
+    <RadzenText TextStyle="TextStyle.H4" TagName="TagName.H1" class="mb-4">
+        <i class="bi bi-box-seam me-2"></i> @Title
+    </RadzenText>
+
+    <RadzenTemplateForm TItem="Product" Data="product" Submit="HandleUpsert">
+        <DataAnnotationsValidator />
+
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <RadzenLabel Text="Nama Produk" Component="Name" class="fw-bold" />
+            </div>
+            <div class="col-md-9">
+                <RadzenTextBox Name="Name" @bind-Value="product.Name" class="w-100" Placeholder="Masukkan nama produk" />
+                <RadzenRequiredValidator Component="Name" Text="Nama produk harus diisi" Popup="true" />
+            </div>
         </div>
-        <div class="card-body">
-            <EditForm Model="@product" OnValidSubmit="@HandleUpsert">
-                <DataAnnotationsValidator />
-                <ValidationSummary class="alert alert-danger" role="alert" />
 
-                <div class="mb-3">
-                    <label for="name" class="form-label">Nama Produk:</label>
-                    <InputText id="name" class="form-control" @bind-Value="product.Name" placeholder="Masukkan nama produk" />
-                    <ValidationMessage For="@(() => product.Name)" class="text-danger mt-1" />
-                </div>
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <RadzenLabel Text="Harga" Component="Price" class="fw-bold" />
+            </div>
+            <div class="col-md-9">
+                <RadzenNumeric TValue="decimal" Name="Price" @bind-Value="product.Price" Format="C" Culture="System.Globalization.CultureInfo.CurrentCulture" class="w-100" Placeholder="0.00" />
+                <RadzenNumericRangeValidator Component="Price" Min="0.01" Max="1000000000" Text="Harga harus lebih besar dari 0" Popup="true" />
+            </div>
+        </div>
 
-                <div class="mb-3">
-                    <label for="price" class="form-label">Harga:</label>
-                    <InputNumber id="price" class="form-control" @bind-Value="product.Price" placeholder="0.00" />
-                    <ValidationMessage For="@(() => product.Price)" class="text-danger mt-1" />
-                </div>
-
-                <div class="mb-3">
-                    <label for="description" class="form-label">Deskripsi:</label>
-                    <InputTextArea id="description" class="form-control" @bind-Value="product.Description" placeholder="Deskripsi produk" rows="3" />
-                    <ValidationMessage For="@(() => product.Description)" class="text-danger mt-1" />
-                </div>
-
-                @* Bagian Upload Gambar dengan Preview *@
-                <div class="mb-3">
-                    <label for="imageFile" class="form-label">Pilih Gambar Produk (JPG/PNG/JPEG, Max 5MB):</label>
-                    <InputFile id="imageFile" OnChange="@HandleFileSelection" class="form-control" accept=".jpg,.jpeg,.png" />
-                    <ValidationMessage For="@(() => product.ImageUrl)" class="text-danger mt-1" />
-                </div>
-
-                @* Tampilkan Preview Gambar Baru atau Gambar Lama *@
-                @if (!string.IsNullOrEmpty(imagePreviewUrl))
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <RadzenLabel Text="Kategori" Component="CategoryId" class="fw-bold" />
+            </div>
+            <div class="col-md-9">
+                @if (categories != null)
                 {
-                    <div class="mb-3">
-                        <label class="form-label">Preview Gambar:</label>
-                        <div>
-                            <img src="@imagePreviewUrl" class="img-thumbnail" style="max-width: 200px; height: auto;" alt="Product Image Preview" />
-                        </div>
+                    <RadzenDropDown TValue="int" Name="CategoryId" Data="@categories" TextProperty="Name" ValueProperty="Id"
+                                    @bind-Value="product.CategoryId" Placeholder="-- Pilih Kategori --" class="w-100"
+                                    AllowClear="true" />
+                    <RadzenRequiredValidator Component="CategoryId" Text="Kategori harus dipilih" DefaultValue="0" Popup="true" />
+                }
+                else
+                {
+                    <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" style="height: 38px;" />
+                }
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <RadzenLabel Text="Deskripsi" Component="Description" class="fw-bold" />
+            </div>
+            <div class="col-md-9">
+                @* <RadzenTextArea Name="Description" @bind-Value="product.Description" class="w-100" Placeholder="Deskripsi produk" rows="4" /> *@
+                <RadzenHtmlEditor @bind-Value=@product.Description style="height: 450px;" UploadUrl="upload/image" />
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <RadzenLabel Text="Gambar Produk" Component="ImageFile" class="fw-bold" />
+            </div>
+            <div class="col-md-9">
+                <RadzenUpload  Accept="image/*" Multiple="false" Auto="false"
+                              Change="@(args => HandleFileSelection(args))" class="w-100">
+                    <Template>
+                        <RadzenText>Pilih atau jatuhkan file di sini...</RadzenText>
+                    </Template>
+                </RadzenUpload>
+                @if (!string.IsNullOrEmpty(imagePreviewUrl) || !string.IsNullOrEmpty(product.ImageUrl))
+                {
+                    <div class="mt-3">
+                        <RadzenText TextStyle="TextStyle.Subtitle2">Preview:</RadzenText>
+                        <RadzenImage Path="@(imagePreviewUrl ?? product.ImageUrl)" class="img-thumbnail" Style="max-width: 200px; height: auto;" />
                     </div>
                 }
-                else if (!string.IsNullOrEmpty(product.ImageUrl))
-                {
-                    <div class="mb-3">
-                        <label class="form-label">Gambar Saat Ini:</label>
-                        <div>
-                            <img src="@product.ImageUrl" class="img-thumbnail" style="max-width: 200px; height: auto;" alt="Current Product Image" />
-                        </div>
-                    </div>
-                }
-
-                <div class="mb-3">
-                    <label for="categoryId" class="form-label">Kategori:</label>
-                    @if (categories == null)
-                    {
-                        <p class="text-muted">Memuat kategori...</p>
-                    }
-                    else if (!categories.Any())
-                    {
-                        <p class="text-warning">Tidak ada kategori yang tersedia. Silakan tambahkan kategori terlebih dahulu.</p>
-                        <button type="button" class="btn btn-sm btn-outline-primary" @onclick="NavigateToCreate">
-                            Tambah Kategori
-                        </button>
-
-                        @code {
-                            private void NavigateToCreate()
-                            {
-                                NavigationManager.NavigateTo("/categories/create");
-                            }
-                        }
-                    }
-                    else
-                    {
-                        <InputSelect id="categoryId" class="form-select" @bind-Value="product.CategoryId">
-                            <option value="0">-- Pilih Kategori --</option>
-                            @foreach (var cat in categories)
-                            {
-                                <option value="@cat.Id">@cat.Name</option>
-                            }
-                        </InputSelect>
-                        <ValidationMessage For="@(() => product.CategoryId)" class="text-danger mt-1" />
-                    }
-                </div>
-
-                <hr class="my-4">
-
-                <div class="d-flex justify-content-end">
-                    <button type="button" class="btn btn-secondary me-2" @onclick="Cancel">
-                        <i class="bi bi-x-circle me-2"></i> Batal
-                    </button>
-                    <button type="submit" class="btn btn-success">
-                        <i class="bi bi-check-circle me-2"></i> @((Id == 0) ? "Simpan Produk" : "Perbarui Produk")
-                    </button>
-                </div>
-            </EditForm>
+            </div>
         </div>
-    </div>
-</div>
+
+        <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End" Gap="1rem" class="mt-5">
+            <RadzenButton ButtonType="ButtonType.Button" ButtonStyle="ButtonStyle.Light" Text="Batal" Icon="cancel" Click="@Cancel" />
+            <RadzenButton ButtonType="ButtonType.Submit" ButtonStyle="ButtonStyle.Success" Text="@(Id == 0 ? "Simpan" : "Perbarui")" Icon="save" IsBusy="@isSubmitting" />
+        </RadzenStack>
+
+    </RadzenTemplateForm>
+</RadzenCard>
 
 @code {
     [Parameter]
     public int Id { get; set; }
 
-    private Product product = new Product();
+    private string Title => (Id == 0) ? "Tambah Produk Baru" : "Edit Produk";
+    private Product product = new();
     private IEnumerable<MyBlazor.Data.Category>? categories;
-    private bool _hasLoadedInitialData = false;
-    private IBrowserFile? selectedImageFile; // Untuk menampung file yang dipilih
-    private string? imagePreviewUrl; // Untuk menampung URL preview gambar
+    private bool isSubmitting = false;
+    private IBrowserFile? selectedImageFile;
+    private byte[]? selectedImageBytes; // Untuk menampung DATA file yang dipilih
+    private string? selectedImageContentType; // Untuk info tipe gambar
+    private string? imagePreviewUrl;
 
     protected override async Task OnInitializedAsync()
     {
-        if (!_hasLoadedInitialData)
+        await LoadCategories();
+        if (Id != 0)
         {
-            await LoadProductAndCategories();
-            _hasLoadedInitialData = true;
+            await LoadProduct();
         }
     }
 
-    private async Task LoadProductAndCategories()
+    private async Task LoadCategories()
     {
-        try
-        {
-            categories = await CategoryRepository.GetAllAsync();
-
-            if (Id != 0) // Mode edit
-            {
-                var existingProduct = await ProductRepository.GetByIdAsync(Id);
-                if (existingProduct != null)
-                {
-                    product = existingProduct;
-                    // Jika ada gambar lama, URL-nya akan ditampilkan secara default
-                    // di UI melalui product.ImageUrl (tanpa imagePreviewUrl)
-                }
-                else
-                {
-                    Console.WriteLine($"Produk dengan ID {Id} tidak ditemukan.");
-                    await JSRuntime.InvokeVoidAsync("showToastr", "error", $"Produk dengan ID {Id} tidak ditemukan.");
-                    NavigationManager.NavigateTo("/products", forceLoad: true);
-                }
-            }
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error loading data for product form: {ex.Message}");
-            await JSRuntime.InvokeVoidAsync("showToastr", "error", $"Gagal memuat data form produk: {ex.Message}");
-            categories = Enumerable.Empty<MyBlazor.Data.Category>();
-        }
+        categories = await CategoryRepository.GetAllAsync();
     }
 
-    private async Task HandleFileSelection(InputFileChangeEventArgs e)
+    private async Task LoadProduct()
     {
-        selectedImageFile = e.File;
-
-        if (selectedImageFile != null)
+        var existingProduct = await ProductRepository.GetByIdAsync(Id);
+        if (existingProduct != null)
         {
-            // Batasi ukuran file untuk preview juga jika perlu
-            if (selectedImageFile.Size > 5 * 1024 * 1024) // 5 MB
-            {
-                await JSRuntime.InvokeVoidAsync("showToastr", "error", "Ukuran gambar terlalu besar! Maksimal 5MB.");
-                selectedImageFile = null; // Reset selection
-                imagePreviewUrl = null;
-                return;
-            }
-
-            // Baca stream file untuk membuat URL preview sementara
-            using (var stream = selectedImageFile.OpenReadStream())
-            {
-                var buffer = new byte[selectedImageFile.Size];
-                await stream.ReadAsync(buffer);
-                imagePreviewUrl = $"data:{selectedImageFile.ContentType};base64,{Convert.ToBase64String(buffer)}";
-            }
+            product = existingProduct;
         }
         else
         {
-            imagePreviewUrl = null;
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Error", Detail = $"Produk dengan ID {Id} tidak ditemukan." });
+            NavigationManager.NavigateTo("/products");
         }
+    }
+
+    // Perhatikan perubahan argumen ke UploadChangeEventArgs
+    // Ganti seluruh metode ini dengan yang baru
+    private async Task HandleFileSelection(UploadChangeEventArgs args)
+    {
+        var file = args.Files.FirstOrDefault();
+        if (file == null) return;
+
+        if (file.Size > 5 * 1024 * 1024) // 5 MB
+        {
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Ukuran Terlalu Besar", Detail = "Ukuran gambar maksimal 5MB." });
+            return;
+        }
+
+        // Baca file menjadi byte array SEKARANG JUGA
+        using (var stream = file.OpenReadStream(maxAllowedSize: 5 * 1024 * 1024))
+        {
+            selectedImageBytes = new byte[file.Size];
+            await stream.ReadAsync(selectedImageBytes);
+        }
+
+        selectedImageContentType = file.ContentType;
+
+        // Buat preview dari byte array yang sudah disimpan
+        imagePreviewUrl = $"data:{selectedImageContentType};base64,{Convert.ToBase64String(selectedImageBytes)}";
+        StateHasChanged();
     }
 
     private async Task HandleUpsert()
     {
+        isSubmitting = true;
+
+        if (selectedImageBytes != null)
+    {
+        string oldImageUrl = product.ImageUrl ?? string.Empty;
+        if (!string.IsNullOrEmpty(oldImageUrl))
+        {
+            var oldFilePath = Path.Combine(WebHostEnvironment.WebRootPath, oldImageUrl.TrimStart('/'));
+            if (File.Exists(oldFilePath))
+            {
+                File.Delete(oldFilePath);
+            }
+        }
+
+        string uploadsFolder = Path.Combine(WebHostEnvironment.WebRootPath, "images", "product");
+        if (!Directory.Exists(uploadsFolder))
+        {
+            Directory.CreateDirectory(uploadsFolder);
+        }
+
+        // Buat nama file dari GUID dan content type yang sudah disimpan
+        string extension = Path.GetExtension(selectedImageContentType switch {
+            "image/jpeg" => ".jpg",
+            "image/png" => ".png",
+            _ => ".jpg" // default
+        });
+        string fileName = $"{Guid.NewGuid()}{extension}";
+        string filePath = Path.Combine(uploadsFolder, fileName);
+
+        // Gunakan MemoryStream dari byte[] yang sudah kita simpan
+        using (var stream = new MemoryStream(selectedImageBytes))
+        using (var fileStream = File.Create(filePath))
+        {
+            await stream.CopyToAsync(fileStream);
+        }
+        product.ImageUrl = $"/images/product/{fileName}";
+    }
+
         try
         {
-            string oldImageUrl = product.ImageUrl ?? string.Empty; // Ambil URL gambar lama dari product.ImageUrl
-
-            // Upload gambar baru jika ada yang dipilih
-            if (selectedImageFile != null)
-            {
-                string uploadsFolder = Path.Combine(WebHostEnvironment.WebRootPath, "images", "product");
-                if (!Directory.Exists(uploadsFolder))
-                {
-                    Directory.CreateDirectory(uploadsFolder);
-                }
-
-                // Hapus gambar lama HANYA JIKA ADA DAN BERBEDA DENGAN YANG BARU (atau akan diganti)
-                // Ini terjadi jika kita sedang update dan mengupload gambar baru
-                if (Id != 0 && !string.IsNullOrEmpty(oldImageUrl))
-                {
-                    string oldFilePath = Path.Combine(WebHostEnvironment.WebRootPath, oldImageUrl.TrimStart('/'));
-                    if (System.IO.File.Exists(oldFilePath))
-                    {
-                        System.IO.File.Delete(oldFilePath);
-                    }
-                }
-
-                string fileName = Guid.NewGuid().ToString() + Path.GetExtension(selectedImageFile.Name);
-                string filePath = Path.Combine(uploadsFolder, fileName);
-
-                using (var stream = selectedImageFile.OpenReadStream(maxAllowedSize: 5 * 1024 * 1024))
-                {
-                    using (var fileStream = System.IO.File.Create(filePath))
-                    {
-                        await stream.CopyToAsync(fileStream);
-                    }
-                }
-                product.ImageUrl = $"/images/product/{fileName}"; // Simpan path relatif baru ke model
-            }
-            else if (Id != 0) // Jika mode edit dan TIDAK ADA file baru yang dipilih
-            {
-                // Pertahankan ImageUrl yang sudah ada di 'product' jika tidak ada upload baru
-                // product.ImageUrl tetap memiliki nilai lama
-            }
-            else // Jika mode create dan TIDAK ADA file baru yang dipilih
-            {
-                product.ImageUrl = null; // Pastikan ImageUrl null jika tidak ada gambar untuk produk baru
-            }
-
-            if (Id == 0) // Mode tambah (Insert)
+            if (Id == 0)
             {
                 await ProductRepository.CreateAsync(product);
-                await JSRuntime.InvokeVoidAsync("showToastr", "success", "Produk baru berhasil ditambahkan!");
+                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Summary = "Sukses", Detail = "Produk baru berhasil ditambahkan!" });
             }
-            else // Mode edit (Update)
+            else
             {
                 await ProductRepository.UpdateAsync(product);
-                await JSRuntime.InvokeVoidAsync("showToastr", "success", "Produk berhasil diperbarui!");
+                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Summary = "Sukses", Detail = "Produk berhasil diperbarui!" });
             }
             NavigationManager.NavigateTo("/products");
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error saving product: {ex.Message}");
-            await JSRuntime.InvokeVoidAsync("showToastr", "error", $"Gagal menyimpan produk: {ex.Message}");
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Error", Detail = $"Gagal menyimpan produk: {ex.Message}" });
+        }
+        finally
+        {
+            isSubmitting = false;
         }
     }
 
@@ -259,8 +232,4 @@
     {
         NavigationManager.NavigateTo("/products");
     }
-
-    // Perhatikan: Metode DeleteProductWithImage tidak lagi diperlukan di sini (ProductUpsert.razor)
-    // karena logika penghapusan gambar saat menghapus produk akan berada di ProductRepository itu sendiri.
-    // Pastikan ProductRepository sudah diperbarui seperti contoh di bawah.
 }
