@@ -1,25 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\GitHub\\MyLearning\\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\\MyBlazor\\MyBlazor\\MyBlazor.csproj": {}
+    "D:\\Dev\\MyLearning\\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\\MyBlazor\\MyBlazor\\MyBlazor.csproj": {}
   },
   "projects": {
-    "D:\\GitHub\\MyLearning\\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\\MyBlazor\\MyBlazor\\MyBlazor.csproj": {
+    "D:\\Dev\\MyLearning\\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\\MyBlazor\\MyBlazor\\MyBlazor.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\GitHub\\MyLearning\\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\\MyBlazor\\MyBlazor\\MyBlazor.csproj",
+        "projectUniqueName": "D:\\Dev\\MyLearning\\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\\MyBlazor\\MyBlazor\\MyBlazor.csproj",
         "projectName": "MyBlazor",
-        "projectPath": "D:\\GitHub\\MyLearning\\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\\MyBlazor\\MyBlazor\\MyBlazor.csproj",
+        "projectPath": "D:\\Dev\\MyLearning\\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\\MyBlazor\\MyBlazor\\MyBlazor.csproj",
         "packagesPath": "C:\\Users\\argip\\.nuget\\packages\\",
-        "outputPath": "D:\\GitHub\\MyLearning\\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\\MyBlazor\\MyBlazor\\obj\\",
+        "outputPath": "D:\\Dev\\MyLearning\\Blazor - The Complete Guide [.NET 9] [2025] [E-commerce]\\MyBlazor\\MyBlazor\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files\\DevExpress 23.2\\Components\\Offline Packages",
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
           "C:\\Users\\argip\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 23.2.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -28,7 +26,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\DevExpress 23.2\\Components\\System\\Components\\Packages": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
