@@ -8,10 +8,12 @@
 
         Task<OrderHeader?> GetOrderByIdAsync(int id);
 
+        Task<OrderHeader> GetOrderBySessionIdAsync(string sessionId);
+
         Task<OrderHeader> CreateAsync(OrderHeader orderHeader);
 
         Task<IEnumerable<OrderHeader>> GetAllAsync(string userId);
 
-        Task<OrderHeader> UpdateStatusAsync(int orderId, string status);
+        Task<OrderHeader> UpdateStatusAsync(int orderId, string status, string paymentIntentId);
     }
 }

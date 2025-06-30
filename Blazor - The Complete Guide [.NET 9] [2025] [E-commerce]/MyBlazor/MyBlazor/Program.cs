@@ -1,13 +1,15 @@
+global using Microsoft.EntityFrameworkCore;
 global using MyBlazor.Data;
 global using MyBlazor.Repository;
 global using MyBlazor.Repository.IRepository;
 global using System.ComponentModel.DataAnnotations;
-global using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using MyBlazor.Components;
 using MyBlazor.Components.Account;
+using MyBlazor.Services;
 using Radzen;
+using Stripe;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +21,7 @@ builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IdentityUserAccessor>();
 builder.Services.AddScoped<IdentityRedirectManager>();
+builder.Services.AddScoped<PaymentService>();
 builder.Services.AddScoped<AuthenticationStateProvider, IdentityRevalidatingAuthenticationStateProvider>();
 
 builder.Services.AddAuthentication(options =>
@@ -30,6 +33,11 @@ builder.Services.AddAuthentication(options =>
     {
         options.AppId = "987547106627070";
         options.AppSecret = "f84d33cbfd409061e50c605fd502e6aa";
+    })
+    .AddMicrosoftAccount(option =>
+    {
+        option.ClientId = "2d9a44a1-fe38-46b8-9d22-bc304b219dc6";
+        option.ClientSecret = "qDo8Q~ph0Ev8N4YsNBhupqANff-mpj41o.n~5cYT";
     })
     .AddIdentityCookies();
 
@@ -51,6 +59,8 @@ builder.Services.AddScoped<IShoppingCartRepository, ShoppingCartRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 
 var app = builder.Build();
+
+StripeConfiguration.ApiKey = builder.Configuration["StripeApiKey"] ?? throw new InvalidOperationException("Stripe Secret Key not found in configuration.");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

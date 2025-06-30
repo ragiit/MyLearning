@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-namespace MyBlazor.Repository
+﻿namespace MyBlazor.Repository
 {
     public class ShoppingCartRepository(ApplicationDbContext context) : IRepository.IShoppingCartRepository
     {

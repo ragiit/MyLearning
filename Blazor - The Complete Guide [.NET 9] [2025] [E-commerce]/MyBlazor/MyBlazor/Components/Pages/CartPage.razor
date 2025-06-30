@@ -10,8 +10,10 @@
 @using Microsoft.AspNetCore.Components.Authorization
 @using System.Globalization
 @using Microsoft.AspNetCore.Identity
+@using MyBlazor.Services
 @using MyBlazor.Utility
-@inject UserManager<ApplicationUser> UserManager // Inject UserManager
+@inject PaymentService PaymentService  
+@inject UserManager<ApplicationUser> UserManager 
 
 <PageTitle>Keranjang Belanja Anda</PageTitle>
 
@@ -325,7 +327,12 @@
             orderHeader.OrderDetails = SD.ConvertShoppingCartToOrderDetails(cartItems.ToList());
             orderHeader.Status = "Pending";
 
+            var s = await PaymentService.CreateStripeCheckoutSessionAsync(orderHeader, "");
+            orderHeader.SessionId = s.Id.ToString();
+
+            orderHeader.OrderDetails.ToList().ForEach(x => x.Product = null);
             var createdOrder = await OrderRepository.CreateAsync(orderHeader);
+            NavigationManager.NavigateTo(s.Url);
 
             if (createdOrder != null && createdOrder.Id > 0)
             {

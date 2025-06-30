@@ -18,6 +18,7 @@
             {
                 OrderDetail orderDetail = new OrderDetail
                 {
+                    Product = cart.Product,
                     ProductId = cart.ProductId,
                     Count = cart.Quantity,
                     Price = Convert.ToDouble(cart.Product.Price),

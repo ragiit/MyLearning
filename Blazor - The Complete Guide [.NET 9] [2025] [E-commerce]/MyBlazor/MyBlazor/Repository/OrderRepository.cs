@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-namespace MyBlazor.Repository
+﻿namespace MyBlazor.Repository
 {
     public class OrderRepository(ApplicationDbContext context) : IOrderRepository
     {
@@ -22,12 +20,13 @@ namespace MyBlazor.Repository
             return await context.OrderHeaders.Where(o => o.ApplicationUserId == userId).ToListAsync();
         }
 
-        public async Task<OrderHeader> UpdateStatusAsync(int orderId, string status)
+        public async Task<OrderHeader> UpdateStatusAsync(int orderId, string status, string paymentIntentId)
         {
             var order = await context.OrderHeaders.FindAsync(orderId);
             if (order != null)
             {
                 order.Status = status;
+                order.PaymentIntentId = paymentIntentId;
                 await context.SaveChangesAsync();
             }
             return order;
@@ -55,6 +54,16 @@ namespace MyBlazor.Repository
                                 .Include(oh => oh.OrderDetails)
                                     .ThenInclude(od => od.Product)
                                 .FirstOrDefaultAsync(oh => oh.Id == id);
+        }
+
+        public async Task<OrderHeader> GetOrderBySessionIdAsync(string sessionId)
+        {
+            return await context.OrderHeaders
+                .Include(oh => oh.ApplicationUser)
+                .Include(oh => oh.OrderDetails)
+                    .ThenInclude(od => od.Product)
+                .FirstOrDefaultAsync(oh => oh.SessionId == sessionId)
+                ?? throw new KeyNotFoundException("Order with the specified session ID not found.");
         }
     }
 }

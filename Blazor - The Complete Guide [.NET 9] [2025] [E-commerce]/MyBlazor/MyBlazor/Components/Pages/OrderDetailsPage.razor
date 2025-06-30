@@ -211,7 +211,7 @@ else if (Order != null)
         {
             if (Order != null && !string.IsNullOrEmpty(SelectedStatus))
             {
-                var updatedOrder = await OrderRepository.UpdateStatusAsync(Order.Id, SelectedStatus);
+                var updatedOrder = await OrderRepository.UpdateStatusAsync(Order.Id, SelectedStatus, "");
                 if (updatedOrder != null)
                 {
                     // Update status di object lokal agar UI langsung berubah

@@ -1,4 +1,6 @@
-﻿@page "/order/confirmation/{OrderHeaderId:int}"
+﻿ 
+
+@page "/order/confirmation/{OrderId:int}" 
 @inject MyBlazor.Repository.IRepository.IOrderRepository OrderRepository
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JSRuntime
@@ -11,13 +13,13 @@
     <div class="card shadow-lg border-0 rounded-lg">
         <div class="card-header bg-success text-white text-center py-4 rounded-top-lg">
             <h3 class="fw-light my-2">
-                <i class="bi bi-check-circle-fill me-2"></i> Pesanan Berhasil Dibuat!
+                <i class="bi bi-check-circle-fill me-2"></i> Pesanan Berhasil Dibayar!
             </h3>
             <p class="mb-0">Terima kasih atas pesanan Anda. Detail pesanan Anda di bawah ini.</p>
         </div>
         <div class="card-body p-4">
 
-            @if (orderHeader == null)
+            @if (isLoading)
             {
                 <div class="alert alert-info text-center mt-3" role="alert">
                     <div class="spinner-border text-primary" role="status">
@@ -26,24 +28,21 @@
                     <p class="mt-2 mb-0">Memuat detail pesanan...</p>
                 </div>
             }
-            else
+            else if (orderHeader != null)
             {
                 <h4 class="mb-3">Ringkasan Pesanan #@orderHeader.Id</h4>
                 <div class="row mb-4">
                     <div class="col-md-6">
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item"><strong>Status Pesanan:</strong> <span class="badge bg-success">@orderHeader.Status</span></li>
-                            <li class="list-group-item"><strong>Tanggal Pesanan:</strong> @orderHeader.OrderDate.ToString("dd MMMM yyyy HH:mm")</li>
+                            <li class="list-group-item"><strong>Tanggal Pesanan:</strong> @orderHeader.OrderDate.ToString("dd MMMM yyyy, HH:mm")</li>
                             <li class="list-group-item"><strong>Nama Pelanggan:</strong> @orderHeader.Name</li>
-                            <li class="list-group-item"><strong>Email:</strong> @orderHeader.Email</li>
-                            <li class="list-group-item"><strong>Telepon:</strong> @orderHeader.PhoneNumber</li>
                         </ul>
                     </div>
                     <div class="col-md-6">
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><strong>Alamat Pengiriman:</strong></li>
-                           @*  <li class="list-group-item">@orderHeader.ShippingAddress</li>
-                            <li class="list-group-item">@orderHeader.City, @orderHeader.PostalCode</li> *@
+                            <li class="list-group-item"><strong>Email:</strong> @orderHeader.Email</li>
+                            <li class="list-group-item"><strong>Telepon:</strong> @orderHeader.PhoneNumber</li>
                         </ul>
                     </div>
                 </div>
@@ -66,11 +65,19 @@
                                 {
                                     <tr>
                                         <td>
-                                            <div class="d-flex align-items-center">
-                                                <img src="@(string.IsNullOrEmpty(detail.Product?.ImageUrl) ? "https://placehold.co/50x50?text=No+Img" : detail.Product?.ImageUrl)"
-                                                     class="img-thumbnail me-2" style="width: 50px; height: 50px; object-fit: cover;" alt="@detail.Product?.Name" />
-                                                <span>@detail.Product?.Name</span>
-                                            </div>
+                                            @if (detail.Product != null)
+                                            {
+                                                <div class="d-flex align-items-center">
+                                                    <img src="@(string.IsNullOrEmpty(detail.Product.ImageUrl) ? "https://placehold.co/50x50?text=No+Img" : detail.Product.ImageUrl)"
+                                                         class="img-thumbnail me-2" style="width: 50px; height: 50px; object-fit: cover;" alt="@detail.Product.Name" />
+                                                    <span>@detail.Product.Name</span>
+                                                </div>
+                                            }
+                                            else
+                                            {
+
+                                                <span>Produk tidak tersedia</span>
+                                            }
                                         </td>
                                         <td class="text-center">@detail.Count</td>
                                         <td class="text-end">@detail.Price.ToString("C", CultureInfo.GetCultureInfo("id-ID"))</td>
@@ -90,8 +97,13 @@
 
                 <div class="text-center mt-4">
                     <a href="/" class="btn btn-primary btn-lg me-3"><i class="bi bi-house-door me-2"></i> Lanjut Belanja</a>
-                    @* Anda bisa menambahkan link ke halaman "Pesanan Saya" di sini *@
                     <a href="/order/history" class="btn btn-outline-secondary btn-lg"><i class="bi bi-list-check me-2"></i> Lihat Riwayat Pesanan</a>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-danger text-center mt-3" role="alert">
+                    <p class="mb-0">Gagal memuat detail pesanan atau pesanan tidak ditemukan.</p>
                 </div>
             }
         </div>
@@ -100,37 +112,41 @@
 
 @code {
     [Parameter]
-    public int OrderHeaderId { get; set; } // Parameter untuk menerima ID order dari URL
+    public int OrderId { get; set; } // Parameter sudah benar
 
     private OrderHeader? orderHeader;
-    private bool _hasLoadedInitialData = false;
+    private bool isLoading = true;
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnParametersSetAsync()
     {
-        if (!_hasLoadedInitialData)
+        // Hanya load jika ID berbeda dari yang sudah di-load
+        if (orderHeader == null || orderHeader.Id != OrderId)
         {
-            await LoadOrderDetails();
-            _hasLoadedInitialData = true;
+            await LoadOrderDetailsAsync();
         }
     }
 
-    private async Task LoadOrderDetails()
+    private async Task LoadOrderDetailsAsync()
     {
+        isLoading = true;
         try
         {
-            orderHeader = await OrderRepository.GetByIdAsync(OrderHeaderId);
+            // Mengambil order berdasarkan OrderId yang sudah diverifikasi
+            orderHeader = await OrderRepository.GetByIdAsync(OrderId);
 
             if (orderHeader == null)
             {
                 await JSRuntime.InvokeVoidAsync("showToastr", "error", "Detail pesanan tidak ditemukan.");
-                NavigationManager.NavigateTo("/"); // Redirect jika order tidak ditemukan
             }
         }
         catch (Exception ex)
         {
             Console.WriteLine($"Error loading order details: {ex.Message}");
-            await JSRuntime.InvokeVoidAsync("showToastr", "error", $"Gagal memuat detail pesanan: {ex.Message}");
-            NavigationManager.NavigateTo("/"); // Redirect jika ada error
+            await JSRuntime.InvokeVoidAsync("showToastr", "error", $"Gagal memuat detail pesanan.");
+        }
+        finally
+        {
+            isLoading = false;
         }
     }
 }
