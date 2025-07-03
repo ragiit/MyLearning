@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apple.Web", "Apple.Web\Appl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apple.Services.AuthAPI", "Apple.Services.AuthAPI\Apple.Services.AuthAPI.csproj", "{06FBC4B8-524A-49FF-B073-9BC8467EEA0F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apple.Services.ProductAPI", "Apple.Services.ProductAPI\Apple.Services.ProductAPI.csproj", "{F10E57A0-958C-48E4-B6C5-95BBCD1EB186}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{06FBC4B8-524A-49FF-B073-9BC8467EEA0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{06FBC4B8-524A-49FF-B073-9BC8467EEA0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{06FBC4B8-524A-49FF-B073-9BC8467EEA0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F10E57A0-958C-48E4-B6C5-95BBCD1EB186}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F10E57A0-958C-48E4-B6C5-95BBCD1EB186}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F10E57A0-958C-48E4-B6C5-95BBCD1EB186}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F10E57A0-958C-48E4-B6C5-95BBCD1EB186}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -43,6 +49,7 @@ Global
 		{8DBD9281-E4C8-413D-AE73-A8AA626608AC} = {C8F6382F-974F-4674-A939-14827623D82E}
 		{5011908F-0F7D-4B90-A014-6413A95C1D03} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{06FBC4B8-524A-49FF-B073-9BC8467EEA0F} = {C8F6382F-974F-4674-A939-14827623D82E}
+		{F10E57A0-958C-48E4-B6C5-95BBCD1EB186} = {C8F6382F-974F-4674-A939-14827623D82E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F4149B2E-5A78-4566-BCBC-03DD99035E21}

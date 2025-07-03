@@ -2,7 +2,38 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+@model IEnumerable<Apple.Web.Models.ProductDto>
+
+<form>
+    <div class="container row">
+        @foreach (var product in Model)
+        {
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="p-0 my-3 border rounded">
+                    <div class="card h-100 shadow">
+                        <img src="@product.ImageUrl" class="card-img-top rounded" />
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">@product.Name</h5>
+                            <span class="badge bg-light text-dark p-2 mb-2">@product.CategoryName</span>
+                            <p class="card-text flex-grow-1">@product.Description</p>
+                            <div class="mt-auto">
+                                <div class="row text-center">
+                                    <div class="col-6">
+                                        <span class="text-warning h5">@string.Format("{0:c}", product.Price)</span>
+                                    </div>
+                                    <div class="col-6">
+                                        <a asp-action="ProductDetails" asp-route-productId="@product.Id"
+                                           class="btn btn-success form-control">
+                                            Details
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</form>
+
