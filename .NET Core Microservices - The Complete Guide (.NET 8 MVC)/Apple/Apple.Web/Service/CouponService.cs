@@ -3,18 +3,11 @@ using static Apple.Web.Utility.SD;
 
 namespace Apple.Web.Service
 {
-    public class CouponService : ICouponService
+    public class CouponService(IBaseService baseService) : ICouponService
     {
-        private readonly IBaseService _baseService;
-
-        public CouponService(IBaseService baseService)
-        {
-            _baseService = baseService;
-        }
-
         public async Task<ResponseDto?> GetAllCouponsAsync()
         {
-            return await _baseService.SendAsync(new RequestDto()
+            return await baseService.SendAsync(new RequestDto()
             {
                 ApiType = ApiType.GET,
                 Url = SD.CouponAPIBase + "/api/coupon"
@@ -23,7 +16,7 @@ namespace Apple.Web.Service
 
         public async Task<ResponseDto?> GetCouponByIdAsync(int id)
         {
-            return await _baseService.SendAsync(new RequestDto()
+            return await baseService.SendAsync(new RequestDto()
             {
                 ApiType = ApiType.GET,
                 Url = SD.CouponAPIBase + "/api/coupon/" + id
@@ -32,7 +25,7 @@ namespace Apple.Web.Service
 
         public async Task<ResponseDto?> GetCouponAsync(string couponCode)
         {
-            return await _baseService.SendAsync(new RequestDto()
+            return await baseService.SendAsync(new RequestDto()
             {
                 ApiType = ApiType.GET,
                 Url = SD.CouponAPIBase + "/api/coupon/GetByCode/" + couponCode
@@ -41,7 +34,7 @@ namespace Apple.Web.Service
 
         public async Task<ResponseDto?> CreateCouponAsync(CouponDto couponDto)
         {
-            return await _baseService.SendAsync(new RequestDto()
+            return await baseService.SendAsync(new RequestDto()
             {
                 ApiType = ApiType.POST,
                 Data = couponDto,
@@ -51,7 +44,7 @@ namespace Apple.Web.Service
 
         public async Task<ResponseDto?> UpdateCouponAsync(CouponDto couponDto)
         {
-            return await _baseService.SendAsync(new RequestDto()
+            return await baseService.SendAsync(new RequestDto()
             {
                 ApiType = ApiType.PUT,
                 Data = couponDto,
@@ -61,7 +54,7 @@ namespace Apple.Web.Service
 
         public async Task<ResponseDto?> DeleteCouponAsync(int id)
         {
-            return await _baseService.SendAsync(new RequestDto()
+            return await baseService.SendAsync(new RequestDto()
             {
                 ApiType = ApiType.DELETE,
                 Url = SD.CouponAPIBase + "/api/coupon/" + id
