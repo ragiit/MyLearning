@@ -1,7 +1,4 @@
-﻿using Apple.Web.Utility;
-using static Apple.Web.Utility.SD;
-
-namespace Apple.Web.Models
+﻿namespace Apple.Web.Models
 {
     public class RequestDto
     {

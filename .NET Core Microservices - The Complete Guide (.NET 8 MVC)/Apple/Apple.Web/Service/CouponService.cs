@@ -1,7 +1,4 @@
-﻿using Apple.Web.Utility;
-using static Apple.Web.Utility.SD;
-
-namespace Apple.Web.Service
+﻿namespace Apple.Web.Service
 {
     public class CouponService(IBaseService baseService) : ICouponService
     {
@@ -10,7 +7,7 @@ namespace Apple.Web.Service
             return await baseService.SendAsync(new RequestDto()
             {
                 ApiType = ApiType.GET,
-                Url = SD.CouponAPIBase + "/api/coupon"
+                Url = SD.CouponAPIBase + "/api/coupons"
             });
         }
 
@@ -19,7 +16,7 @@ namespace Apple.Web.Service
             return await baseService.SendAsync(new RequestDto()
             {
                 ApiType = ApiType.GET,
-                Url = SD.CouponAPIBase + "/api/coupon/" + id
+                Url = SD.CouponAPIBase + "/api/coupons/" + id
             });
         }
 
@@ -28,7 +25,7 @@ namespace Apple.Web.Service
             return await baseService.SendAsync(new RequestDto()
             {
                 ApiType = ApiType.GET,
-                Url = SD.CouponAPIBase + "/api/coupon/GetByCode/" + couponCode
+                Url = SD.CouponAPIBase + "/api/coupons/GetByCode/" + couponCode
             });
         }
 
@@ -38,7 +35,7 @@ namespace Apple.Web.Service
             {
                 ApiType = ApiType.POST,
                 Data = couponDto,
-                Url = SD.CouponAPIBase + "/api/coupon"
+                Url = SD.CouponAPIBase + "/api/coupons"
             });
         }
 
@@ -48,7 +45,7 @@ namespace Apple.Web.Service
             {
                 ApiType = ApiType.PUT,
                 Data = couponDto,
-                Url = SD.CouponAPIBase + "/api/coupon"
+                Url = SD.CouponAPIBase + "/api/coupons"
             });
         }
 
@@ -57,7 +54,7 @@ namespace Apple.Web.Service
             return await baseService.SendAsync(new RequestDto()
             {
                 ApiType = ApiType.DELETE,
-                Url = SD.CouponAPIBase + "/api/coupon/" + id
+                Url = SD.CouponAPIBase + "/api/coupons/" + id
             });
         }
     }

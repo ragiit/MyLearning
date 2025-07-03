@@ -1,7 +1,10 @@
-﻿namespace Apple.Services.CouponAPI.Controllers
+﻿using Microsoft.AspNetCore.Authorization;
+
+namespace Apple.Services.CouponAPI.Controllers
 {
     [Route("api/coupons")]
     [ApiController]
+    [Authorize]
     public class CouponController(AppDbContext db) : ControllerBase
     {
         private readonly ResponseDto _response = new();
@@ -72,6 +75,7 @@
         }
 
         [HttpPost]
+        [Authorize(Roles = "ADMIN")]
         public async Task<ActionResult<ResponseDto>> Post([FromBody] CouponDto couponDto)
         {
             try
@@ -92,6 +96,7 @@
         }
 
         [HttpPut]
+        [Authorize(Roles = "ADMIN")]
         public async Task<ActionResult<ResponseDto>> Put([FromBody] CouponDto couponDto)
         {
             try
@@ -112,6 +117,7 @@
 
         [HttpDelete]
         [Route("{id:int}")]
+        [Authorize(Roles = "ADMIN")]
         public async Task<ActionResult<ResponseDto>> Delete(int id)
         {
             try

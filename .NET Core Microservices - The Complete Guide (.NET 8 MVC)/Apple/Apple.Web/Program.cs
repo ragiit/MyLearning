@@ -1,12 +1,16 @@
 global using Apple.Web.Models;
+global using Apple.Web.Service;
 global using Apple.Web.Service.IService;
+global using Apple.Web.Utility;
+global using Microsoft.AspNetCore.Mvc;
 global using Newtonsoft.Json;
 global using System.Text;
-using Apple.Web.Service;
-using Apple.Web.Utility;
+global using static Apple.Web.Utility.SD;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 SD.CouponAPIBase = builder.Configuration["ServiceUrls:CouponAPI"];
+SD.AuthAPIBase = builder.Configuration["ServiceUrls:AuthAPI"];
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -15,7 +19,15 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddHttpClient<ICouponService, CouponService>();
 builder.Services.AddScoped<IBaseService, BaseService>();
 builder.Services.AddScoped<ICouponService, CouponService>();
-
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<ITokenProvider, TokenProvider>();
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.ExpireTimeSpan = TimeSpan.FromHours(10);
+        options.LoginPath = "/Auth/Login";
+        options.AccessDeniedPath = "/Auth/AccessDenied";
+    });
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -30,7 +42,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

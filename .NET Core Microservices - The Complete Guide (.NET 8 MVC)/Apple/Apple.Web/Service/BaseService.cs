@@ -1,10 +1,8 @@
-﻿using static Apple.Web.Utility.SD;
-
-namespace Apple.Web.Service
+﻿namespace Apple.Web.Service
 {
-    public class BaseService(IHttpClientFactory httpClientFactory) : IBaseService
+    public class BaseService(IHttpClientFactory httpClientFactory, ITokenProvider tokenProvider) : IBaseService
     {
-        public async Task<ResponseDto?> SendAsync(RequestDto requestDto)
+        public async Task<ResponseDto?> SendAsync(RequestDto requestDto, bool isWithToken = true)
         {
             try
             {
@@ -16,7 +14,14 @@ namespace Apple.Web.Service
                 message.Headers.Add("Accept", "application/json");
                 // TODO: Tambahkan token jika diperlukan di masa depan.
                 // message.Headers.Authorization = new AuthenticationHeaderValue("Bearer", requestDto.AccessToken);
-
+                if (isWithToken)
+                {
+                    var token = tokenProvider.GetToken();
+                    if (!string.IsNullOrEmpty(token))
+                    {
+                        message.Headers.Add("Authorization", $"Bearer {token}");
+                    }
+                }
                 // Mengatur URL dan metode HTTP.
                 message.RequestUri = new Uri(requestDto.Url);
 

@@ -1,5 +1,3 @@
-using Apple.Web.Models;
-using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace Apple.Web.Controllers
