@@ -7,7 +7,7 @@ namespace Apple.Services.ShoppingCartAPI.Models
         public async Task<CouponDto?> GetCouponByCodeAsync(string couponCode)
         {
             var client = httpClientFactory.CreateClient("CouponAPI");
-            var response = await client.GetAsync($"/api/coupon/GetByCode/{couponCode}");
+            var response = await client.GetAsync($"/api/coupons/GetByCode/{couponCode}");
             var apiContent = await response.Content.ReadAsStringAsync();
             var resp = JsonConvert.DeserializeObject<ResponseDto>(apiContent);
 

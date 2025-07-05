@@ -1,0 +1,97 @@
+﻿@model Apple.Web.Models.CartDto
+
+@if (Model != null && Model.CartHeader != null && Model.CartDetails.Any())
+{
+    <form method="post">
+        <br />
+        <input asp-for="CartHeader.Id" hidden />
+        <input asp-for="CartHeader.UserId" hidden />
+        <div class="">
+            <div class="card-header bg-dark text-light ml-0 row ">
+                <div class="col-6">
+                    <i class="fa fa-shopping-cart"></i> &nbsp;
+                    Shopping Cart
+                </div>
+                <div class="col-6 text-end">
+                    <a asp-controller="Home" asp-action="Index" class="btn btn-outline-warning btn-sm">Continue Shopping</a>
+                </div>
+            </div>
+            <div class="card-body">
+                @foreach (var detail in Model.CartDetails)
+                {
+                    <div class="row">
+                        <div class="d-none d-lg-block col-lg-1 text-center py-2">
+                            <img src="@detail.Product.ImageUrl" class="rounded" width="100%" />
+                        </div>
+                        <div class="col-12 col-lg-6 pt-md-3">
+                            <h5><strong>@detail.Product.Name</strong></h5>
+                            <p><small>@detail.Product.Description</small></p>
+                        </div>
+                        <div class="col-12 col-lg-5 text-center row">
+                            <div class="col-4 text-md-right pt-2 pt-md-4">
+                                <h6><strong>@detail.Product.Price.ToString("c") <span class="text-muted">x</span> @detail.Count </strong></h6>
+                            </div>
+                            <div class="col-6 col-sm-4 col-lg-6 pt-2 pt-md-4">
+                                <!-- Tombol +/- bisa ditambahkan di sini jika perlu -->
+                            </div>
+                            <div class="col-2 col-sm-4 col-lg-2 text-right pt-2 pt-md-4">
+                                <a asp-action="Remove" asp-route-cartDetailId="@detail.Id" class="btn btn-danger">
+                                    <i class="bi-trash-fill"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                }
+                <div class="row">
+                    <div class="col-12 col-md-6 offset-md-6 col-lg-4 offset-lg-8 pr-4">
+                        <ul class="list-group">
+                            <li class="list-group-item d-flex justify-content-between bg-light">
+                                <span class="text-info"> Total (IDR)</span>
+                                <strong class="text-info">@Model.CartHeader.CartTotal.ToString("c")</strong>
+                            </li>
+                            @if (Model.CartHeader.Discount > 0)
+                            {
+                                <li class="list-group-item d-flex justify-content-between bg-light">
+                                    <span class="text-success"> Coupon Discount</span>
+                                    <strong class="text-success">- @Model.CartHeader.Discount.ToString("c")</strong>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between bg-light">
+                                    <span class="text-success"> Grand Total</span>
+                                    <strong class="text-success">@((Model.CartHeader.CartTotal - Model.CartHeader.Discount).ToString("c"))</strong>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-12 col-md-5 pt-2">
+                        @if (string.IsNullOrEmpty(Model.CartHeader.CouponCode))
+                        {
+                            <span>Enter Coupon Code: </span>
+                            <input asp-for="CartHeader.CouponCode" class="form-control" />
+                            <button type="submit" asp-action="ApplyCoupon" class="btn btn-success mt-2"> Apply </button>
+                        }
+                        else
+                        {
+                            <span>Coupon Applied: @Model.CartHeader.CouponCode</span>
+                            <button type="submit" asp-action="RemoveCoupon" class="btn btn-danger mt-2"> Remove </button>
+                        }
+                    </div>
+                    <div class="col-12 col-md-7 text-end pt-2">
+                        <button type="submit" class="btn btn-primary">Email Inquiry</button>
+                        <button type="submit" class="btn btn-success">Checkout</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+}
+else
+{
+    <div>
+        <p>Your shopping cart is empty.</p>
+    </div>
+}

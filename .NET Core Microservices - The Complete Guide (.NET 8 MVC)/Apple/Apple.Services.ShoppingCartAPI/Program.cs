@@ -1,13 +1,14 @@
+global using Apple.Services.ShoppingCartAPI.Data;
+global using Apple.Services.ShoppingCartAPI.Models;
+global using Apple.Services.ShoppingCartAPI.Models.Dto;
+global using Apple.Services.ShoppingCartAPI.Services;
+global using Apple.Services.ShoppingCartAPI.Services.IServices;
+global using Mapster;
+global using Microsoft.AspNetCore.Mvc;
+global using Microsoft.EntityFrameworkCore;
 global using System.ComponentModel.DataAnnotations;
 global using System.ComponentModel.DataAnnotations.Schema;
-global using Apple.Services.ShoppingCartAPI.Models.Dto;
-global using Apple.Services.ShoppingCartAPI.Models;
-global using Microsoft.EntityFrameworkCore;
-global using Mapster;
-global using Apple.Services.ShoppingCartAPI.Services.IServices;
-global using Microsoft.AspNetCore.Mvc;
-global using Apple.Services.ShoppingCartAPI.Data;
-global using Apple.Services.ShoppingCartAPI.Services;
+using Apple.Services.ShoppingCartAPI.Utility;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,14 +18,18 @@ builder.Services.AddDbContext<AppDbContext>(option =>
 {
     option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<BackendApiAuthenticationHttpClientHandler>();
 builder.Services.AddHttpClient("ProductAPI", c =>
 {
     c.BaseAddress = new Uri(builder.Configuration["ServiceUrls:ProductApi"]);
-});
+})
+    .AddHttpMessageHandler<BackendApiAuthenticationHttpClientHandler>(); ;
 builder.Services.AddHttpClient("CouponAPI", c =>
 {
     c.BaseAddress = new Uri(builder.Configuration["ServiceUrls:CouponApi"]);
-});
+})
+    .AddHttpMessageHandler<BackendApiAuthenticationHttpClientHandler>(); ;
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICouponService, CouponService>();
 var secret = builder.Configuration["ApiSettings:JwtOptions:Secret"];
