@@ -12,13 +12,19 @@
             try
             {
                 // Buat OrderHeader dari CartHeaderDto
-                OrderHeaderDto orderHeaderDto = cartDto.CartHeader.Adapt<CartHeaderDto>();
+                OrderHeaderDto orderHeaderDto = cartDto.CartHeader.Adapt<OrderHeaderDto>();
+                orderHeaderDto.Id = 0;
                 orderHeaderDto.Date = DateTime.Now;
                 orderHeaderDto.Status = SD.StatusPending;
 
                 // Konversi ke entitas OrderHeader dan tambahkan detailnya
                 var orderHeader = orderHeaderDto.Adapt<OrderHeader>();
-                orderHeader.OrderDetails = cartDto.CartDetails.Adapt<List<OrderDetail>>();
+                orderHeader.OrderDetails = cartDto.CartDetails.Adapt<List<OrderDetail>>().Select(x => new OrderDetail
+                {
+                    ProductName = x.Product.Name,
+                    ProductId = x.ProductId,
+                    Price = x.Product.Price,
+                }).ToList();
 
                 // Simpan ke database
                 var result = await db.OrderHeaders.AddAsync(orderHeader);

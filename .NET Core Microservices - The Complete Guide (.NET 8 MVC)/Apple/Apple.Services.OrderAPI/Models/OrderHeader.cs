@@ -19,6 +19,6 @@ namespace Apple.Services.OrderAPI.Models
         public string? PaymentIntentId { get; set; }
         public string? StripeSessionId { get; set; }
 
-        public IEnumerable<OrderDetail>? OrderDetails { get; set; }
+        public ICollection<OrderDetail>? OrderDetails { get; set; }
     }
 }
