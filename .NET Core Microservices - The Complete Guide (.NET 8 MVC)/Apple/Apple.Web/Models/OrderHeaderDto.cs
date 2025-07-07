@@ -2,7 +2,7 @@
 
 namespace Apple.Web.Models
 {
-    public class CartHeaderDto
+    public class OrderHeaderDto
     {
         public int Id { get; set; }
 
@@ -10,13 +10,15 @@ namespace Apple.Web.Models
         public string? CouponCode { get; set; }
 
         public double Discount { get; set; }
-        public double CartTotal { get; set; }
-
-        [Required]
+        public double OrderTotal { get; set; }
         public string? Name { get; set; }
-        [Required]
         public string? Phone { get; set; }
-        [Required]
         public string? Email { get; set; }
+        public DateTime Date { get; set; }
+        public string? Status { get; set; }
+        public string? PaymentIntentId { get; set; }
+        public string? StripeSessionId { get; set; }
+
+        public IEnumerable<OrderDetailDto>? OrderDetails { get; set; }
     }
 }

@@ -1,0 +1,10 @@
+﻿using Apple.Services.OrderAPI.Models.Dto;
+
+namespace Apple.Services.OrderAPI.Models.Dto
+{
+    public class CartDto
+    {
+        public CartHeaderDto? CartHeader { get; set; }
+        public IEnumerable<CartDetailDto>? CartDetails { get; set; }
+    }
+}

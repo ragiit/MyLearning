@@ -4,8 +4,8 @@ using System.Security.Claims;
 
 namespace Apple.Web.Controllers
 {
-    [Authorize]  
-    public class CartController(ICartService cartService, ICouponService couponService) : Controller
+    [Authorize]
+    public class CartController(ICartService cartService, ICouponService couponService, IOrderService orderService) : Controller
     {
         public async Task<IActionResult> CartIndex()
         {
@@ -21,7 +21,6 @@ namespace Apple.Web.Controllers
             {
                 TempData["success"] = "Coupon applied successfully";
                 var response = await cartService.ApplyCouponAsync(cartDto);
-
             }
             else
             {
@@ -44,6 +43,42 @@ namespace Apple.Web.Controllers
         {
             await cartService.RemoveCartAsync(cartDetailId);
             return RedirectToAction(nameof(CartIndex));
+        }
+
+        // --- ACTION GET UNTUK MENAMPILKAN HALAMAN CHECKOUT ---
+        [Authorize]
+        public async Task<IActionResult> Checkout()
+        {
+            return View(await LoadCartDtoBasedOnLoggedInUser());
+        }
+
+        // --- ACTION POST UNTUK MEMPROSES CHECKOUT ---
+        [HttpPost]
+        [ActionName("Checkout")]
+        public async Task<IActionResult> Checkout(CartDto cartDto)
+        {
+            // 1. Ambil data keranjang terbaru untuk memastikan konsistensi
+            CartDto cart = await LoadCartDtoBasedOnLoggedInUser();
+            // 2. Salin detail pengiriman dari form ke objek keranjang
+            cart.CartHeader.Phone = cartDto.CartHeader.Phone;
+            cart.CartHeader.Email = cartDto.CartHeader.Email;
+            cart.CartHeader.Name = cartDto.CartHeader.Name;
+
+            //3.Panggil service untuk membuat pesanan
+            ResponseDto? response = await orderService.CreateOrderAsync(cart);
+            if (response != null && response.IsSuccess)
+            {
+                // Pesanan berhasil dibuat, redirect ke halaman konfirmasi
+                // Anda bisa membuat halaman konfirmasi atau redirect ke home
+                TempData["success"] = "Order placed successfully!";
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                TempData["error"] = response?.Message;
+            }
+
+            return View(cart);
         }
 
         // Metode helper untuk mengambil data keranjang user yang sedang login.

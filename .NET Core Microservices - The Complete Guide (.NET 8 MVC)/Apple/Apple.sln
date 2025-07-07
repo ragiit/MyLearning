@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apple.Services.ProductAPI",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apple.Services.ShoppingCartAPI", "Apple.Services.ShoppingCartAPI\Apple.Services.ShoppingCartAPI.csproj", "{218967B4-A86E-46A4-BFED-463CF2451D61}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apple.Services.OrderAPI", "Apple.Services.OrderAPI\Apple.Services.OrderAPI.csproj", "{5AB2A975-60B5-486C-9BEA-626D3B5F9705}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{218967B4-A86E-46A4-BFED-463CF2451D61}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{218967B4-A86E-46A4-BFED-463CF2451D61}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{218967B4-A86E-46A4-BFED-463CF2451D61}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5AB2A975-60B5-486C-9BEA-626D3B5F9705}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AB2A975-60B5-486C-9BEA-626D3B5F9705}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AB2A975-60B5-486C-9BEA-626D3B5F9705}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AB2A975-60B5-486C-9BEA-626D3B5F9705}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -57,6 +63,7 @@ Global
 		{06FBC4B8-524A-49FF-B073-9BC8467EEA0F} = {C8F6382F-974F-4674-A939-14827623D82E}
 		{F10E57A0-958C-48E4-B6C5-95BBCD1EB186} = {C8F6382F-974F-4674-A939-14827623D82E}
 		{218967B4-A86E-46A4-BFED-463CF2451D61} = {C8F6382F-974F-4674-A939-14827623D82E}
+		{5AB2A975-60B5-486C-9BEA-626D3B5F9705} = {C8F6382F-974F-4674-A939-14827623D82E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F4149B2E-5A78-4566-BCBC-03DD99035E21}

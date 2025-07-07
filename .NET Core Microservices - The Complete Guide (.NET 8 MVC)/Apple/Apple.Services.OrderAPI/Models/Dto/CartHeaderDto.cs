@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Apple.Web.Models
+namespace Apple.Services.OrderAPI.Models.Dto
 {
     public class CartHeaderDto
     {
@@ -14,8 +14,10 @@ namespace Apple.Web.Models
 
         [Required]
         public string? Name { get; set; }
+
         [Required]
         public string? Phone { get; set; }
+
         [Required]
         public string? Email { get; set; }
     }
