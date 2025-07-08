@@ -1,11 +1,12 @@
-﻿using Apple.Services.AuthAPI.Models.Dto;
+﻿using Apple.MessageBus;
+using Apple.Services.AuthAPI.Models.Dto;
 using Apple.Services.AuthAPI.Service.IService;
 
 namespace Apple.Services.AuthAPI.Controllers
 {
     [Route("api/auth")]
     [ApiController]
-    public class AuthController(IAuthService authService) : ControllerBase
+    public class AuthController(IAuthService authService, IMessageBus messageBus) : ControllerBase
     {
         private readonly ResponseDto _response = new();
 
@@ -33,6 +34,8 @@ namespace Apple.Services.AuthAPI.Controllers
                 _response.Message = errorMessage;
                 return BadRequest(_response);
             }
+
+            // message bus publish
             return Ok(_response);
         }
 

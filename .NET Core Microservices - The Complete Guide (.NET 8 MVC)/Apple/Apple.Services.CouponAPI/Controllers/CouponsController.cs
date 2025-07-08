@@ -84,6 +84,17 @@ namespace Apple.Services.CouponAPI.Controllers
                 db.Coupons.Add(coupon);
                 await db.SaveChangesAsync();
 
+                var options = new Stripe.CouponCreateOptions
+                {
+                    Name = couponDto.Code,
+                    AmountOff = (long)(couponDto.Discount * 100), // Diskon dalam sen
+                    Currency = "usd", // Ganti dengan mata uang Anda, misal: "idr"
+                    Id = couponDto.Code // Menggunakan kode kupon sebagai ID di Stripe
+                };
+
+                var service = new Stripe.CouponService();
+                Stripe.Coupon stripeCoupon = await service.CreateAsync(options);
+
                 _response.Result = coupon.Adapt<CouponDto>();
                 return CreatedAtAction(nameof(Get), new { id = coupon.Id }, _response);
             }
@@ -131,6 +142,9 @@ namespace Apple.Services.CouponAPI.Controllers
                 }
                 db.Coupons.Remove(coupon);
                 await db.SaveChangesAsync();
+
+                var service = new Stripe.CouponService();
+                service.Delete(coupon.Code);
             }
             catch (Exception ex)
             {

@@ -1,15 +1,15 @@
+global using Apple.Services.OrderAPI.Data;
+global using Apple.Services.OrderAPI.Models;
+global using Apple.Services.OrderAPI.Models.Dto;
+global using Apple.Services.OrderAPI.Services.IServices;
+global using Apple.Services.OrderAPI.Utility;
 global using Mapster;
+global using Microsoft.AspNetCore.Authentication.JwtBearer;
 global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.EntityFrameworkCore;
 global using System.ComponentModel.DataAnnotations;
 global using System.ComponentModel.DataAnnotations.Schema;
-global using Apple.Services.OrderAPI.Data;
-global using Apple.Services.OrderAPI.Models;
-global using Apple.Services.OrderAPI.Models.Dto;
-global using Apple.Services.OrderAPI.Utility;
-global using Microsoft.AspNetCore.Authentication.JwtBearer;
-global using Apple.Services.OrderAPI.Services.IServices;
-global using Apple.Services.OrderAPI.Services;
+using Stripe;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,7 +24,7 @@ builder.Services.AddHttpClient("ProductAPI", c =>
 {
     c.BaseAddress = new Uri(builder.Configuration["ServiceUrls:ProductApi"]);
 }).AddHttpMessageHandler<BackendApiAuthenticationHttpClientHandler>();
-builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IProductService, Apple.Services.OrderAPI.Services.ProductService>();
 var secret = builder.Configuration["ApiSettings:JwtOptions:Secret"];
 var issuer = builder.Configuration["ApiSettings:JwtOptions:Issuer"];
 var audience = builder.Configuration["ApiSettings:JwtOptions:Audience"];
@@ -59,6 +59,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+StripeConfiguration.ApiKey = "sk_test_51RicomPFV4tnIzdoHzUT0iIbXtXS2jOE5nuBIFBqDUPU8kIb0qW0g2nGOel30qP4uWxi8TxKjBJmvXbR3WaT4Jk100Vm4CwQOk";
 
 app.UseHttpsRedirection();
 

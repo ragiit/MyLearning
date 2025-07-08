@@ -11,6 +11,7 @@
                 Url = SD.ShoppingCartAPIBase + "/api/cart/ApplyCoupon"
             });
         }
+
         public async Task<ResponseDto?> RemoveCouponAsync(CartDto cartDto)
         {
             return await baseService.SendAsync(new RequestDto()
@@ -20,6 +21,7 @@
                 Url = SD.ShoppingCartAPIBase + "/api/cart/RemoveCoupon"
             });
         }
+
         public async Task<ResponseDto?> GetCartByUserIdAsync(string userId)
         {
             return await baseService.SendAsync(new RequestDto()
@@ -46,6 +48,16 @@
                 ApiType = ApiType.POST,
                 Data = cartHeaderDto,
                 Url = SD.ShoppingCartAPIBase + "/api/cart/Upsert"
+            });
+        }
+
+        public async Task<ResponseDto?> EmailCart(CartDto cart)
+        {
+            return await baseService.SendAsync(new RequestDto()
+            {
+                ApiType = ApiType.POST,
+                Data = cart,
+                Url = SD.ShoppingCartAPIBase + "/api/cart/EmailCartRequest"
             });
         }
     }

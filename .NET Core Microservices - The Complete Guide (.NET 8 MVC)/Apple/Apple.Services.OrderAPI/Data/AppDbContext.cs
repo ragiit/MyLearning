@@ -1,6 +1,4 @@
-﻿using Apple.Services.OrderAPI.Models;
-
-namespace Apple.Services.OrderAPI.Data
+﻿namespace Apple.Services.OrderAPI.Data
 {
     public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
     {

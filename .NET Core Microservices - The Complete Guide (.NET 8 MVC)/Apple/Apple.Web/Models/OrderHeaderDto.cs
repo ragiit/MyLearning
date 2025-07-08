@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Apple.Web.Models
+﻿namespace Apple.Web.Models
 {
     public class OrderHeaderDto
     {

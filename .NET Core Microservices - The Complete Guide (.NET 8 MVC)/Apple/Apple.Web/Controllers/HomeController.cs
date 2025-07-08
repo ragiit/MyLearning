@@ -1,12 +1,10 @@
-using Apple.Web.Service;
 using Microsoft.AspNetCore.Authorization;
 using System.Diagnostics;
 using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
 
 namespace Apple.Web.Controllers
 {
-    public class HomeController(IProductService productService,  ICartService cartService, ILogger<HomeController> logger) : Controller
+    public class HomeController(IProductService productService, ICartService cartService, ILogger<HomeController> logger) : Controller
     {
         // Action Index sekarang mengambil semua produk dan menampilkannya.
         public async Task<IActionResult> Index()

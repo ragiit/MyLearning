@@ -7,7 +7,11 @@
         Task<ResponseDto?> UspsertCartAsync(CartDto cartHeaderDto);
 
         Task<ResponseDto?> RemoveCartAsync(int cartDetailId);
+
         Task<ResponseDto?> RemoveCouponAsync(CartDto cartDto);
+
         Task<ResponseDto?> ApplyCouponAsync(CartDto cart);
+
+        Task<ResponseDto?> EmailCart(CartDto cart);
     }
 }

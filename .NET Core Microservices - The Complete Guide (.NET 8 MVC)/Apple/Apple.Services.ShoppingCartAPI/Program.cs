@@ -1,3 +1,4 @@
+global using Apple.MessageBus;
 global using Apple.Services.ShoppingCartAPI.Data;
 global using Apple.Services.ShoppingCartAPI.Models;
 global using Apple.Services.ShoppingCartAPI.Models.Dto;
@@ -32,6 +33,7 @@ builder.Services.AddHttpClient("CouponAPI", c =>
     .AddHttpMessageHandler<BackendApiAuthenticationHttpClientHandler>(); ;
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICouponService, CouponService>();
+builder.Services.AddScoped<IMessageBus, MessageBus>();
 var secret = builder.Configuration["ApiSettings:JwtOptions:Secret"];
 var issuer = builder.Configuration["ApiSettings:JwtOptions:Issuer"];
 var audience = builder.Configuration["ApiSettings:JwtOptions:Audience"];

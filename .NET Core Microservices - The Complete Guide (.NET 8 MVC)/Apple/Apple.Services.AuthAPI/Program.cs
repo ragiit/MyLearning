@@ -1,5 +1,6 @@
 global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.EntityFrameworkCore;
+using Apple.MessageBus;
 using Apple.Services.AuthAPI.Data;
 using Apple.Services.AuthAPI.Models;
 using Apple.Services.AuthAPI.Service;
@@ -18,6 +19,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddScoped<IMessageBus, MessageBus>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
 

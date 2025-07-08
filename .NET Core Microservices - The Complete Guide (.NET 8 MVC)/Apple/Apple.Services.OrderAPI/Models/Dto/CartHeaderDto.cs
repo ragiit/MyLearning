@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Apple.Services.OrderAPI.Models.Dto
+﻿namespace Apple.Services.OrderAPI.Models.Dto
 {
     public class CartHeaderDto
     {
@@ -10,9 +8,9 @@ namespace Apple.Services.OrderAPI.Models.Dto
         public string? CouponCode { get; set; }
 
         public double Discount { get; set; }
-        public double CartTotal { get; set; } 
-        public string? Name { get; set; } 
-        public string? Phone { get; set; } 
+        public double CartTotal { get; set; }
+        public string? Name { get; set; }
+        public string? Phone { get; set; }
         public string? Email { get; set; }
     }
 }

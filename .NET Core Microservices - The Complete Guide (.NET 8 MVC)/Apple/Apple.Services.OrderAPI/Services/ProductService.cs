@@ -1,6 +1,4 @@
-﻿using Apple.Services.OrderAPI.Models.Dto;
-using Apple.Services.OrderAPI.Services.IServices;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace Apple.Services.OrderAPI.Services
 {

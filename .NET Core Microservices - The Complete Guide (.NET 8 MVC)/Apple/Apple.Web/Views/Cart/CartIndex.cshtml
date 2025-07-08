@@ -2,7 +2,7 @@
 
 @if (Model != null && Model.CartHeader != null && Model.CartDetails.Any())
 {
-    <form method="post">
+    <form method="post" asp-action="EmailCart">
         <br />
         <input asp-for="CartHeader.Id" hidden />
         <input asp-for="CartHeader.UserId" hidden />
@@ -82,7 +82,7 @@
                     </div>
                     <div class="col-12 col-md-7 text-end pt-2">
                         <button type="submit" class="btn btn-primary">Email Inquiry</button>
-                        <a  asp-action="Checkout" class="btn btn-success">Checkout</a>
+                        <a asp-action="Checkout" class="btn btn-success">Checkout</a>
                     </div>
                 </div>
             </div>

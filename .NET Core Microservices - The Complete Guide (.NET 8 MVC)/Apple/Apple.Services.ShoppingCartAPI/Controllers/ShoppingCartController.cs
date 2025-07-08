@@ -1,11 +1,8 @@
-﻿using Apple.Services.ShoppingCartAPI.Models;
-using Newtonsoft.Json;
-
-namespace Apple.Services.ShoppingCartAPI.Controllers
+﻿namespace Apple.Services.ShoppingCartAPI.Controllers
 {
     [Route("api/cart")]
     [ApiController]
-    public class ShoppingCartController(AppDbContext db, IProductService productService, ICouponService couponService) : ControllerBase
+    public class ShoppingCartController(AppDbContext db, IProductService productService, ICouponService couponService, IConfiguration configuration, IMessageBus messageBus) : ControllerBase
     {
         private readonly ResponseDto _response = new();
 
@@ -14,6 +11,45 @@ namespace Apple.Services.ShoppingCartAPI.Controllers
 
         // Asumsikan Anda sudah inject IProductService di constructor controller ini.
         // private readonly IProductService _productService;
+
+        [HttpPost("EmailCartRequest")]
+        public async Task<ResponseDto> EmailCartRequest([FromBody] CartDto cartDto)
+        {
+            try
+            {
+                // 1. Ambil data keranjang dari database
+                //var cartHeaderFromDb = await db.CartHeaders.FirstOrDefaultAsync(u => u.UserId == cartDto.CartHeader.UserId);
+                //// Jika tidak ada keranjang untuk user ini, kembalikan respons kosong yang sukses.
+                //if (cartHeaderFromDb == null)
+                //{
+                //    _response.Message = "No cart found for this user.";
+                //    return _response;
+                //}
+                //// 2. Siapkan DTO utama
+                //CartDto cart = new()
+                //{
+                //    CartHeader = cartHeaderFromDb.Adapt<CartHeaderDto>(),
+                //    CartDetails = await db.CartDetails
+                //        .Where(u => u.CartHeaderId == cartHeaderFromDb.Id)
+                //        .ToListAsync().Adapt<List<CartDetailDto>>()
+                //};
+                //// 3. Panggil ProductAPI untuk mendapatkan detail semua produk.
+                //var productList = await productService.GetAllProductsAsync();
+                //// 4. Gabungkan data produk dan hitung total harga
+                //foreach (var item in cart.CartDetails)
+                //{
+                //    item.Product = productList.FirstOrDefault(p => p.Id == item.ProductId);
+                //    cart.CartHeader.CartTotal += (item.Count * (item.Product?.Price ?? 0));
+                //}
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.Message = ex.Message.ToString();
+                return _response; // Langsung kembalikan respons error
+            }
+            return _response;
+        }
 
         [HttpGet("GetCart/{userId}")]
         public async Task<ResponseDto> GetCart(string userId)

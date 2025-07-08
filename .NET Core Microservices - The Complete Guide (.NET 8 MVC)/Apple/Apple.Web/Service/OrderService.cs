@@ -12,6 +12,16 @@
             });
         }
 
+        public async Task<ResponseDto?> CreateStripeSession(StripeRequestDto stripeRequest)
+        {
+            return await baseService.SendAsync(new RequestDto()
+            {
+                ApiType = ApiType.POST,
+                Data = stripeRequest,
+                Url = SD.OrderAPIBase + "/api/order/CreateStripeSession"
+            });
+        }
+
         public async Task<ResponseDto?> GetOrdersForUserAsync(string userId)
         {
             return await baseService.SendAsync(new RequestDto()
@@ -28,6 +38,16 @@
                 ApiType = ApiType.POST,
                 Data = newStatus, // Mengirim status baru di body request
                 Url = SD.OrderAPIBase + $"/api/order/UpdateOrderStatus/{orderId}"
+            });
+        }
+
+        public async Task<ResponseDto?> ValidateStripeSession(int orderHeaderId)
+        {
+            return await baseService.SendAsync(new RequestDto()
+            {
+                ApiType = ApiType.POST,
+                Data = orderHeaderId, // Mengirim status baru di body request
+                Url = SD.OrderAPIBase + $"/api/order/ValidateStripeSession"
             });
         }
     }
