@@ -59,7 +59,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-StripeConfiguration.ApiKey = "sk_test_51RicomPFV4tnIzdoHzUT0iIbXtXS2jOE5nuBIFBqDUPU8kIb0qW0g2nGOel30qP4uWxi8TxKjBJmvXbR3WaT4Jk100Vm4CwQOk";
 
 app.UseHttpsRedirection();
 
