@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using Apple.Services.EmailAPI.Message;
+using System.Text;
 
 namespace Apple.Services.EmailAPI.Services
 {
@@ -33,6 +34,12 @@ namespace Apple.Services.EmailAPI.Services
 
             // Memanggil metode privat untuk logging dan pengiriman.
             await LogAndEmail(message.ToString(), cartDto.CartHeader.Email);
+        }
+
+        public async Task LogOrderPlaced(RewardMessage rewardMessage)
+        {
+            string message = "New Order Placed. Order ID: " + rewardMessage.OrderId;
+            await LogAndEmail(message, "argi@gmail.com");
         }
 
         public async Task RegisterUserEmailAndLog(string email)

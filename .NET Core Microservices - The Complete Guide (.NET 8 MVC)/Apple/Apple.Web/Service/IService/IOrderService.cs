@@ -11,6 +11,8 @@
         // Metode untuk memperbarui status pesanan (untuk admin).
         Task<ResponseDto?> UpdateOrderStatusAsync(int orderId, string newStatus);
 
+        Task<ResponseDto?> GetOrderAsync(int orderId);
+
         Task<ResponseDto?> CreateStripeSession(StripeRequestDto stripeRequest);
 
         Task<ResponseDto?> ValidateStripeSession(int orderHeaderId);

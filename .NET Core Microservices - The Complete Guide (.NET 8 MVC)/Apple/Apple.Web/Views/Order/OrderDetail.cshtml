@@ -1,0 +1,83 @@
+﻿@model Apple.Web.Models.OrderHeaderDto
+@using Apple.Web.Utility
+
+<form method="post">
+    <input asp-for="Id" hidden />
+    <br />
+    <div class="container">
+        <div class="card">
+            <div class="card-header bg-dark text-light ml-0">
+                <div class="container row">
+                    <div class="col-12 d-none d-md-block col-md-6 pb-1">
+                        <i class="fas fa-shopping-cart"></i> &nbsp; Order Summary
+                    </div>
+                    <div class="col-12 col-md-6 text-end">
+                        <a asp-action="OrderIndex" class="btn btn-outline-info btn-sm">Back to Orders</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="container rounded p-2">
+                    <div class="row">
+                        <div class="col-12 col-lg-6 pb-4">
+                            <div class="row">
+                                <h4 class="d-flex justify-content-between align-items-center mb-3">
+                                    <span class="text-primary">Pickup Details:</span>
+                                </h4>
+                            </div>
+                            <div class="row my-1">
+                                <div class="col-3">Name</div>
+                                <div class="col-9">@Model.Name</div>
+                            </div>
+                            <div class="row my-1">
+                                <div class="col-3">Phone</div>
+                                <div class="col-9">@Model.Phone</div>
+                            </div>
+                            <div class="row my-1">
+                                <div class="col-3">Email</div>
+                                <div class="col-9">@Model.Email</div>
+                            </div>
+                            <div class="row my-1">
+                                <div class="col-3">Order Date</div>
+                                <div class="col-9">@Model.Date.ToShortDateString()</div>
+                            </div>
+                            <div class="row my-1">
+                                <div class="col-3">Order Status</div>
+                                <div class="col-9 text-warning fw-bold">@Model.Status</div>
+                            </div>
+
+                        </div>
+                        <div class="col-12 col-lg-5 offset-lg-1">
+                            <h4 class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="text-primary">Order Summary</span>
+                            </h4>
+                            <ul class="list-group mb-3">
+                                @foreach (var detail in Model.OrderDetails)
+                                {
+                                    <li class="list-group-item d-flex justify-content-between">
+                                        <div>
+                                            <h6 class="my-0">@detail.ProductName</h6>
+                                            <small class="text-muted">Price : @detail.Price.ToString("c")</small><br />
+                                            <small class="text-muted">Quantity : @detail.Count</small>
+                                        </div>
+                                    </li>
+                                }
+                                <li class="list-group-item d-flex justify-content-between bg-light">
+                                    <span class="text-info"> Total (IDR)</span>
+                                    <strong class="text-info">@Model.OrderTotal.ToString("c")</strong>
+                                </li>
+                            </ul>
+                            @if (User.IsInRole(SD.RoleAdmin))
+                            {
+                                <button type="submit" asp-action="UpdateOrderStatus" asp-route-status="@SD.StatusApproved" class="btn btn-success">Approve</button>
+                                <button type="submit" asp-action="UpdateOrderStatus" asp-route-status="@SD.StatusReadyForPickup" class="btn btn-primary">Ready for Pickup</button>
+                                <button type="submit" asp-action="UpdateOrderStatus" asp-route-status="@SD.StatusCompleted" class="btn btn-info">Complete</button>
+                                <button type="submit" asp-action="UpdateOrderStatus" asp-route-status="@SD.StatusCancelled" class="btn btn-danger">Cancel</button>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

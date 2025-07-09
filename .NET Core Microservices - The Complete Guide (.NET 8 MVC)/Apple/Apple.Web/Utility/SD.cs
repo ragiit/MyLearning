@@ -2,7 +2,7 @@
 {
     public class SD
     {
-        public static string RoleAdmin = "ADMIN";
+        public const string RoleAdmin = "ADMIN";
         public static string RoleCustomer = "CUSTOMER";
         public static string TokenCookie = "JWTToken";
         public static string? CouponAPIBase { get; set; }

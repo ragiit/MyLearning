@@ -41,6 +41,15 @@
             });
         }
 
+        public async Task<ResponseDto?> GetOrderAsync(int orderId)
+        {
+            return await baseService.SendAsync(new RequestDto()
+            {
+                ApiType = ApiType.GET,
+                Url = SD.OrderAPIBase + $"/api/order/GetOrder/{orderId}"
+            });
+        }
+
         public async Task<ResponseDto?> ValidateStripeSession(int orderHeaderId)
         {
             return await baseService.SendAsync(new RequestDto()

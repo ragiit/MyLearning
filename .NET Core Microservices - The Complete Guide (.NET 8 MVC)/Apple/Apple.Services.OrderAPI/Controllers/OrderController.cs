@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Stripe.Checkout;
+using Stripe.Climate;
 
 namespace Apple.Services.OrderAPI.Controllers
 {
@@ -8,6 +9,102 @@ namespace Apple.Services.OrderAPI.Controllers
     public class OrderController(AppDbContext db) : ControllerBase
     {
         private readonly ResponseDto _response = new();
+
+        [Authorize]
+        [HttpGet("GetOrders")]
+        public ResponseDto Get(string? userId = "")
+        {
+            try
+            {
+                IEnumerable<OrderHeader> orderHeaders;
+                if (User.IsInRole(SD.RoleAdmin))
+                {
+                    orderHeaders = db.OrderHeaders
+                        .Include(u => u.OrderDetails)
+                        .ToList();
+                }
+                else
+                {
+                    orderHeaders = db.OrderHeaders
+                        .Include(u => u.OrderDetails) // Penting untuk memuat detail
+                        .Where(u => u.UserId == userId)
+                        .ToList();
+                }
+                _response.Result = orderHeaders.Adapt<IEnumerable<OrderHeaderDto>>();
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.Message = ex.Message;
+            }
+            return _response;
+        }
+
+        [Authorize]
+        [HttpGet("GetOrder/{orderId:int}")]
+        public async Task<ResponseDto> GetOrder(int orderId)
+        {
+            try
+            {
+                var orderHeader = await db.OrderHeaders
+                    .Include(o => o.OrderDetails)
+                    .FirstOrDefaultAsync(o => o.Id == orderId);
+                if (orderHeader == null)
+                {
+                    _response.IsSuccess = false;
+                    _response.Message = "Order not found";
+                }
+                else
+                {
+                    _response.Result = orderHeader.Adapt<OrderHeaderDto>();
+                }
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.Message = ex.Message;
+            }
+            return _response;
+        }
+
+        [Authorize]
+        [HttpPost("UpdateOrderStatus/{orderId:int}")]
+        public async Task<ResponseDto> UpdateOrderStatus(int orderId, [FromBody] string newStatus)
+        {
+            try
+            {
+                var orderHeader = await db.OrderHeaders.FindAsync(orderId);
+                if (orderHeader != null)
+                {
+                    if (newStatus == SD.StatusCancelled)
+                    {
+                        var option = new Stripe.RefundCreateOptions
+                        {
+                            PaymentIntent = orderHeader.PaymentIntentId,
+                            Reason = Stripe.RefundReasons.RequestedByCustomer,
+                        };
+
+                        var service = new Stripe.RefundService();
+                        var refund = await service.CreateAsync(option);
+                    }
+
+                    orderHeader.Status = newStatus;
+                    await db.SaveChangesAsync();
+                    _response.Result = orderHeader.Adapt<OrderHeaderDto>();
+                }
+                else
+                {
+                    _response.IsSuccess = false;
+                    _response.Message = "Order not found";
+                }
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.Message = ex.Message;
+            }
+            return _response;
+        }
 
         [HttpPost("CreateOrder")]
         public async Task<ResponseDto> CreateOrder([FromBody] CartDto cartDto)
@@ -65,31 +162,6 @@ namespace Apple.Services.OrderAPI.Controllers
                         .ToListAsync();
                 }
                 _response.Result = orderHeaders.Adapt<IEnumerable<OrderHeaderDto>>();
-            }
-            catch (Exception ex)
-            {
-                _response.IsSuccess = false;
-                _response.Message = ex.Message;
-            }
-            return _response;
-        }
-
-        [HttpPost("UpdateOrderStatus/{orderId:int}")]
-        public async Task<ResponseDto> UpdateOrderStatus(int orderId, [FromBody] string newStatus)
-        {
-            try
-            {
-                var orderHeader = await db.OrderHeaders.FindAsync(orderId);
-                if (orderHeader != null)
-                {
-                    orderHeader.Status = newStatus;
-                    await db.SaveChangesAsync();
-                }
-                else
-                {
-                    _response.IsSuccess = false;
-                    _response.Message = "Order not found";
-                }
             }
             catch (Exception ex)
             {
@@ -177,7 +249,17 @@ namespace Apple.Services.OrderAPI.Controllers
                 {
                     orderHeader.PaymentIntentId = paymentIntent.Id;
                     orderHeader.Status = SD.StatusApproved;
+
                     await db.SaveChangesAsync();
+
+                    var reward = new RewardDto
+                    {
+                        UserId = orderHeader.UserId,
+                        Date = DateTime.Now,
+                        RewardActivity = Convert.ToInt32(orderHeader.OrderTotal),
+                        OrderId = orderHeader.Id
+                    };
+
                     _response.Result = orderHeader.Adapt<OrderHeaderDto>();
                 }
 
