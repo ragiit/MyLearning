@@ -13,6 +13,7 @@ Prinsip utama arsitektur ini adalah memisahkan aplikasi menjadi lapisan-lapisan 
 
 ### Diagram Ketergantungan (Dependency Flow)
 
+```plaintext
 +--------------------------------+
 |       Klien (Browser/App)      |
 +--------------------------------+
@@ -41,6 +42,7 @@ V
 +--------------------------------+
 |           Database             |  (SQL Server)
 +--------------------------------+
+```
 
 ### Alur Kerja Aplikasi
 1.  **Request Masuk**: Klien mengirim request HTTP yang diterima oleh `AuthorsController` di **Presentation Layer** (`MyApp.Api`).
@@ -51,6 +53,7 @@ V
 6.  **Alur Kembali**: Hasil dari database dikembalikan ke atas. Di `Service Layer`, entitas di-mapping kembali ke DTO. Di `Api Layer`, DTO dibungkus dalam `ApiResponse<T>` dan dikirim sebagai response HTTP ke klien.
 
 ## Struktur Proyek
+```plaintext
 MyApp/
 │
 ├── MyApp.sln
@@ -86,7 +89,7 @@ MyApp/
 ├── IAuthorRepository.cs
 ├── IGenericRepository.cs
 └── IUnitOfWork.cs
-
+```
 
 ## Teknologi yang Digunakan
 - **Framework**: .NET 8, ASP.NET Core Web API
