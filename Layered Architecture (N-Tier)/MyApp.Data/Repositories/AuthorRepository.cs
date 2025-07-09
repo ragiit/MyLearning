@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MyApp.Core.Entities;
 using MyApp.Core.Interfaces;
-using MyApp.Data;
 
 namespace MyApp.Data.Repositories
 {

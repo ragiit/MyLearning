@@ -1,5 +1,6 @@
-﻿using MyApp.Core.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+
+using MyApp.Core.Entities;
 
 namespace MyApp.Data
 {

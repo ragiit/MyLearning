@@ -1,9 +1,4 @@
 ﻿using MyApp.Core.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyApp.Data.Repositories
 {
@@ -11,11 +6,13 @@ namespace MyApp.Data.Repositories
     {
         private readonly AppDbContext _context;
         public IAuthorRepository Authors { get; private set; }
+        public IBookRepository Books { get; private set; }
 
         public UnitOfWork(AppDbContext context)
         {
             _context = context;
             Authors = new AuthorRepository(_context);
+            Books = new BookRepository(_context);
         }
 
         public async Task<int> CompleteAsync()
