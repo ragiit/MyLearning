@@ -1,4 +1,4 @@
-using FluentValidation.AspNetCore;
+﻿using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.ResponseCompression;
 using MyApp.Api.Middleware;
 using MyApp.Business.Validators;
@@ -6,13 +6,20 @@ using Serilog;
 using System.Threading.RateLimiting;
 
 Log.Logger = new LoggerConfiguration()
-    .WriteTo.Console()
-    .WriteTo.File("Logs/log-.txt", rollingInterval: RollingInterval.Day)
     .Enrich.FromLogContext()
     .MinimumLevel.Information()
+    .WriteTo.Console()
+    .WriteTo.File(
+        path: "Logs/log-.txt",        // Folder Logs
+        rollingInterval: RollingInterval.Day, // File baru per hari
+        retainedFileCountLimit: 7,    // Keep 7 hari, auto clean
+        outputTemplate: "[{Timestamp:yyyy-MM-dd HH:mm:ss} {Level:u3}] {Message:lj}{NewLine}{Exception}"
+    )
     .CreateLogger();
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.UseSerilog();
 
 // Register DbContext
 // Register DbContext dulu
