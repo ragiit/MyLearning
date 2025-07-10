@@ -8,7 +8,7 @@
 
 ## 📌 Overview
 
-MyApp adalah contoh **ASP.NET Core Web API** dengan arsitektur **N-Tier** yang clean, modular & production-ready.
+MyApp adalah contoh **ASP.NET Core Web API** dengan arsitektur **N-Tier** yang clean & modular.
 
 Fitur utama:
 - ✅ N-Tier Architecture (`Api` ➜ `Business` ➜ `Data` ➜ `Domain`)
