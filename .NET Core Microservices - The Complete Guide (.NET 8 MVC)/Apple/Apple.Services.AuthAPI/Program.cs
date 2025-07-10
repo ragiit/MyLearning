@@ -3,6 +3,7 @@ global using Microsoft.EntityFrameworkCore;
 using Apple.MessageBus;
 using Apple.Services.AuthAPI.Data;
 using Apple.Services.AuthAPI.Models;
+using Apple.Services.AuthAPI.RabbitMQ;
 using Apple.Services.AuthAPI.Service;
 using Apple.Services.AuthAPI.Service.IService;
 using Microsoft.AspNetCore.Identity;
@@ -19,7 +20,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<IMessageBus, MessageBus>();
+builder.Services.AddScoped<IRabbitMQAuthMessageSender, RabbitMQAuthMessageSender>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
 

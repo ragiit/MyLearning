@@ -9,6 +9,7 @@ global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.EntityFrameworkCore;
 global using System.ComponentModel.DataAnnotations;
 global using System.ComponentModel.DataAnnotations.Schema;
+using Apple.Services.ShoppingCartAPI.RabbitMQ;
 using Apple.Services.ShoppingCartAPI.Utility;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 
@@ -59,6 +60,7 @@ builder.Services.AddAuthentication(x =>
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<IRabbitMQCartMessageSender, RabbitMQCartMessageSender>();
 
 var app = builder.Build();
 

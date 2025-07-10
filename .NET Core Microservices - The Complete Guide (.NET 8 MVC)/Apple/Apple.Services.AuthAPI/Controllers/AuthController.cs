@@ -1,12 +1,13 @@
 ﻿using Apple.MessageBus;
 using Apple.Services.AuthAPI.Models.Dto;
+using Apple.Services.AuthAPI.RabbitMQ;
 using Apple.Services.AuthAPI.Service.IService;
 
 namespace Apple.Services.AuthAPI.Controllers
 {
     [Route("api/auth")]
     [ApiController]
-    public class AuthController(IAuthService authService, IMessageBus messageBus) : ControllerBase
+    public class AuthController(IAuthService authService, IRabbitMQAuthMessageSender messageBus) : ControllerBase
     {
         private readonly ResponseDto _response = new();
 
@@ -36,6 +37,8 @@ namespace Apple.Services.AuthAPI.Controllers
             }
 
             // message bus publish
+            messageBus.SendMessage(model.Email, "register.queue");
+
             return Ok(_response);
         }
 

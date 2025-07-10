@@ -1,8 +1,10 @@
-﻿namespace Apple.Services.ShoppingCartAPI.Controllers
+﻿using Apple.Services.ShoppingCartAPI.RabbitMQ;
+
+namespace Apple.Services.ShoppingCartAPI.Controllers
 {
     [Route("api/cart")]
     [ApiController]
-    public class ShoppingCartController(AppDbContext db, IProductService productService, ICouponService couponService, IConfiguration configuration, IMessageBus messageBus) : ControllerBase
+    public class ShoppingCartController(AppDbContext db, IProductService productService, ICouponService couponService, IConfiguration configuration, IRabbitMQCartMessageSender messageBus) : ControllerBase
     {
         private readonly ResponseDto _response = new();
 
@@ -41,6 +43,8 @@
                 //    item.Product = productList.FirstOrDefault(p => p.Id == item.ProductId);
                 //    cart.CartHeader.CartTotal += (item.Count * (item.Product?.Price ?? 0));
                 //}
+
+                messageBus.SendMessage(cartDto, "email.queue");
             }
             catch (Exception ex)
             {
