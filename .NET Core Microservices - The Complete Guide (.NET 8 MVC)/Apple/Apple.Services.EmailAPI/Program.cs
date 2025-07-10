@@ -38,10 +38,10 @@ app.Run();
 void ApplyMigration()
 {
     using var scope = app.Services.CreateScope();
-    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    //var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
-    if (db.Database.GetPendingMigrations().Any())
-    {
-        db.Database.Migrate();
-    }
+    //if (db.Database.GetPendingMigrations().Any())
+    //{
+    //    db.Database.Migrate();
+    //}
 }

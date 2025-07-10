@@ -1,4 +1,6 @@
-﻿namespace Apple.Web.Service
+﻿using System.Net.Http.Headers;
+
+namespace Apple.Web.Service
 {
     public class BaseService(IHttpClientFactory httpClientFactory, ITokenProvider tokenProvider) : IBaseService
     {
@@ -28,11 +30,33 @@
                 // Jika ada data (untuk POST/PUT), serialisasi ke JSON.
                 if (requestDto.Data != null)
                 {
-                    message.Content = new StringContent(
-                        JsonConvert.SerializeObject(requestDto.Data),
-                        Encoding.UTF8,
-                        "application/json"
-                    );
+                    if (requestDto.Data is ProductDto productDto && productDto.Image != null)
+                    {
+                        // Buat FormData
+                        var formData = new MultipartFormDataContent();
+
+                        formData.Add(new StringContent(productDto.Id.ToString()), nameof(productDto.Id));
+                        formData.Add(new StringContent(productDto.Name), nameof(productDto.Name));
+                        formData.Add(new StringContent(productDto.Price.ToString()), nameof(productDto.Price));
+                        formData.Add(new StringContent(productDto.Description ?? ""), nameof(productDto.Description));
+                        formData.Add(new StringContent(productDto.CategoryName ?? ""), nameof(productDto.CategoryName));
+                        formData.Add(new StringContent(productDto.Count.ToString()), nameof(productDto.Count));
+
+                        var imageContent = new StreamContent(productDto.Image.OpenReadStream());
+                        imageContent.Headers.ContentType = new MediaTypeHeaderValue(productDto.Image.ContentType);
+                        formData.Add(imageContent, nameof(productDto.Image), productDto.Image.FileName);
+
+                        message.Content = formData;
+                    }
+                    else
+                    {
+                        // Default ke JSON
+                        message.Content = new StringContent(
+                            JsonConvert.SerializeObject(requestDto.Data),
+                            Encoding.UTF8,
+                            "application/json"
+                        );
+                    }
                 }
 
                 // Mengatur metode HTTP berdasarkan ApiType.

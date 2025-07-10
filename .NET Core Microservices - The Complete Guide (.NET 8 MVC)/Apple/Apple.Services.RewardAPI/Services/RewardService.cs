@@ -1,6 +1,5 @@
 ﻿using Apple.Services.RewardAPI.Message;
 using Apple.Services.RewardAPI.Models;
-using System.Text;
 
 namespace Apple.Services.RewardAPI.Services
 {

@@ -1,5 +1,4 @@
 ﻿using Apple.Services.RewardAPI.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace Apple.Services.CouponAPI.Data
 {

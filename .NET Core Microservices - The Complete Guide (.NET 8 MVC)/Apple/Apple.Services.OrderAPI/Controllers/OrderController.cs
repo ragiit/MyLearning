@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Stripe.Checkout;
-using Stripe.Climate;
 
 namespace Apple.Services.OrderAPI.Controllers
 {

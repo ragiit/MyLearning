@@ -6,7 +6,6 @@ global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
-using Stripe;
 
 var builder = WebApplication.CreateBuilder(args);
 

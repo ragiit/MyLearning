@@ -4,7 +4,7 @@ namespace Apple.Services.ProductAPI.Controllers
 {
     [Route("api/products")]
     [ApiController]
-    public class ProductController(AppDbContext db) : ControllerBase
+    public class ProductController(AppDbContext db, IWebHostEnvironment webHostEnvironment) : ControllerBase
     {
         private readonly ResponseDto _response = new();
 
@@ -50,11 +50,24 @@ namespace Apple.Services.ProductAPI.Controllers
 
         [HttpPost]
         [Authorize(Roles = "ADMIN")]
-        public async Task<ActionResult<ResponseDto>> Post([FromBody] ProductDto productDto)
+        public async Task<ActionResult<ResponseDto>> Post([FromForm] ProductDto productDto)
         {
             try
             {
                 var product = productDto.Adapt<Product>();
+                if (productDto.Image != null)
+                {
+                    // Generate nama file unik dan simpan gambar
+                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(productDto.Image.FileName);
+                    var filePath = Path.Combine(webHostEnvironment.WebRootPath, "ProductImages", fileName);
+                    await using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await productDto.Image.CopyToAsync(fileStream);
+                    }
+                    // Set URL gambar
+                    var baseUrl = $"{Request.Scheme}://{Request.Host.Value}{Request.PathBase.Value}";
+                    product.ImageUrl = $"{baseUrl}/ProductImages/{fileName}";
+                }
                 await db.Products.AddAsync(product);
                 await db.SaveChangesAsync();
                 _response.Result = product.Adapt<ProductDto>();
@@ -70,11 +83,34 @@ namespace Apple.Services.ProductAPI.Controllers
 
         [HttpPut]
         [Authorize(Roles = "ADMIN")]
-        public async Task<ActionResult<ResponseDto>> Put([FromBody] ProductDto productDto)
+        public async Task<ActionResult<ResponseDto>> Put([FromForm] ProductDto productDto)
         {
             try
             {
                 var product = productDto.Adapt<Product>();
+                if (productDto.Image != null)
+                {
+                    // Hapus gambar lama jika ada
+                    if (!string.IsNullOrEmpty(product.ImageUrl))
+                    {
+                        var oldFileName = Path.GetFileName(new Uri(product.ImageUrl).AbsolutePath);
+                        var oldFilePath = Path.Combine(webHostEnvironment.WebRootPath, "ProductImages", oldFileName);
+                        if (System.IO.File.Exists(oldFilePath))
+                        {
+                            System.IO.File.Delete(oldFilePath);
+                        }
+                    }
+
+                    // Simpan gambar baru
+                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(productDto.Image.FileName);
+                    var filePath = Path.Combine(webHostEnvironment.WebRootPath, "ProductImages", fileName);
+                    await using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await productDto.Image.CopyToAsync(fileStream);
+                    }
+                    var baseUrl = $"{Request.Scheme}://{Request.Host.Value}{Request.PathBase.Value}";
+                    product.ImageUrl = $"{baseUrl}/ProductImages/{fileName}";
+                }
                 db.Products.Update(product);
                 await db.SaveChangesAsync();
                 _response.Result = product.Adapt<ProductDto>();
@@ -100,6 +136,16 @@ namespace Apple.Services.ProductAPI.Controllers
                     _response.IsSuccess = false;
                     _response.Message = "Product not found.";
                     return NotFound(_response);
+                }
+                // Hapus gambar terkait
+                if (!string.IsNullOrEmpty(product.ImageUrl))
+                {
+                    var oldFileName = Path.GetFileName(new Uri(product.ImageUrl).AbsolutePath);
+                    var oldFilePath = Path.Combine(webHostEnvironment.WebRootPath, "ProductImages", oldFileName);
+                    if (System.IO.File.Exists(oldFilePath))
+                    {
+                        System.IO.File.Delete(oldFilePath);
+                    }
                 }
                 db.Products.Remove(product);
                 await db.SaveChangesAsync();

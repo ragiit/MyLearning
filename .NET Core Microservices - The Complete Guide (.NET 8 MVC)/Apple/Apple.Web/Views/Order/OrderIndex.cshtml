@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<Apple.Web.Models.OrderHeaderDto>
+@using Apple.Web.Utility
 
 <div class="card shadow border-0 mt-4">
     <div class="card-header bg-secondary bg-gradient ml-0 py-3">
@@ -9,6 +10,14 @@
         </div>
     </div>
     <div class="card-body p-4">
+        <div class="d-flex justify-content-end pb-3">
+            <div class="btn-group">
+                <button class="btn btn-outline-primary filter-btn active" data-status="">All</button>
+                <button class="btn btn-outline-primary filter-btn" data-status="@SD.StatusApproved">Approved</button>
+                <button class="btn btn-outline-primary filter-btn" data-status="@SD.StatusReadyForPickup">Ready For Pickup</button>
+                <button class="btn btn-outline-primary filter-btn" data-status="@SD.StatusPending">Pending</button>
+            </div>
+        </div>
         <table id="tblOrders" class="table table-striped border">
             <thead>
                 <tr>
@@ -48,7 +57,21 @@
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready(function () {
-            $('#tblOrders').DataTable();
+            // Inisialisasi DataTable
+            var dataTable = $('#tblOrders').DataTable();
+
+            // Menangani klik pada tombol filter
+            $('.filter-btn').on('click', function() {
+                var status = $(this).data('status');
+
+                // Menghapus kelas 'active' dari semua tombol dan menambahkannya ke yang diklik
+                $('.filter-btn').removeClass('active');
+                $(this).addClass('active');
+
+                // Menerapkan filter ke kolom 'Status' (indeks ke-4)
+                // Menggunakan regex untuk pencocokan yang tepat. String kosong akan menampilkan semua.
+                dataTable.column(4).search(status ? '^' + status + '$' : '', true, false).draw();
+            });
         });
     </script>
 }
