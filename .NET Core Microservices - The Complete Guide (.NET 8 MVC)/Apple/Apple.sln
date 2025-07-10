@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apple.Services.EmailAPI", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apple.Services.RewardAPI", "Apple.Services.RewardAPI\Apple.Services.RewardAPI.csproj", "{CFD33CAA-9547-431A-BC67-D0DD56FC9D7D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apple.Gateway", "Apple.Gateway\Apple.Gateway.csproj", "{064F0E2B-EEC8-4D93-A4F0-77F85C1CC98D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,10 @@ Global
 		{CFD33CAA-9547-431A-BC67-D0DD56FC9D7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CFD33CAA-9547-431A-BC67-D0DD56FC9D7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CFD33CAA-9547-431A-BC67-D0DD56FC9D7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{064F0E2B-EEC8-4D93-A4F0-77F85C1CC98D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{064F0E2B-EEC8-4D93-A4F0-77F85C1CC98D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{064F0E2B-EEC8-4D93-A4F0-77F85C1CC98D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{064F0E2B-EEC8-4D93-A4F0-77F85C1CC98D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -85,6 +91,7 @@ Global
 		{96B24E03-2D53-44AB-93EE-D21AEAB80569} = {DE0E919E-11F7-4454-B6BB-4A71BB5F5E48}
 		{37841732-9610-4475-A97C-43C0F4D0C673} = {C8F6382F-974F-4674-A939-14827623D82E}
 		{CFD33CAA-9547-431A-BC67-D0DD56FC9D7D} = {C8F6382F-974F-4674-A939-14827623D82E}
+		{064F0E2B-EEC8-4D93-A4F0-77F85C1CC98D} = {58C67F50-2969-4A56-83B9-E67D2FB94554}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F4149B2E-5A78-4566-BCBC-03DD99035E21}
