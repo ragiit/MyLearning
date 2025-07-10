@@ -1,0 +1,10 @@
+﻿global using Mapster;
+global using Microsoft.AspNetCore.Mvc;
+global using Microsoft.AspNetCore.RateLimiting;
+global using Microsoft.EntityFrameworkCore;
+global using MyApp.Business.Services;
+global using MyApp.Common.Responses;
+global using MyApp.Data;
+global using MyApp.Data.Repositories;
+global using MyApp.Domain.Dtos;
+global using MyApp.Domain.Entities;
