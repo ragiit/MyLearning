@@ -2,7 +2,9 @@
 @using Apple.Web.Utility
 
 <form method="post">
-    <input asp-for="Id" hidden />
+    @* <input asp-for="Id" hidden /> *@
+    <input type="hidden" name="orderId" value="@Model.Id" />
+
     <br />
     <div class="container">
         <div class="card">
