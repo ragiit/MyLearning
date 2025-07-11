@@ -10,11 +10,15 @@
 
     public record class CreateProductResult(Guid Id);
 
-    internal class CreateProductHandler : ICommandHandler<CreateProductCommand, CreateProductResult>
+    internal class CreateProductHandler(IDocumentSession session) : ICommandHandler<CreateProductCommand, CreateProductResult>
     {
         public async Task<CreateProductResult> Handle(CreateProductCommand request, CancellationToken cancellationToken)
         {
-            return new CreateProductResult(Guid.NewGuid());
+            var product = request.Adapt<Product>();
+            session.Store(product);
+            await session.SaveChangesAsync(cancellationToken);
+
+            return new CreateProductResult(product.Id);
         }
     }
 }
