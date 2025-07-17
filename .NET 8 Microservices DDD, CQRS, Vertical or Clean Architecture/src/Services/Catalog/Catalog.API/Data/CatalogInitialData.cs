@@ -4,7 +4,7 @@
     {
         public async Task Populate(IDocumentStore store, CancellationToken cancellation)
         {
-            using var session = await store.LightweightSerializableSessionAsync();
+            using var session = await store.LightweightSerializableSessionAsync(cancellation);
 
             if (await session.Query<Product>().AnyAsync(cancellation))
             {
@@ -12,95 +12,68 @@
             }
             var products = new List<Product>
             {
-                new()
+                new Product()
                 {
-                    Id = Guid.NewGuid(),
-                    Name = "Wireless Mouse",
-                    Category = new() { "Electronics", "Accessories" },
-                    Description = "Ergonomic wireless mouse with long battery life.",
-                    ImageFile = "mouse.jpg",
-                    Price = 199000
+                    Id = new Guid("5334c996-8457-4cf0-815c-ed2b77c4ff61"),
+                    Name = "IPhone X",
+                    Description = "This phone is the company's biggest change to its flagship smartphone in years. It includes a borderless.",
+                    ImageFile = "product-1.png",
+                    Price = 950.00M,
+                    Category = new List<string> { "Smart Phone" }
                 },
-                new()
+                new Product()
                 {
-                    Id = Guid.NewGuid(),
-                    Name = "Mechanical Keyboard",
-                    Category = new() { "Electronics", "Accessories" },
-                    Description = "RGB backlit mechanical keyboard with blue switches.",
-                    ImageFile = "keyboard.jpg",
-                    Price = 750000
+                    Id = new Guid("c67d6323-e8b1-4bdf-9a75-b0d0d2e7e914"),
+                    Name = "Samsung 10",
+                    Description = "This phone is the company's biggest change to its flagship smartphone in years. It includes a borderless.",
+                    ImageFile = "product-2.png",
+                    Price = 840.00M,
+                    Category = new List<string> { "Smart Phone" }
                 },
-                new()
+                new Product()
                 {
-                    Id = Guid.NewGuid(),
-                    Name = "Gaming Headset",
-                    Category = new() { "Electronics", "Audio" },
-                    Description = "Surround sound gaming headset with noise-canceling mic.",
-                    ImageFile = "headset.jpg",
-                    Price = 499000
+                    Id = new Guid("4f136e9f-ff8c-4c1f-9a33-d12f689bdab8"),
+                    Name = "Huawei Plus",
+                    Description = "This phone is the company's biggest change to its flagship smartphone in years. It includes a borderless.",
+                    ImageFile = "product-3.png",
+                    Price = 650.00M,
+                    Category = new List<string> { "White Appliances" }
                 },
-                new()
+                new Product()
                 {
-                    Id = Guid.NewGuid(),
-                    Name = "USB-C Hub",
-                    Category = new() { "Electronics", "Adapters" },
-                    Description = "7-in-1 USB-C hub with HDMI, USB 3.0 and card reader.",
-                    ImageFile = "usbc-hub.jpg",
-                    Price = 299000
+                    Id = new Guid("6ec1297b-ec0a-4aa1-be25-6726e3b51a27"),
+                    Name = "Xiaomi Mi 9",
+                    Description = "This phone is the company's biggest change to its flagship smartphone in years. It includes a borderless.",
+                    ImageFile = "product-4.png",
+                    Price = 470.00M,
+                    Category = new List<string> { "White Appliances" }
                 },
-                new()
+                new Product()
                 {
-                    Id = Guid.NewGuid(),
-                    Name = "4K Monitor",
-                    Category = new() { "Electronics", "Display" },
-                    Description = "27 inch 4K UHD monitor with HDR and slim bezels.",
-                    ImageFile = "monitor.jpg",
-                    Price = 3299000
+                    Id = new Guid("b786103d-c621-4f5a-b498-23452610f88c"),
+                    Name = "HTC U11+ Plus",
+                    Description = "This phone is the company's biggest change to its flagship smartphone in years. It includes a borderless.",
+                    ImageFile = "product-5.png",
+                    Price = 380.00M,
+                    Category = new List<string> { "Smart Phone" }
                 },
-                new()
+                new Product()
                 {
-                    Id = Guid.NewGuid(),
-                    Name = "Office Chair",
-                    Category = new() { "Furniture", "Office" },
-                    Description = "Ergonomic office chair with lumbar support.",
-                    ImageFile = "chair.jpg",
-                    Price = 850000
+                    Id = new Guid("c4bbc4a2-4555-45d8-97cc-2a99b2167bff"),
+                    Name = "LG G7 ThinQ",
+                    Description = "This phone is the company's biggest change to its flagship smartphone in years. It includes a borderless.",
+                    ImageFile = "product-6.png",
+                    Price = 240.00M,
+                    Category = new List<string> { "Home Kitchen" }
                 },
-                new()
+                new Product()
                 {
-                    Id = Guid.NewGuid(),
-                    Name = "Smartphone Stand",
-                    Category = new() { "Accessories", "Mobile" },
-                    Description = "Adjustable aluminum smartphone stand.",
-                    ImageFile = "phone-stand.jpg",
-                    Price = 75000
-                },
-                new()
-                {
-                    Id = Guid.NewGuid(),
-                    Name = "Portable SSD 1TB",
-                    Category = new() { "Storage", "Electronics" },
-                    Description = "High-speed 1TB portable SSD with USB-C.",
-                    ImageFile = "ssd.jpg",
-                    Price = 1399000
-                },
-                new()
-                {
-                    Id = Guid.NewGuid(),
-                    Name = "LED Desk Lamp",
-                    Category = new() { "Lighting", "Home" },
-                    Description = "Touch control LED lamp with adjustable brightness.",
-                    ImageFile = "lamp.jpg",
-                    Price = 159000
-                },
-                new()
-                {
-                    Id = Guid.NewGuid(),
-                    Name = "Bluetooth Speaker",
-                    Category = new() { "Audio", "Electronics" },
-                    Description = "Portable waterproof Bluetooth speaker.",
-                    ImageFile = "speaker.jpg",
-                    Price = 299000
+                    Id = new Guid("93170c85-7795-489c-8e8f-7dcf3b4f4188"),
+                    Name = "Panasonic Lumix",
+                    Description = "This phone is the company's biggest change to its flagship smartphone in years. It includes a borderless.",
+                    ImageFile = "product-6.png",
+                    Price = 240.00M,
+                    Category = new List<string> { "Camera" }
                 }
             };
 
