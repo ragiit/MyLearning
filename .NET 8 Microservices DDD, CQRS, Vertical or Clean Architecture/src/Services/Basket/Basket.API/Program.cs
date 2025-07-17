@@ -1,5 +1,6 @@
 using Discount.Grpc;
 using HealthChecks.UI.Client;
+using BuildingBlocks.Messaging.MassTransit;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,6 +42,8 @@ builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 builder.Services.AddHealthChecks()
     .AddNpgSql(connString)
     .AddRedis(connStringRedis);
+
+builder.Services.AddMessageBroker(builder.Configuration);
 
 var app = builder.Build();
 
