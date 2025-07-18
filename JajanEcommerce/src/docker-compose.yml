@@ -1,0 +1,9 @@
+services:
+  jajanauthdb:
+    image: mcr.microsoft.com/mssql/server
+
+  auth.api:
+    image: ${DOCKER_REGISTRY-}authapi
+    build:
+      context: .
+      dockerfile: Services/Auth/Auth.API/Dockerfile

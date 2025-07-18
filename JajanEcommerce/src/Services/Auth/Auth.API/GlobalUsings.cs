@@ -1,0 +1,9 @@
+﻿global using Auth.API.Helper;
+global using Auth.API.Models;
+global using Auth.API.Persistence;
+global using BuildingBlocks.Behaviors;
+global using BuildingBlocks.Exceptions.Handler;
+global using HealthChecks.UI.Client;
+global using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+global using Microsoft.AspNetCore.Identity;
+global using Microsoft.EntityFrameworkCore;
