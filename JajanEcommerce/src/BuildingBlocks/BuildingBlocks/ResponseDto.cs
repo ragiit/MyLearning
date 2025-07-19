@@ -2,7 +2,7 @@
 {
     // DTO ini berfungsi sebagai pembungkus standar untuk semua respons API.
     // Ini membantu client untuk memproses respons dengan cara yang konsisten.
-    public class ResponseDto<T> where T : class
+    public class ResponseDto<T>
     {
         // Menunjukkan apakah permintaan berhasil atau tidak.
         public bool IsSuccess { get; set; } = true;

@@ -1,0 +1,12 @@
+﻿global using BuildingBlocks.Behaviors;
+global using BuildingBlocks.Exceptions.Handler;
+global using HealthChecks.UI.Client;
+global using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+global using Microsoft.AspNetCore.Identity;
+global using Microsoft.EntityFrameworkCore;
+global using Menu.API.Dtos;
+global using Menu.API.Models;
+global using BuildingBlocks.CQRS;
+global using MediatR;
+global using Menu.API.Persistence;
+global using Mapster;

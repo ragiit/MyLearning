@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Auth.API.Handler;
 
 // QUERY
-public sealed record GetAllUsersQuery() : IQuery<GetAllUsersResult>;
+public sealed record GetAllUsersQuery(bool isTest = false) : IQuery<GetAllUsersResult>;
 
 // RESULT
 public sealed record GetAllUsersResult(List<UserDto> Users);
@@ -15,6 +15,9 @@ public sealed class GetAllUsersHandler(AppDbContext db)
 {
     public async Task<GetAllUsersResult> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
     {
+        if (request.isTest)
+            await Task.Delay(5000, cancellationToken);
+
         var users = await db.ApplicationUsers
             .AsNoTracking()
             .Select(u => new UserDto

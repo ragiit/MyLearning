@@ -66,4 +66,17 @@ public sealed class AuthController(ISender sender) : ControllerBase
 
         return Ok(response);
     }
+
+    [HttpGet("test")]
+    public async Task<ActionResult<ResponseDto<List<UserDto>>>> Test()
+    {
+        var result = await sender.Send(new GetAllUsersQuery(true));
+
+        var response = new ResponseDto<List<UserDto>>
+        {
+            IsSuccess = true,
+            Result = result.Users
+        };
+        return Ok();
+    }
 }

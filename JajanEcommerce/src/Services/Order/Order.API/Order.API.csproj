@@ -1,29 +1,30 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>028fd39f-d1c2-4721-9248-1a025c4eb73e</UserSecretsId>
+    <UserSecretsId>6cc7bc8a-3505-45b1-8a25-65da8db948ef</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>..\..\..</DockerfileContext>
   </PropertyGroup>
 
-  <ItemGroup>
+  <ItemGroup> 
+	  <PackageReference Include="Scrutor" Version="6.1.0" />
 	  <PackageReference Include="AspNetCore.HealthChecks.Redis" Version="8.0.1" />
 	  <PackageReference Include="AspNetCore.HealthChecks.SqlServer" Version="8.0.2" />
 	  <PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="9.0.0" />
 	  <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="8.0.18" />
 	  <PackageReference Include="Swashbuckle.AspNetCore" Version="8.1.4" />
-	  <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.18" /> 
+	  <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.18" />
 	  <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.18" />
 	  <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.18" />
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1" />
-	  <PackageReference Include="Scrutor" Version="6.1.0" />
+	  <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\BuildingBlocks\BuildingBlocks\BuildingBlocks.csproj" />
+    <ProjectReference Include="..\Order.Application\Order.Application.csproj" />
+    <ProjectReference Include="..\Order.Infrastructure\Order.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

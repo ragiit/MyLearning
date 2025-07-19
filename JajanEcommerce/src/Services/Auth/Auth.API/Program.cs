@@ -1,7 +1,9 @@
-using Auth.API.Services;
+﻿using Auth.API.Services;
 using Auth.API.Services.IService;
+using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.RateLimiting;
+using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,11 +27,9 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "YourAPI", Version = "v1" });
 
-    // Tambahkan definisi JWT Bearer
     c.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
     {
-        Description = @"JWT Authorization header pakai format: 'Bearer {token}'.
-Contoh: 'Bearer abcdef12345'",
+        Description = @"JWT Authorization header pakai format: 'Bearer {token}'. Contoh: 'Bearer abcdef12345'",
         Name = "Authorization",
         In = Microsoft.OpenApi.Models.ParameterLocation.Header,
         Type = Microsoft.OpenApi.Models.SecuritySchemeType.Http,
@@ -37,7 +37,6 @@ Contoh: 'Bearer abcdef12345'",
         BearerFormat = "JWT"
     });
 
-    // Tambahkan requirement di setiap operation
     c.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement()
     {
         {
@@ -57,6 +56,7 @@ Contoh: 'Bearer abcdef12345'",
     });
 });
 
+builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 builder.Services.AddHealthChecks()
     .AddSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")!);
@@ -82,6 +82,15 @@ builder.Services.AddAuthentication(x =>
             ValidateLifetime = true,
         };
     });
+builder.Services.AddResponseCompression(options =>
+{
+    options.EnableForHttps = true;
+    options.Providers.Add<GzipCompressionProvider>();
+});
+builder.Services.Configure<GzipCompressionProviderOptions>(options =>
+{
+    options.Level = System.IO.Compression.CompressionLevel.SmallestSize;
+});
 
 builder.Services.AddRateLimiter(rateLimiterOptions =>
 {
@@ -102,6 +111,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseResponseCompression();
 app.UseRateLimiter();
 
 app.UseAuthentication();
@@ -117,6 +127,7 @@ app.UseHealthChecks("/health",
 
 await ApplyMigrationAsync();
 await SeedData.SeedRolesAsync(app.Services);
+await SeedData.SeedAdminUserAsync(app.Services);
 
 app.Run();
 
@@ -146,6 +157,55 @@ public static class SeedData
             if (!roleExist)
             {
                 await roleManager.CreateAsync(new IdentityRole(roleName));
+            }
+        }
+    }
+
+    public static async Task SeedAdminUserAsync(IServiceProvider serviceProvider)
+    {
+        using var scope = serviceProvider.CreateScope();
+        var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+
+        var usersToSeed = new[]
+        {
+            new { Role = "Admin", Email = "admin@gmail.com", Name = "System Administrator" },
+            new { Role = "Cashier", Email = "cashier@gmail.com", Name = "Cashier User" },
+            new { Role = "Chef", Email = "chef@gmail.com", Name = "Chef User" },
+            new { Role = "Customer", Email = "customer@gmail.com", Name = "Customer User" },
+        };
+
+        const string defaultPassword = "P@ssw0rd";
+
+        foreach (var u in usersToSeed)
+        {
+            var existingUser = await userManager.FindByEmailAsync(u.Email);
+            if (existingUser == null)
+            {
+                var user = new ApplicationUser
+                {
+                    UserName = u.Email,
+                    Email = u.Email,
+                    Name = u.Name,
+                    EmailConfirmed = true
+                };
+
+                var result = await userManager.CreateAsync(user, defaultPassword);
+                if (result.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(user, u.Role);
+                    Console.WriteLine($"✅ Seeded user {u.Role}: {u.Email}");
+                }
+                else
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        Console.WriteLine($"❌ Error seeding {u.Role}: {error.Description}");
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine($"ℹ️ User {u.Email} already exists.");
             }
         }
     }
