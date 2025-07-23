@@ -76,6 +76,7 @@ public static class ServiceRegistration
                 ValidateAudience = true,
                 ValidAudience = audience,
                 ValidateLifetime = true,
+                ClockSkew = TimeSpan.Zero,
             };
         });
     }

@@ -1,6 +1,4 @@
-﻿using Auth.API.Dtos;
-using BuildingBlocks.CQRS;
-using Microsoft.AspNetCore.Identity;
+﻿using BuildingBlocks.CQRS;
 
 namespace Auth.API.Features.Register
 {

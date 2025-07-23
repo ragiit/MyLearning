@@ -1,6 +1,4 @@
 ﻿using BuildingBlocks.CQRS;
-using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace Auth.API.Features.Logout;
 

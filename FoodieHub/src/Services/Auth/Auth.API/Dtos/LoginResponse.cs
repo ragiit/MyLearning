@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace Auth.API.Dtos
+﻿namespace Auth.API.Dtos
 {
     public record LoginResponse
     {

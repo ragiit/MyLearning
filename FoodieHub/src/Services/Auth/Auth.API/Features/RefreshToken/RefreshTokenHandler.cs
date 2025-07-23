@@ -1,8 +1,4 @@
-﻿using Auth.API.Dtos;
-using Auth.API.Services;
-using BuildingBlocks.CQRS;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+﻿using BuildingBlocks.CQRS;
 
 namespace Auth.API.Features.RefreshToken;
 public sealed record RefreshTokenCommand(RefreshTokenRequest Request) : ICommand<LoginResponse>;

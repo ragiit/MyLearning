@@ -1,5 +1,4 @@
-﻿using Auth.API.Dtos;
-using Auth.API.Exceptions;
+﻿using Auth.API.Exceptions;
 using BuildingBlocks.CQRS;
 
 namespace Auth.API.Features.Login
