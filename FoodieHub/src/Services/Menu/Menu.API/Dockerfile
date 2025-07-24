@@ -13,6 +13,8 @@ FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["Services/Menu/Menu.API/Menu.API.csproj", "Services/Menu/Menu.API/"]
+COPY ["BuildingBlocks/BuildingBlocks/BuildingBlocks.csproj", "BuildingBlocks/BuildingBlocks/"]
+COPY ["foodie-hub-microservices.ServiceDefaults/foodie-hub-microservices.ServiceDefaults.csproj", "foodie-hub-microservices.ServiceDefaults/"]
 RUN dotnet restore "./Services/Menu/Menu.API/Menu.API.csproj"
 COPY . .
 WORKDIR "/src/Services/Menu/Menu.API"

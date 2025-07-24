@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  # --- Database Services ---
+  authdb:
+    image: mcr.microsoft.com/mssql/server 
+
+  menudb:
+    image: mcr.microsoft.com/mssql/server  
+
+  # --- API Services (Hanya definisi build image) ---
+  auth.api:
+    image: ${DOCKER_REGISTRY-}authapi
+    build:
+      context: .  
+      dockerfile: Services/Auth/Auth.API/Dockerfile 
+
+  menu.api:
+    image: ${DOCKER_REGISTRY-}menuapi
+    build:
+      context: .
+      dockerfile: Services/Menu/Menu.API/Dockerfile  
+
+# --- Volumes untuk persistensi data database ---
+volumes:
+  mssql_auth:
+  mssql_menu: 

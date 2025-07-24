@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  authdb:
+    container_name: authdb
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=P@ssw0rd
+    restart: always
+    ports:
+      - "1433:1433"
+
+  menudb:
+    container_name: menudb
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=P@ssw0rd
+    restart: always
+    ports:
+      - "1434:1433" 
+
+  auth.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8081
+      # Connection string untuk Auth.API, mengacu ke nama service `authdb` di Docker network
+      - ConnectionStrings__DefaultConnection=Server=authdb;Database=FoodieHub_AuthDb;User Id=sa;Password=P@ssw0rd;Encrypt=False;TrustServerCertificate=True
+      # JWT Options - Pastikan ini sesuai dengan yang Anda gunakan di appsettings.json
+      - ApiSettings__JwtOptions__Secret=INI ADALAH KUNCI RAHASIA YANG SANGAT PANJANG DAN HARUS DIUBAH
+      - ApiSettings__JwtOptions__Issuer=apple-auth-api
+      - ApiSettings__JwtOptions__Audience=apple-client
+    ports:
+      - "6000:8080" # Map Auth.API HTTP internal port 8080 ke host port 6000
+      - "6060:8081" # Map Auth.API HTTPS internal port 8081 ke host port 6060
+    depends_on:
+      - authdb
+    volumes: 
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+
+  menu.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8081
+      # Connection string untuk Menu.API, mengacu ke nama service `menudb` di Docker network
+      - ConnectionStrings__DefaultConnection=Server=menudb;Database=FoodieHub_MenuDb;User Id=sa;Password=P@ssw0rd;Encrypt=False;TrustServerCertificate=True
+      # JWT Options - HARUS SAMA DENGAN AUTH SERVICE!
+      - ApiSettings__JwtOptions__Secret=INI ADALAH KUNCI RAHASIA YANG SANGAT PANJANG DAN HARUS DIUBAH
+      - ApiSettings__JwtOptions__Issuer=apple-auth-api
+      - ApiSettings__JwtOptions__Audience=apple-client
+    ports:
+      - "6001:8080" # Map Menu.API HTTP internal port 8080 ke host port 6001
+      - "6061:8081" # Map Menu.API HTTPS internal port 8081 ke host port 6061
+    depends_on:
+      - menudb
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro

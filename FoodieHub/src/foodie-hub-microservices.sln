@@ -17,6 +17,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Menu", "Menu", "{7A399995-2
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Menu.API", "Services\Menu\Menu.API\Menu.API.csproj", "{76D52456-5D3E-4029-B4B2-8D93339538C6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "foodie-hub-microservices.AppHost", "foodie-hub-microservices.AppHost\foodie-hub-microservices.AppHost.csproj", "{1E2E4D54-5E33-486A-B71C-221A5ADB9E95}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "foodie-hub-microservices.ServiceDefaults", "foodie-hub-microservices.ServiceDefaults\foodie-hub-microservices.ServiceDefaults.csproj", "{9B6DA1C4-FE1B-D68E-C4DA-7996095FCC1B}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{81DDED9D-158B-E303-5F62-77A2896D2A5A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +41,18 @@ Global
 		{76D52456-5D3E-4029-B4B2-8D93339538C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{76D52456-5D3E-4029-B4B2-8D93339538C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{76D52456-5D3E-4029-B4B2-8D93339538C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E2E4D54-5E33-486A-B71C-221A5ADB9E95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E2E4D54-5E33-486A-B71C-221A5ADB9E95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E2E4D54-5E33-486A-B71C-221A5ADB9E95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E2E4D54-5E33-486A-B71C-221A5ADB9E95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B6DA1C4-FE1B-D68E-C4DA-7996095FCC1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B6DA1C4-FE1B-D68E-C4DA-7996095FCC1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B6DA1C4-FE1B-D68E-C4DA-7996095FCC1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B6DA1C4-FE1B-D68E-C4DA-7996095FCC1B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
