@@ -7,6 +7,8 @@ namespace Menu.API.Persistence.Entities
         [Key]
         public Guid Id { get; set; } = Guid.NewGuid();
 
+        public Guid CategoryId { get; set; }
+
         [Required]
         [StringLength(250)]
         public string Name { get; set; } = string.Empty;
@@ -22,12 +24,6 @@ namespace Menu.API.Persistence.Entities
 
         public bool IsAvailable { get; set; } = true;
 
-        // Foreign Key to Category
-        public Guid CategoryId { get; set; }
-
-        // Navigation property
-        public Category Category { get; set; } = default!; // Assuming it's always loaded or handled
-
         [Column(TypeName = "decimal(3, 2)")]
         public decimal? AverageRating { get; set; } // Nullable
 
@@ -41,6 +37,7 @@ namespace Menu.API.Persistence.Entities
 
         public DateTime? LastModifiedDate { get; set; }
 
-        public ICollection<MenuImage> Images { get; set; } = new List<MenuImage>();
+        public Category? Category { get; set; }
+        public ICollection<MenuImage> Images { get; set; } = [];
     }
 }

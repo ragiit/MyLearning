@@ -17,9 +17,9 @@
             if (!await dbContext.Categories.AnyAsync())
             {
                 dbContext.Categories.AddRange(
-                    new Category { Name = "Main Course", Description = "Hidangan utama", ImageUrl = "/images/maincourse.jpg" },
-                    new Category { Name = "Appetizers", Description = "Hidangan pembuka", ImageUrl = "/images/appetizers.jpg" },
-                    new Category { Name = "Drinks", Description = "Berbagai minuman", ImageUrl = "/images/drinks.jpg" }
+                    new Category { Name = "Main Course", Description = "Hidangan utama" },
+                    new Category { Name = "Appetizers", Description = "Hidangan pembuka" },
+                    new Category { Name = "Drinks", Description = "Berbagai minuman" }
                 );
                 await dbContext.SaveChangesAsync();
             }
@@ -43,7 +43,6 @@
                             Name = "Nasi Goreng Spesial",
                             Description = "Nasi goreng dengan ayam, udang, dan telur.",
                             Price = 25000m,
-                            ImageUrl = "/images/nasigoreng.jpg",
                             CategoryId = mainCourseCategory.Id,
                             IsAvailable = true
                         },
@@ -52,7 +51,6 @@
                             Name = "Es Teh Manis",
                             Description = "Es teh dengan gula asli.",
                             Price = 8000m,
-                            ImageUrl = "/images/esteh.jpg",
                             CategoryId = drinksCategory.Id,
                             IsAvailable = true
                         }

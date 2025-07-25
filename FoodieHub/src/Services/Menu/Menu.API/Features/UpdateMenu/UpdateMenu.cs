@@ -1,4 +1,6 @@
-﻿namespace Menu.API.Features.UpdateMenu
+﻿using Menu.API.Services.IService;
+
+namespace Menu.API.Features.UpdateMenu
 {
     // --- COMMAND ---
     public sealed record UpdateMenuCommand(UpdateMenuRequest Request) : ICommand<MenuDto>;
@@ -52,7 +54,7 @@
     }
 
     // --- HANDLER ---
-    public class UpdateMenuHandler(ApplicationDbContext db) : ICommandHandler<UpdateMenuCommand, MenuDto>
+    public class UpdateMenuHandler(ApplicationDbContext db, IFileStorageService fileStorageService) : ICommandHandler<UpdateMenuCommand, MenuDto>
     {
         public async Task<MenuDto> Handle(UpdateMenuCommand request, CancellationToken cancellationToken)
         {
@@ -60,18 +62,49 @@
                 .FirstOrDefaultAsync(m => m.Id == request.Request.Id, cancellationToken)
                 ?? throw new MenuNotFoundException(request.Request.Id);
 
-            // Update properties from request
-            request.Request.Adapt(menu); // Mapster akan mengupdate properti yang cocok
+            var oldImageUrl = menu.ImageUrl;
 
-            // Set audit fields (jika ada user info dari token JWT)
-            // menu.LastModifiedBy = "System"; // Placeholder, ganti dengan User ID dari token
+            request.Request.Adapt(menu);
+
+            if (request.Request.ImageUrl != null)
+            {
+                if (!string.IsNullOrEmpty(oldImageUrl))
+                {
+                    var oldFileName = Path.GetFileName(oldImageUrl);
+                    await fileStorageService.DeleteFileAsync(oldFileName, "menu-images");
+                }
+
+                menu.ImageUrl = await fileStorageService.UploadFileAsync(request.Request.ImageUrl, "menu-images");
+            }
+
+            if (request.Request.AdditionalImages != null && request.Request.AdditionalImages.Count != 0)
+            {
+                foreach (var file in request.Request.AdditionalImages)
+                {
+                    var additionalImageUrl = await fileStorageService.UploadFileAsync(file, "menu-images/additional");
+                    db.MenuImages.Add(new MenuImage { MenuId = menu.Id, Url = additionalImageUrl, IsThumbnail = false });
+                }
+                await db.SaveChangesAsync(cancellationToken);
+            }
+
             menu.LastModifiedDate = DateTime.UtcNow;
 
-            db.Menus.Update(menu); // Mark as modified
+            db.Menus.Update(menu);
             await db.SaveChangesAsync(cancellationToken);
 
-            // Map updated Menu entity back to MenuDto
-            return menu.Adapt<MenuDto>();
+            var updatedMenuWithCategory = await db.Menus
+                .Include(m => m.Category)
+                 .Include(m => m.Images)
+                .Where(m => m.Id == menu.Id)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(cancellationToken);
+
+            if (updatedMenuWithCategory == null)
+            {
+                throw new InvalidOperationException("Failed to retrieve the updated menu with its category.");
+            }
+
+            return updatedMenuWithCategory.Adapt<MenuDto>();
         }
     }
 }

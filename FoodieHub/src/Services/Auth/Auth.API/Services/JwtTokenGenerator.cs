@@ -27,7 +27,7 @@ namespace Auth.API.Services
                 claims.Add(new Claim(ClaimTypes.Role, role));
             }
 
-            var expiresAt = DateTime.UtcNow.AddMinutes(15);
+            var expiresAt = DateTime.UtcNow.AddDays(15);
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {

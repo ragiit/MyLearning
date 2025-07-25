@@ -39,5 +39,9 @@
 		<ProjectReference Include="..\..\..\foodie-hub-microservices.ServiceDefaults\foodie-hub-microservices.ServiceDefaults.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="wwwroot\" />
+	</ItemGroup>
+
 
 </Project>

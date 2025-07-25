@@ -1,6 +1,7 @@
 ﻿using Menu.API.Features.CreateMenu;
 using Menu.API.Features.DeleteMenu;
 using Menu.API.Features.GetCategories;
+using Menu.API.Features.MenuImages;
 using Menu.API.Features.UpdateMenu;
 
 namespace Menu.API.Controllers
@@ -163,6 +164,76 @@ namespace Menu.API.Controllers
 
             var response = new BaseResponse<PaginatedResult<CategoryDto>>(true, "Categories retrieved successfully", result);
             return Ok(response);
+        }
+
+        /// <summary>
+        /// Menambahkan gambar baru ke item menu tertentu.
+        /// </summary>
+        /// <remarks>
+        /// Mengupload gambar baru dan mengaitkannya dengan item menu.
+        /// Bisa ditandai sebagai gambar thumbnail utama, yang akan menggantikan thumbnail sebelumnya.
+        /// </remarks>
+        /// <param name="menuId">ID unik dari menu.</param>
+        /// <param name="imageFile">File gambar yang akan diupload.</param>
+        /// <param name="isThumbnail">Menentukan apakah gambar ini akan menjadi thumbnail utama.</param>
+        /// <param name="cancellationToken">Token pembatalan operasi.</param>
+        /// <returns>Detail gambar yang baru ditambahkan.</returns>
+        /// <response code="201">Gambar berhasil ditambahkan.</response>
+        /// <response code="400">Request tidak valid, kesalahan validasi (misal, format file salah).</response>
+        /// <response code="401">Akses tidak sah.</response>
+        /// <response code="404">Menu tidak ditemukan.</response>
+        /// <response code="429">Terlalu banyak permintaan.</response>
+        /// <response code="500">Terjadi kesalahan internal server.</response>
+        [HttpPost("{menuId}/images")]
+        [Consumes("multipart/form-data")]
+        [ProducesResponseType(typeof(BaseResponse<MenuImageDto>), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status429TooManyRequests)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<BaseResponse<MenuImageDto>>> AddMenuImage(
+            Guid menuId,
+            IFormFile request,
+            CancellationToken cancellationToken)
+        {
+            var command = new AddMenuImageCommand(new AddMenuImageRequest(menuId, request));
+            var result = await sender.Send(command, cancellationToken);
+
+            var response = new BaseResponse<MenuImageDto>(true, "Menu image added successfully", result);
+            return CreatedAtAction(nameof(AddMenuImage), new { menuId = result.MenuId, imageId = result.Id }, response);
+        }
+
+        /// <summary>
+        /// Menghapus gambar dari item menu.
+        /// </summary>
+        /// <remarks>
+        /// Menghapus gambar tertentu dari item menu dan storage.
+        /// Jika gambar yang dihapus adalah thumbnail utama, ImageUrl di menu akan di-reset.
+        /// </remarks>
+        /// <param name="menuId">ID unik dari menu.</param>
+        /// <param name="imageId">ID unik dari gambar yang akan dihapus.</param>
+        /// <param name="cancellationToken">Token pembatalan operasi.</param>
+        /// <returns>Respons kosong jika penghapusan berhasil.</returns>
+        /// <response code="204">Gambar berhasil dihapus (No Content).</response>
+        /// <response code="400">Request tidak valid.</response>
+        /// <response code="401">Akses tidak sah.</response>
+        /// <response code="404">Gambar tidak ditemukan atau tidak terkait dengan menu.</response>
+        /// <response code="429">Terlalu banyak permintaan.</response>
+        /// <response code="500">Terjadi kesalahan internal server.</response>
+        [HttpDelete("{menuId}/images/{url}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status429TooManyRequests)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult> DeleteMenuImage(Guid menuId, string url, CancellationToken cancellationToken)
+        {
+            var command = new DeleteMenuImageCommand(menuId, url);
+            await sender.Send(command, cancellationToken);
+
+            return NoContent();
         }
     }
 }

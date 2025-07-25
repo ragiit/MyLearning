@@ -30,7 +30,10 @@ namespace Menu.API.Features.GetMenuQueries
     {
         public async Task<PaginatedResult<MenuDto>> Handle(GetMenusQuery request, CancellationToken cancellationToken)
         {
-            var query = db.Menus.Include(m => m.Category).AsNoTracking();
+            var query = db.Menus
+                .Include(m => m.Category)
+                .Include(x => x.Images)
+                .AsNoTracking();
 
             // Apply filters
             if (!string.IsNullOrWhiteSpace(request.Request.CategoryName))

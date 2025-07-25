@@ -65,7 +65,7 @@ namespace Menu.API.Features.CreateMenu
             await db.SaveChangesAsync(cancellationToken);
 
             // Jika ada additional images
-            if (request.Request.AdditionalImages != null && request.Request.AdditionalImages.Any())
+            if (request.Request.AdditionalImages != null && request.Request.AdditionalImages.Count != 0)
             {
                 foreach (var file in request.Request.AdditionalImages)
                 {
