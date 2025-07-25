@@ -13,6 +13,13 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Remove="Services\IServices\**" />
+	  <Content Remove="Services\IServices\**" />
+	  <EmbeddedResource Remove="Services\IServices\**" />
+	  <None Remove="Services\IServices\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="AspNetCore.HealthChecks.SqlServer" Version="9.0.0" />
 		<PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="9.0.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.7" />
@@ -25,10 +32,6 @@
 		</PackageReference>
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.3" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<Folder Include="Services\IServices\" />
 	</ItemGroup>
 
 	<ItemGroup>

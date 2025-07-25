@@ -28,7 +28,7 @@
 //var parts = result.Split(',');
 
 //var resultz = parts
-//         .Skip(1) // Buang angka pertama
+//         .Skip(1)
 //         .Select(x =>
 //         {
 //             var removed = x.Replace("1", "");

@@ -57,13 +57,14 @@ namespace Menu.API.Controllers
         /// <response code="429">Terlalu banyak permintaan.</response>
         /// <response code="500">Terjadi kesalahan internal server.</response>
         [HttpPost]
+        [Consumes("multipart/form-data")]
         [ProducesResponseType(typeof(BaseResponse<MenuDto>), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status409Conflict)] // Untuk unique name jika diimplementasikan
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status429TooManyRequests)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<BaseResponse<MenuDto>>> CreateMenu([FromBody] CreateMenuRequest request, CancellationToken cancellationToken)
+        public async Task<ActionResult<BaseResponse<MenuDto>>> CreateMenu([FromForm] CreateMenuRequest request, CancellationToken cancellationToken)
         {
             var command = new CreateMenuCommand(request);
             var result = await sender.Send(command, cancellationToken);
@@ -90,6 +91,7 @@ namespace Menu.API.Controllers
         /// <response code="429">Terlalu banyak permintaan.</response>
         /// <response code="500">Terjadi kesalahan internal server.</response>
         [HttpPut]
+        [Consumes("multipart/form-data")]
         [ProducesResponseType(typeof(BaseResponse<MenuDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
@@ -97,7 +99,7 @@ namespace Menu.API.Controllers
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status409Conflict)] // Untuk unique name jika diimplementasikan
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status429TooManyRequests)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<BaseResponse<MenuDto>>> UpdateMenu([FromBody] UpdateMenuRequest request, CancellationToken cancellationToken)
+        public async Task<ActionResult<BaseResponse<MenuDto>>> UpdateMenu([FromForm] UpdateMenuRequest request, CancellationToken cancellationToken)
         {
             var command = new UpdateMenuCommand(request);
             var result = await sender.Send(command, cancellationToken);

@@ -1,4 +1,7 @@
-﻿namespace Menu.API.Configuration
+﻿using Menu.API.Services;
+using Menu.API.Services.IService;
+
+namespace Menu.API.Configuration
 {
     public static class ServiceRegistration
     {
@@ -50,6 +53,7 @@
             });
 
             services.AddControllers();
+            services.AddScoped<IFileStorageService, LocalFileStorageService>();
         }
 
         // Menambahkan konfigurasi JWT Authentication untuk memvalidasi token dari Auth Microservice

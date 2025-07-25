@@ -1,4 +1,6 @@
-﻿namespace Menu.API.Features.CreateMenu
+﻿using Menu.API.Services.IService;
+
+namespace Menu.API.Features.CreateMenu
 {
     // --- COMMAND ---
     public sealed record CreateMenuCommand(CreateMenuRequest Request) : ICommand<MenuDto>;
@@ -42,24 +44,37 @@
     }
 
     // --- HANDLER ---
-    public class CreateMenuHandler(ApplicationDbContext db) : ICommandHandler<CreateMenuCommand, MenuDto>
+    public class CreateMenuHandler(ApplicationDbContext db, IFileStorageService fileStorageService) : ICommandHandler<CreateMenuCommand, MenuDto>
     {
         public async Task<MenuDto> Handle(CreateMenuCommand request, CancellationToken cancellationToken)
         {
-            // Map request to Menu entity
-            var menu = request.Request.Adapt<Menu.API.Persistence.Entities.Menu>();
+            // Upload gambar jika ada
+            string? imageUrl = null;
+            if (request.Request.ImageUrl != null)
+            {
+                imageUrl = await fileStorageService.UploadFileAsync(request.Request.ImageUrl, "menu-images");
+            }
 
-            // Set audit fields (jika ada user info dari token JWT)
-            // Anda bisa mendapatkan User ID dari HttpContextAccessor atau melalui parameter constructor handler
-            // Untuk kesederhanaan, kita asumsikan ID user di sini atau dari claim JWT
-            // string userId = "System"; // Placeholder, ganti dengan User ID dari token
-            // menu.CreatedBy = userId;
+            // Map request ke Menu entity
+            var menu = request.Request.Adapt<Persistence.Entities.Menu>();
+            menu.ImageUrl = imageUrl;
+
             menu.CreatedDate = DateTime.UtcNow;
 
             db.Menus.Add(menu);
             await db.SaveChangesAsync(cancellationToken);
 
-            // Map created Menu entity back to MenuDto
+            // Jika ada additional images
+            if (request.Request.AdditionalImages != null && request.Request.AdditionalImages.Any())
+            {
+                foreach (var file in request.Request.AdditionalImages)
+                {
+                    var additionalImageUrl = await fileStorageService.UploadFileAsync(file, "menu-images/additional");
+                    db.MenuImages.Add(new MenuImage { MenuId = menu.Id, Url = additionalImageUrl, IsThumbnail = false });
+                }
+                await db.SaveChangesAsync(cancellationToken);
+            }
+
             return menu.Adapt<MenuDto>();
         }
     }

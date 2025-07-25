@@ -13,6 +13,8 @@ public static class MiddlewareRegistration
         app.UseAuthentication();
         app.UseAuthorization();
 
+        app.UseStaticFiles();
+
         app.UseExceptionHandler(_ => { });
 
         app.UseHealthChecks("/health",

@@ -40,5 +40,7 @@ namespace Menu.API.Persistence.Entities
         public string? LastModifiedBy { get; set; }
 
         public DateTime? LastModifiedDate { get; set; }
+
+        public ICollection<MenuImage> Images { get; set; } = new List<MenuImage>();
     }
 }
