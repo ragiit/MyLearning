@@ -30,7 +30,6 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\..\BuildingBlocks\BuildingBlocks\BuildingBlocks.csproj" />
-		<ProjectReference Include="..\..\..\foodie-hub-microservices.ServiceDefaults\foodie-hub-microservices.ServiceDefaults.csproj" />
 	</ItemGroup>
 
 </Project>

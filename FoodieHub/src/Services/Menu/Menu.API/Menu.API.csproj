@@ -12,12 +12,12 @@
 		<DockerComposeProjectPath>..\..\..\docker-compose.dcproj</DockerComposeProjectPath>
 	</PropertyGroup>
 
-	<ItemGroup>
+	<!--<ItemGroup>
 	  <Compile Remove="Services\IServices\**" />
 	  <Content Remove="Services\IServices\**" />
 	  <EmbeddedResource Remove="Services\IServices\**" />
 	  <None Remove="Services\IServices\**" />
-	</ItemGroup>
+	</ItemGroup>-->
 
 	<ItemGroup>
 		<PackageReference Include="AspNetCore.HealthChecks.SqlServer" Version="9.0.0" />
@@ -36,7 +36,6 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\..\BuildingBlocks\BuildingBlocks\BuildingBlocks.csproj" />
-		<ProjectReference Include="..\..\..\foodie-hub-microservices.ServiceDefaults\foodie-hub-microservices.ServiceDefaults.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

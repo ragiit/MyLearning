@@ -17,7 +17,13 @@ services:
       - SA_PASSWORD=P@ssw0rd
     restart: always
     ports:
-      - "1434:1433" 
+      - "1434:1433"
+  
+  distributedcache: 
+    container_name: distributedcache
+    restart: always
+    ports:
+      - "6380:6379"
 
   auth.api:
     environment:
@@ -31,8 +37,8 @@ services:
       - ApiSettings__JwtOptions__Issuer=apple-auth-api
       - ApiSettings__JwtOptions__Audience=apple-client
     ports:
-      - "6000:8080" # Map Auth.API HTTP internal port 8080 ke host port 6000
-      - "6060:8081" # Map Auth.API HTTPS internal port 8081 ke host port 6060
+      - "6001:8080" # Map Auth.API HTTP internal port 8080 ke host port 6000
+      - "6061:8081" # Map Auth.API HTTPS internal port 8081 ke host port 6060
     depends_on:
       - authdb
     volumes: 
@@ -53,10 +59,29 @@ services:
       - ApiSettings__JwtOptions__Issuer=apple-auth-api
       - ApiSettings__JwtOptions__Audience=apple-client
     ports:
-      - "6001:8080" # Map Menu.API HTTP internal port 8080 ke host port 6001
-      - "6061:8081" # Map Menu.API HTTPS internal port 8081 ke host port 6061
+      - "6002:8080" # Map Menu.API HTTP internal port 8080 ke host port 6001
+      - "6062:8081" # Map Menu.API HTTPS internal port 8081 ke host port 6061
     depends_on:
       - menudb
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+
+  basket.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8081
+      - ConnectionStrings__RedisConnection=distributedcache:6379
+      - ApiSettings__MenuApiUrl=https://menu.api:8081
+    ports:
+      - "6003:8080"
+      - "6063:8081"
+    depends_on: 
+      - menu.api
+      - distributedcache
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro

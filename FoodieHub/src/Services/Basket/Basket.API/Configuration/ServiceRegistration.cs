@@ -70,6 +70,12 @@ namespace Basket.API.Configuration
                   {
                       var httpContextAccessor = serviceProvider.GetRequiredService<IHttpContextAccessor>();
                       return new AuthorizationHeaderHandler(httpContextAccessor);
+                  }).ConfigurePrimaryHttpMessageHandler(() =>
+                  {
+                      return new HttpClientHandler
+                      {
+                          ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+                      };
                   });
 
             services.AddScoped<IBasketRepository, BasketRepository>();

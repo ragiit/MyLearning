@@ -8,6 +8,9 @@ services:
   menudb:
     image: mcr.microsoft.com/mssql/server  
 
+  distributedcache:
+    image: redis
+
   # --- API Services (Hanya definisi build image) ---
   auth.api:
     image: ${DOCKER_REGISTRY-}authapi
@@ -20,8 +23,13 @@ services:
     build:
       context: .
       dockerfile: Services/Menu/Menu.API/Dockerfile  
+       
+  basket.api:
+    image: ${DOCKER_REGISTRY-}basketapi
+    build:
+      context: .
+      dockerfile: Services/Basket/Basket.API/Dockerfile
 
-# --- Volumes untuk persistensi data database ---
 volumes:
   mssql_auth:
   mssql_menu: 
