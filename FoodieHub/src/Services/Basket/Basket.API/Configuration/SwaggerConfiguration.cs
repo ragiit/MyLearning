@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace Auth.API.Configuration;
+namespace Basket.API.Configuration;
 
 public static class SwaggerConfiguration
 {
@@ -11,17 +11,16 @@ public static class SwaggerConfiguration
         {
             c.SwaggerDoc("v1", new OpenApiInfo
             {
-                Title = "Auth API - Proyek FoodieHub",
+                Title = "Basket API - Proyek FoodieHub",
                 Version = "v1",
-                Description = "Service mikro **Auth API** berfungsi sebagai pusat autentikasi dan otorisasi untuk aplikasi FoodieHub. " +
-                    "API ini menangani semua aspek identitas pengguna, termasuk pendaftaran pengguna baru, proses login yang aman, dan penerbitan " +
-                    "**JSON Web Token (JWT)** serta refresh token. Dirancang untuk keamanan dan skalabilitas, API ini adalah pintu gerbang " +
-                    "bagi akses pengguna ke seluruh layanan FoodieHub.",
+                Description = "Service mikro **Basket API** adalah bagian krusial dalam ekosistem FoodieHub, didedikasikan untuk mengelola keranjang belanja pengguna. " +
+                  "API ini menyediakan fungsionalitas untuk menambah, mengubah, dan menghapus item menu, serta mengambil konten keranjang saat ini. " +
+                  "Memanfaatkan **Redis** sebagai penyimpanan data sementara berkecepatan tinggi, API ini memastikan pengalaman belanja yang responsif dan efisien.",
                 Contact = new OpenApiContact
                 {
                     Name = "Tim Pengembang FoodieHub",
                     Email = "developer@foodiehub.com",
-                    Url = new Uri("https://github.com/your-github-repo-auth-api") // **Perbarui URL ini ke repositori Auth API Anda**
+                    Url = new Uri("https://github.com/your-github-repo-basket-api") // **Perbarui URL ini ke repositori Basket API Anda**
                 },
                 License = new OpenApiLicense
                 {
@@ -30,9 +29,10 @@ public static class SwaggerConfiguration
                 }
             });
 
+            // Konfigurasi keamanan JWT untuk Swagger
             c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
             {
-                Description = "JWT Authorization header pakai format: 'Bearer {token}'. Contoh: 'Bearer abc123'.",
+                Description = "JWT Authorization header using the Bearer scheme. Example: 'Bearer {token}'",
                 Name = "Authorization",
                 In = ParameterLocation.Header,
                 Type = SecuritySchemeType.Http,

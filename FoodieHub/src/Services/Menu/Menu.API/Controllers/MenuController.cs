@@ -43,6 +43,38 @@ namespace Menu.API.Controllers
         }
 
         /// <summary>
+        /// Mendapatkan detail item menu berdasarkan ID.
+        /// </summary>
+        /// <remarks>
+        /// Mengambil detail lengkap satu item menu dari database menggunakan ID uniknya.
+        /// Termasuk informasi kategori terkait.
+        /// </remarks>
+        /// <param name="id">ID unik dari item menu yang akan diambil.</param>
+        /// <param name="cancellationToken">Token pembatalan operasi.</param>
+        /// <returns>Detail lengkap item menu.</returns>
+        /// <response code="200">Detail menu berhasil diambil.</response>
+        /// <response code="400">Request tidak valid (misal, ID kosong).</response>
+        /// <response code="401">Akses tidak sah.</response>
+        /// <response code="404">Menu tidak ditemukan.</response>
+        /// <response code="429">Terlalu banyak permintaan.</response>
+        /// <response code="500">Terjadi kesalahan internal server.</response>
+        [HttpGet("{id}")] // GET /api/menus/{id}
+        [ProducesResponseType(typeof(BaseResponse<MenuDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status429TooManyRequests)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<BaseResponse<MenuDto>>> GetMenuById(Guid id, CancellationToken cancellationToken)
+        {
+            var query = new GetMenuByIdQuery(id);
+            var result = await sender.Send(query, cancellationToken); // Handler mengembalikan MenuDto
+
+            var response = new BaseResponse<MenuDto>(true, "Detail menu berhasil diambil", result);
+            return Ok(response);
+        }
+
+        /// <summary>
         /// Membuat item menu baru.
         /// </summary>
         /// <remarks>

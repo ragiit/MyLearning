@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Services\Auth\Auth.API\Auth.API.csproj" />
+    <ProjectReference Include="..\Services\Basket\Basket.API\Basket.API.csproj" />
     <ProjectReference Include="..\Services\Menu\Menu.API\Menu.API.csproj" />
   </ItemGroup>
 
