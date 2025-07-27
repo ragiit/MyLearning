@@ -13,11 +13,14 @@ namespace Auth.API.Features.Login
             RuleFor(x => x.Login)
                 .NotNull().WithMessage("Login data must not be null.");
 
-            RuleFor(x => x.Login.Email)
-                .NotEmpty().WithMessage("Email is required.");
+            When(x => x.Login != null, () =>
+            {
+                RuleFor(x => x.Login.Email)
+                    .NotEmpty().WithMessage("Email is required.");
 
-            RuleFor(x => x.Login.Password)
-                .NotEmpty().WithMessage("Password is required.");
+                RuleFor(x => x.Login.Password)
+                    .NotEmpty().WithMessage("Password is required.");
+            });
         }
     }
 
