@@ -1,4 +1,6 @@
-﻿using Refit;
+﻿using Hangfire;
+using Hangfire.SqlServer;
+using Refit;
 using StackExchange.Redis;
 using System.Net.Http.Headers;
 
@@ -81,6 +83,22 @@ namespace Basket.API.Configuration
             services.AddScoped<IBasketRepository, BasketRepository>();
 
             services.AddControllers();
+            services.Configure<BasketServiceSettings>(configuration.GetSection(BasketServiceSettings.SettingsSection));
+            services.AddHangfire(config => config
+               .SetDataCompatibilityLevel(CompatibilityLevel.Version_180)
+               .UseSimpleAssemblyNameTypeSerializer()
+               .UseRecommendedSerializerSettings()
+               .UseSqlServerStorage(configuration.GetConnectionString("HangfireConnection"), new SqlServerStorageOptions
+               {
+                   CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
+                   SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),
+                   QueuePollInterval = TimeSpan.FromSeconds(15),
+                   UseRecommendedIsolationLevel = true,
+                   DisableGlobalLocks = true // Untuk beberapa deployment, bisa diatur false
+               }));
+
+            // Tambahkan Hangfire Server (untuk memproses job)
+            services.AddHangfireServer();
         }
 
         public class AuthorizationHeaderHandler(IHttpContextAccessor httpContextAccessor) : DelegatingHandler

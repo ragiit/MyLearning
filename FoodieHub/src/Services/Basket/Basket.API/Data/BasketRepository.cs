@@ -11,11 +11,18 @@ namespace Basket.API.Data
         public async Task<BasketDto?> GetBasketAsync(string userName, CancellationToken cancellationToken = default)
         {
             var data = await _database.StringGetAsync(userName);
+            var basket = data.IsNullOrEmpty ? null : JsonSerializer.Deserialize<BasketDto>(data!);
+            if (basket != null)
+            {
+                basket.LastUpdated = DateTime.UtcNow;
+                await _database.StringSetAsync(basket.UserName, JsonSerializer.Serialize(basket));
+            }
             return data.IsNullOrEmpty ? null : JsonSerializer.Deserialize<BasketDto>(data!);
         }
 
         public async Task<BasketDto> StoreBasketAsync(BasketDto basket, CancellationToken cancellationToken = default)
         {
+            basket.LastUpdated = DateTime.UtcNow;
             await _database.StringSetAsync(basket.UserName, JsonSerializer.Serialize(basket));
             return await GetBasketAsync(basket.UserName, cancellationToken) ?? basket; // Mengembalikan data yang tersimpan
         }

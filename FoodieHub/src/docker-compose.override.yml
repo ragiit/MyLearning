@@ -75,12 +75,16 @@ services:
       - ASPNETCORE_HTTP_PORTS=8080
       - ASPNETCORE_HTTPS_PORTS=8081
       - ConnectionStrings__RedisConnection=distributedcache:6379
+      - ConnectionStrings__HangfireConnection=Server=authdb;Database=FoodieHub_HangfireDb;User Id=sa;Password=P@ssw0rd;Encrypt=False;TrustServerCertificate=True
       - ApiSettings__MenuApiUrl=https://menu.api:8081
+      - BasketServiceSettings__AbandonedCartCleanupIntervalMinutes=60
+      - BasketServiceSettings__AbandonedCartExpirationDays=7
     ports:
       - "6003:8080"
       - "6063:8081"
     depends_on: 
       - menu.api
+      - authdb 
       - distributedcache
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
