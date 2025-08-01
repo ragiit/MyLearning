@@ -30,6 +30,13 @@ services:
       context: .
       dockerfile: Services/Basket/Basket.API/Dockerfile
 
+  yarpapigateway:
+    image: ${DOCKER_REGISTRY-}yarpapigateway
+    build:
+      context: .
+      dockerfile: Gateways/YarpApiGateway/Dockerfile
+
 volumes:
   mssql_auth:
   mssql_menu: 
+

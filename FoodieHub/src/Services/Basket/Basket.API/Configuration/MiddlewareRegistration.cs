@@ -4,7 +4,7 @@ public static class MiddlewareRegistration
 {
     public static void UseCustomMiddlewares(this IApplicationBuilder app)
     {
-        app.UseHttpsRedirection();
+        //app.UseHttpsRedirection();
 
         app.UseResponseCompression();
 
