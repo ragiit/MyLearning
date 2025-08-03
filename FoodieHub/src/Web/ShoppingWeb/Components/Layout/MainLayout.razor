@@ -1,0 +1,53 @@
+﻿@inherits LayoutComponentBase
+@using Microsoft.AspNetCore.Components.Authorization
+@using ShoppingWeb.Components.Layout
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<div class="page">
+    <div class="sidebar">
+        <NavMenu />
+    </div>
+
+    <main>
+        <div class="top-row px-4  border-bottom py-2">  
+            <div class="d-flex align-items-center">
+                <AuthorizeView>
+                    <Authorized> 
+                        <a class="btn btn-link text-decoration-none" href="profile">Halo, @userName</a>
+                        <a class="btn btn-link text-decoration-none" href="logout">Logout</a>
+                    </Authorized>
+                    <NotAuthorized>
+                        <a class="btn btn-outline-primary btn-sm" href="login">Login</a>
+                    </NotAuthorized>
+                </AuthorizeView>
+            </div>
+        </div>
+
+
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
+</div>
+
+<div id="blazor-error-ui">
+    Terjadi kesalahan yang tidak ditangani.
+    <a href="" class="reload">Muat Ulang</a>
+    <a class="dismiss">🗙</a>
+</div>
+
+@code {
+    private string? userName;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        if (user.Identity?.IsAuthenticated == true)
+        {
+            // Ambil klaim "name" dari JWT
+            userName = user.FindFirst("name")?.Value;
+        }
+    }
+}

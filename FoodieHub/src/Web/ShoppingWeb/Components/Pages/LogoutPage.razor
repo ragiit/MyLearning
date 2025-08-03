@@ -1,0 +1,15 @@
+﻿@page "/logout" 
+@using ShoppingWeb.Services
+@inject NavigationManager NavigationManager
+
+@inject AuthService authService
+<h3>Logging out...</h3>
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+         await authService.Logout();
+        // await AuthStateProvider.Logout();
+        NavigationManager.NavigateTo("/login", forceLoad: true); // Redirect ke halaman login setelah logout
+    }
+}

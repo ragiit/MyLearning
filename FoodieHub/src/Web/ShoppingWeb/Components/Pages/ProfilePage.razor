@@ -1,0 +1,32 @@
+﻿@using Microsoft.AspNetCore.Authorization
+@using ShoppingWeb.Services
+@inject ICurrentUserService CurrentUser
+@attribute [Authorize]
+
+@page "/profile"
+
+<h3>Profil</h3>
+
+@if (userName is not null)
+{
+    <p><strong>Nama:</strong> @userName</p>
+    <p><strong>Email:</strong> @email</p>
+    <p><strong>Roles:</strong> @string.Join(", ", roles)</p>
+}
+else
+{
+    <p>Memuat profil...</p>
+}
+
+@code {
+    private string? userName;
+    private string? email;
+    private List<string> roles = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        userName = await CurrentUser.GetUserNameAsync();
+        email = await CurrentUser.GetEmailAsync();
+        roles = await CurrentUser.GetRolesAsync();
+    }
+}

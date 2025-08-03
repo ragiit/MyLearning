@@ -6,7 +6,8 @@
       "serviceActions": {
         "auth.api": "StartDebugging",
         "menu.api": "StartDebugging",
-        "yarpapigateway": "StartDebugging"
+        "yarpapigateway": "StartDebugging",
+        "shoppingweb": "StartDebugging"
       }
     }
   }

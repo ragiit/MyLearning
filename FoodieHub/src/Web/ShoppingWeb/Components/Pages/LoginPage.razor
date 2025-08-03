@@ -1,0 +1,56 @@
+﻿@page "/login"
+@using ShoppingWeb.Models
+@using ShoppingWeb.Services
+@inject AuthService authService
+@inject AccessTokenService accessTokenService
+@inject NavigationManager NavigationManager
+@inject ILogger<LoginPage> Logger
+
+<h3>Login Pengguna</h3>
+
+<EditForm Model="@loginRequest" OnValidSubmit="@HandleLogin">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group mb-3">
+        <label for="email">Email:</label>
+        <InputText id="email" class="form-control" @bind-Value="loginRequest.Email" />
+        <ValidationMessage For="@(() => loginRequest.Email)" />
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="password">Password:</label>
+        <InputText id="password" type="password" class="form-control" @bind-Value="loginRequest.Password" />
+        <ValidationMessage For="@(() => loginRequest.Password)" />
+    </div>
+
+    @if (!string.IsNullOrWhiteSpace(errorMessage))
+    {
+        <div class="alert alert-danger mt-3">@errorMessage</div>
+    }
+
+    <button type="submit" class="btn btn-primary mt-3">Login</button>
+</EditForm>
+
+@code {
+    private LoginRequest loginRequest = new LoginRequest();
+    private string errorMessage = string.Empty;
+
+    private async Task HandleLogin()
+    {
+        errorMessage = string.Empty;
+        try
+        {
+            var success = await authService.Login(loginRequest);
+            if (success != null)
+            {
+                NavigationManager.NavigateTo("/", forceLoad: true); // Redirect ke halaman utama setelah login sukses
+            } 
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Login gagal: {ex.Message}";
+            Logger.LogError(ex, "Login failed for user {Email}.", loginRequest.Email);
+        }
+    }
+}

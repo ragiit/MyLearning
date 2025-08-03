@@ -36,7 +36,14 @@ services:
       context: .
       dockerfile: Gateways/YarpApiGateway/Dockerfile
 
+  shoppingweb:
+    image: ${DOCKER_REGISTRY-}shoppingweb
+    build:
+      context: .
+      dockerfile: Web/ShoppingWeb/Dockerfile
+
 volumes:
   mssql_auth:
   mssql_menu: 
+
 

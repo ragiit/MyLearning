@@ -14,6 +14,7 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["Services/Menu/Menu.API/Menu.API.csproj", "Services/Menu/Menu.API/"]
 COPY ["BuildingBlocks/BuildingBlocks/BuildingBlocks.csproj", "BuildingBlocks/BuildingBlocks/"]
+COPY ["foodie-hub-microservices.ServiceDefaults/foodie-hub-microservices.ServiceDefaults.csproj", "foodie-hub-microservices.ServiceDefaults/"]
 RUN dotnet restore "./Services/Menu/Menu.API/Menu.API.csproj"
 COPY . .
 WORKDIR "/src/Services/Menu/Menu.API"
@@ -28,4 +29,5 @@ RUN dotnet publish "./Menu.API.csproj" -c $BUILD_CONFIGURATION -o /app/publish /
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+RUN mkdir -p wwwroot/menu-images && chmod -R 777 wwwroot/menu-images
 ENTRYPOINT ["dotnet", "Menu.API.dll"]

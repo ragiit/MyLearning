@@ -1,0 +1,30 @@
+﻿@page "/"
+@using Microsoft.AspNetCore.Components.Authorization
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<h1>Halo 👋</h1>
+
+<AuthorizeView>
+    <Authorized>
+        <p>Selamat datang, @userName!</p>
+    </Authorized>
+    <NotAuthorized>
+        <p>Silakan login terlebih dahulu.</p>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+    private string? userName;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        if (user.Identity?.IsAuthenticated == true)
+        {
+            // Ambil klaim "name" dari JWT
+            userName = user.FindFirst("name")?.Value;
+        }
+    }
+}

@@ -19,6 +19,7 @@ namespace Auth.API.Services
             {
                 new(JwtRegisteredClaimNames.Email, applicationUser.Email.GetValueOrDefault()),
                 new(JwtRegisteredClaimNames.Sub, applicationUser.Id),
+                new(ClaimTypes.Name, applicationUser.Name.GetValueOrDefault()),
                 new(JwtRegisteredClaimNames.Name, applicationUser.Name.GetValueOrDefault())
             };
 
