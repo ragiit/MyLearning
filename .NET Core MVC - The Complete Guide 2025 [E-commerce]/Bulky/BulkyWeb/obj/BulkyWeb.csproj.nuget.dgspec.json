@@ -1,23 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Dev\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\Bulky\\BulkyWeb\\BulkyWeb.csproj": {}
+    "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\Bulky\\BulkyWeb\\BulkyWeb.csproj": {}
   },
   "projects": {
-    "D:\\Dev\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\Bulky\\Bulky.DataAccess\\Bulky.DataAccess.csproj": {
+    "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\Bulky\\Bulky.DataAccess\\Bulky.DataAccess.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Dev\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\Bulky\\Bulky.DataAccess\\Bulky.DataAccess.csproj",
+        "projectUniqueName": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\Bulky\\Bulky.DataAccess\\Bulky.DataAccess.csproj",
         "projectName": "Bulky.DataAccess",
-        "projectPath": "D:\\Dev\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\Bulky\\Bulky.DataAccess\\Bulky.DataAccess.csproj",
+        "projectPath": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\Bulky\\Bulky.DataAccess\\Bulky.DataAccess.csproj",
         "packagesPath": "C:\\Users\\argip\\.nuget\\packages\\",
-        "outputPath": "D:\\Dev\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\Bulky\\Bulky.DataAccess\\obj\\",
+        "outputPath": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\Bulky\\Bulky.DataAccess\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
+          "C:\\Program Files\\DevExpress 23.2\\Components\\Offline Packages",
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
           "C:\\Users\\argip\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 23.2.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -25,17 +27,19 @@
           "net8.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\DevExpress 23.2\\Components\\System\\Components\\Packages": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "D:\\Dev\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\Bulky\\Bulky.Models\\Bulky.Models.csproj": {
-                "projectPath": "D:\\Dev\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\Bulky\\Bulky.Models\\Bulky.Models.csproj"
+              "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\Bulky\\Bulky.Models\\Bulky.Models.csproj": {
+                "projectPath": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\Bulky\\Bulky.Models\\Bulky.Models.csproj"
               },
-              "D:\\Dev\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\Bulky\\Bulky.Utility\\Bulky.Utility.csproj": {
-                "projectPath": "D:\\Dev\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\Bulky\\Bulky.Utility\\Bulky.Utility.csproj"
+              "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\Bulky\\Bulky.Utility\\Bulky.Utility.csproj": {
+                "projectPath": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\Bulky\\Bulky.Utility\\Bulky.Utility.csproj"
               }
             }
           }
@@ -91,24 +95,26 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.302/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Dev\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\Bulky\\Bulky.Models\\Bulky.Models.csproj": {
+    "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\Bulky\\Bulky.Models\\Bulky.Models.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Dev\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\Bulky\\Bulky.Models\\Bulky.Models.csproj",
+        "projectUniqueName": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\Bulky\\Bulky.Models\\Bulky.Models.csproj",
         "projectName": "Bulky.Models",
-        "projectPath": "D:\\Dev\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\Bulky\\Bulky.Models\\Bulky.Models.csproj",
+        "projectPath": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\Bulky\\Bulky.Models\\Bulky.Models.csproj",
         "packagesPath": "C:\\Users\\argip\\.nuget\\packages\\",
-        "outputPath": "D:\\Dev\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\Bulky\\Bulky.Models\\obj\\",
+        "outputPath": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\Bulky\\Bulky.Models\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
+          "C:\\Program Files\\DevExpress 23.2\\Components\\Offline Packages",
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
           "C:\\Users\\argip\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 23.2.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -116,6 +122,8 @@
           "net8.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\DevExpress 23.2\\Components\\System\\Components\\Packages": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -165,24 +173,26 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.302/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Dev\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\Bulky\\Bulky.Utility\\Bulky.Utility.csproj": {
+    "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\Bulky\\Bulky.Utility\\Bulky.Utility.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Dev\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\Bulky\\Bulky.Utility\\Bulky.Utility.csproj",
+        "projectUniqueName": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\Bulky\\Bulky.Utility\\Bulky.Utility.csproj",
         "projectName": "Bulky.Utility",
-        "projectPath": "D:\\Dev\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\Bulky\\Bulky.Utility\\Bulky.Utility.csproj",
+        "projectPath": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\Bulky\\Bulky.Utility\\Bulky.Utility.csproj",
         "packagesPath": "C:\\Users\\argip\\.nuget\\packages\\",
-        "outputPath": "D:\\Dev\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\Bulky\\Bulky.Utility\\obj\\",
+        "outputPath": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\Bulky\\Bulky.Utility\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
+          "C:\\Program Files\\DevExpress 23.2\\Components\\Offline Packages",
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
           "C:\\Users\\argip\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 23.2.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -190,6 +200,8 @@
           "net8.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\DevExpress 23.2\\Components\\System\\Components\\Packages": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -235,24 +247,26 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.302/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Dev\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\Bulky\\BulkyWeb\\BulkyWeb.csproj": {
+    "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\Bulky\\BulkyWeb\\BulkyWeb.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Dev\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\Bulky\\BulkyWeb\\BulkyWeb.csproj",
+        "projectUniqueName": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\Bulky\\BulkyWeb\\BulkyWeb.csproj",
         "projectName": "BulkyWeb",
-        "projectPath": "D:\\Dev\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\Bulky\\BulkyWeb\\BulkyWeb.csproj",
+        "projectPath": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\Bulky\\BulkyWeb\\BulkyWeb.csproj",
         "packagesPath": "C:\\Users\\argip\\.nuget\\packages\\",
-        "outputPath": "D:\\Dev\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\Bulky\\BulkyWeb\\obj\\",
+        "outputPath": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\Bulky\\BulkyWeb\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
+          "C:\\Program Files\\DevExpress 23.2\\Components\\Offline Packages",
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
           "C:\\Users\\argip\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 23.2.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -260,20 +274,22 @@
           "net8.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\DevExpress 23.2\\Components\\System\\Components\\Packages": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "D:\\Dev\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\Bulky\\Bulky.DataAccess\\Bulky.DataAccess.csproj": {
-                "projectPath": "D:\\Dev\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\Bulky\\Bulky.DataAccess\\Bulky.DataAccess.csproj"
+              "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\Bulky\\Bulky.DataAccess\\Bulky.DataAccess.csproj": {
+                "projectPath": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\Bulky\\Bulky.DataAccess\\Bulky.DataAccess.csproj"
               },
-              "D:\\Dev\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\Bulky\\Bulky.Models\\Bulky.Models.csproj": {
-                "projectPath": "D:\\Dev\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\Bulky\\Bulky.Models\\Bulky.Models.csproj"
+              "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\Bulky\\Bulky.Models\\Bulky.Models.csproj": {
+                "projectPath": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\Bulky\\Bulky.Models\\Bulky.Models.csproj"
               },
-              "D:\\Dev\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\Bulky\\Bulky.Utility\\Bulky.Utility.csproj": {
-                "projectPath": "D:\\Dev\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\Bulky\\Bulky.Utility\\Bulky.Utility.csproj"
+              "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\Bulky\\Bulky.Utility\\Bulky.Utility.csproj": {
+                "projectPath": "D:\\GitHub\\MyLearning\\.NET Core MVC - The Complete Guide 2025 [E-commerce]\\Bulky\\Bulky.Utility\\Bulky.Utility.csproj"
               }
             }
           }
@@ -348,7 +364,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.302/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
