@@ -6,6 +6,10 @@ import TodoList from "../todo-list/TodoList";
 import Table from "../table/Table";
 import { AlertButton } from "../button/AlertButton";
 import { MyButton } from "../button/MyButton";
+import Toolbar from "../button/Toolbar";
+import SearchForm from "../Form/SearchForm";
+import SayHello from "../Form/SayHello";
+import Counter from "../Form/Counter";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -20,6 +24,15 @@ createRoot(document.getElementById("root")).render(
         text="Smash!"
         onSmash={() => alert("Button smashed once more!")}
       />
+      <Toolbar
+        onClick={(e) => {
+          e.stopPropagation();
+          alert("Toolbar button clicked!");
+        }}
+      />
+      <SearchForm />
+      <SayHello/>
+      <Counter />
     </Container>
   </StrictMode>
 );
